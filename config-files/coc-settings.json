@@ -1,0 +1,28 @@
+{
+  "suggest.noselect": false,
+  "suggest.enablePreselect": false,
+
+  "javascript.suggest.enabled": false,
+  "typescript.suggest.enabled": false,
+
+  "eslint.nodePath": "/usr/lib/node_modules",
+
+  "snippets.extends": {
+    "javascriptreact": ["javascript"],
+    "vue": ["javascript"]
+  },
+
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "all",
+  "prettier.arrowParens": "avoid",
+
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "typescript",
+    "typescriptreact",
+    "json",
+    "javascriptreact",
+    "typescript.tsx",
+    "graphql"
+  ]
+}
