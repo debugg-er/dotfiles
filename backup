@@ -3,5 +3,5 @@
 rm -rf ./config-files
 mkdir config-files
 cp ~/.config/nvim/{init.vim,coc-settings.json} config-files
-cp ~/{.zshrc,.tmux.conf,.ideavimrc} config-files
+cp ~/{.zshrc,.tmux.conf,.ideavimrc,.Xmodmap,.imwheelrc} config-files
 echo "**** Backup config files success ****"

@@ -102,10 +102,16 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# xmodmap
+# if [ -z "$(xmodmap -pke | grep '108 = Mode_switch')" ]; then
+#   /usr/bin/xmodmap ~/.Xmodmap
+#   pkill terminal
+# fi
+
 alias killimwheel="kill $(ps aux | pgrep imwheel)"
 alias fzf="fzf --height 50% --reverse"
-alias fixvim="killall -9 ibus-x11"
-alias idea="XMODIFIERS="" ~/Desktop/idea-IC-193.6911.18/bin/idea.sh"
+# alias idea="XMODIFIERS="" ~/Desktop/idea-IC-193.6911.18/bin/idea.sh"
 
 enter() {
   xdg-open $1

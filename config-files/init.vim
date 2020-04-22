@@ -37,6 +37,8 @@ set background=dark
 set nowrap        " prevent break line
 set colorcolumn=80
 
+" set cmdheight=1
+set signcolumn=yes
 set backspace=2   " Backspace deletes like most programs in insert mode
 set nobackup
 set nowritebackup
@@ -55,20 +57,23 @@ set autoread
 set autowrite
 
 " Softtabs, 2 spaces
-set tabstop=2
-set shiftwidth=2
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
 set shiftround
 set expandtab
-" C file config
-au FileType c set shiftwidth=4
-au FileType c set softtabstop=4
-au FileType c set tabstop=4
-au FileType cpp set shiftwidth=4
-au FileType cpp set softtabstop=4
-au FileType cpp set tabstop=4
 
 set listchars=tab:\┊\ ,nbsp:␣,trail:•,extends:⟩,precedes:⟨
 set list
+
+" if hidden is not set, TextEdit might fail.
+set hidden
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
 
 " Show relative number line by default
 set number relativenumber
@@ -80,50 +85,71 @@ set foldlevel=30 " expand all fold when open file
 " System clipboard
 set clipboard=unnamedplus
 
-" prevent commentary in new line
-au Filetype * set fo-=cro
-
-" indent tab
-let g:indentLine_char_list = ['┊']
-
-" fix indentLine on json file
-let g:vim_json_syntax_conceal = 0
-
 filetype plugin indent on
-
-" transparent enable
-hi Normal guibg=NONE ctermbg=NONE
-
-" themes
 colorscheme gruvbox
-let g:gruvbox_italic=1
-let g:gruvbox_contrast_dark = 'soft'
-let &t_Cs = "\e[4:3m"
-let &t_Ce = "\e[4:0m"
 syntax enable
+
+" prevent cursorline ignore symbol
+hi CursorLine ctermfg=00 ctermbg=00 cterm=bold
 
 " NERDTree
 let NERDTreeShowHidden=1
 let g:NERDTreeIgnore = ['^.git$', '.class$']
-
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:NERDTreeDirArrowExpandable = '+'
 let g:NERDTreeDirArrowCollapsible = '~'
 
+" theme
+let g:gruvbox_italic=1
+
+" indent tab
+let g:indentLine_char_list = ['┊']
+
+" resolve indentline conflict with cursorline
+let g:indentLine_concealcursor=0
+
+" fix indentLine on json file
+let g:vim_json_syntax_conceal = 0
+
 " coc config
 let g:coc_global_extensions = [
-  \ 'coc-tsserver',
-  \ 'coc-java',
-  \ 'coc-json',
-  \ 'coc-snippets',
-  \ 'coc-prettier',
-  \ 'coc-eslint'
-  \ ]
+            \ 'coc-tsserver',
+            \ 'coc-java',
+            \ 'coc-json',
+            \ 'coc-snippets',
+            \ 'coc-prettier',
+            \ 'coc-eslint'
+        \ ]
 
-" set completeopt=noinsert,noselect,menuone
-" =========================== mapping ===========================
+let g:lightline = {
+        \ 'colorscheme': 'wombat',
+        \ 'separator': {
+            \'left': "\ue0b0",
+            \'right': "\ue0b2"
+        \ },
+        \ 'subseparator': {
+            \'left': "\ue0b1",
+            \'right': "\ue0b3"
+        \ }
+    \ }
+
+" open and close nerdtree automatically
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" prevent commentary in new line
+au Filetype * set fo-=cro
+
+" autoread
+au FocusGained,BufEnter * :silent! !
+
+" indent
+au FileType javascript set tabstop=2
+au FileType javascript set shiftwidth=2
+au FileType javascript set softtabstop=2
+
+
+" ================================ mapping ================================
 
 " tmux navigator
 " let g:tmux_navigator_no_mappings = 1
@@ -148,7 +174,6 @@ nnoremap <C-CR> <S-A>;<ESC>
 
 " replace
 nnoremap <C-A-h> :%s//g<left><left>
-
 " indent multiple line
 vmap <A-l> >gv
 vmap <A-h> <gv
@@ -233,15 +258,15 @@ nnoremap q: <CR>
 
 " smooth scroll
 fun! s:smoothScroll(up)
-	execute "normal " . (a:up ? "\<c-y>" : "\<c-e>")
-	redraw
-	for l:count in range(3, &scroll, 2)
-		sleep 5m
-		execute "normal " . (a:up ? "\<c-y>" : "\<c-e>")
-		redraw
-	endfor
-	" bring the cursor in the middle of screen
-	execute "normal M"
+    execute "normal " . (a:up ? "\<c-y>" : "\<c-e>")
+    redraw
+    for l:count in range(3, &scroll, 2)
+        sleep 5m
+        execute "normal " . (a:up ? "\<c-y>" : "\<c-e>")
+        redraw
+    endfor
+    " bring the cursor in the middle of screen
+    execute "normal M"
 endf
 
 nnoremap <silent> <c-d> :call <sid>smoothScroll(0)<cr>
@@ -254,37 +279,22 @@ fun! TrimWhitespace()
     call winrestview(l:save)
 endfun
 
-autocmd InsertLeave * :call TrimWhitespace()
+nnoremap <space>t :call TrimWhitespace()<CR>
 
 
 
 " =========================== coc.nvim config ==========================
-" if hidden is not set, TextEdit might fail.
-set hidden
-
-" Better display for messages
-set cmdheight=1
-
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
-
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-
-" always show signcolumns
-set signcolumn=yes
-
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 " Use <c-space> to trigger completion.
@@ -310,11 +320,11 @@ nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    else
+        call CocAction('doHover')
+    endif
 endfunction
 
 " " Highlight symbol under cursor on CursorHold
@@ -325,11 +335,11 @@ xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+    autocmd!
+    " Setup formatexpr specified filetype(s).
+    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+    " Update signature help on jump placeholder
+    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph

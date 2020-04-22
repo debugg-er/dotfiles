@@ -19,7 +19,12 @@ set autoread
 set autowrite
 
 set clipboard=unnamedplus
+
+" plugin enable
 set surround
+set multiple-cursors
+set commentary
+set easymotion
 
 " Show relative number line by default
 set number relativenumber
@@ -71,6 +76,12 @@ vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 inoremap <A-j> <Esc>:m .+1<CR>==gi
 inoremap <A-k> <Esc>:m .-2<CR>==gi
+
+" easymotion
+" nmap <space><space> <Plug>(easymotion-bd-w)
+" nmap <space>f  <Plug>(easymotion-bd-f)
+" vmap <space><space> <Plug>(easymotion-bd-w)
+" vmap <space>f  <Plug>(easymotion-bd-f)
 
 " prevent 'q + :'
 nnoremap q: <CR>

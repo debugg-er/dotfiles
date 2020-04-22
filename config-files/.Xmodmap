@@ -1,0 +1,14 @@
+! STARTUP COMMAND
+! $ /bin/bash -c "sleep 5; /usr/bin/xmodmap /home/$USER/.Xmodmap"
+
+! Right Alt + sdfg to move
+keycode 108 = Mode_switch
+keycode 42 = g G Right NoSymbol
+keycode 41 = f F Down NoSymbol
+keycode 40 = d D Up NoSymbol
+keycode 39 = s S Left NoSymbol
+
+! Swap caps lock and escape
+clear Lock
+keycode 9 = Caps_Lock NoSymbol Caps_Lock
+keycode 66 = Escape NoSymbol Escape
