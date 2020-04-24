@@ -5,7 +5,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 Plug 'ryanoasis/vim-devicons'
 
-Plug 'itchyny/lightline.vim'
+" Plug 'itchyny/lightline.vim'
 Plug 'cohama/lexima.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-commentary'
@@ -13,6 +13,10 @@ Plug 'tpope/vim-surround'
 Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'christoomey/vim-tmux-navigator'
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'edkolev/tmuxline.vim'
 
 Plug 'morhetz/gruvbox'
 Plug 'dracula/vim', { 'as': 'dracula' }
@@ -101,7 +105,7 @@ let g:NERDTreeDirArrowCollapsible = '~'
 " theme
 let g:gruvbox_italic=1
 
-" indent tab
+" indent tab┊
 let g:indentLine_char_list = ['┊']
 
 " resolve indentline conflict with cursorline
@@ -110,7 +114,15 @@ let g:indentLine_concealcursor=0
 " fix indentLine on json file
 let g:vim_json_syntax_conceal = 0
 
-" coc config
+" airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline_section_y = ''
+
+let g:airline#extensions#tmuxline#enabled = 1
+let airline#extensions#tmuxline#snapshot_file = "~/.tmux-status.conf"
+
 let g:coc_global_extensions = [
             \ 'coc-tsserver',
             \ 'coc-java',
@@ -119,18 +131,6 @@ let g:coc_global_extensions = [
             \ 'coc-prettier',
             \ 'coc-eslint'
         \ ]
-
-let g:lightline = {
-        \ 'colorscheme': 'wombat',
-        \ 'separator': {
-            \'left': "\ue0b0",
-            \'right': "\ue0b2"
-        \ },
-        \ 'subseparator': {
-            \'left': "\ue0b1",
-            \'right': "\ue0b3"
-        \ }
-    \ }
 
 " open and close nerdtree automatically
 autocmd StdinReadPre * let s:std_in=1
@@ -148,6 +148,7 @@ au FileType javascript set tabstop=2
 au FileType javascript set shiftwidth=2
 au FileType javascript set softtabstop=2
 
+au FileType c nnoremap <C-A-n> :exe "silent !tmux send -t 1 'runc"@%"' Enter"<CR>
 
 " ================================ mapping ================================
 
@@ -201,7 +202,7 @@ nnoremap <Left> <C-w><
 nnoremap <Right> <C-w>>
 nnoremap <Up> <C-w>+
 nnoremap <Down> <C-w>-
-nnoremap <C-A-n> :NERDTreeToggle<CR>
+nnoremap <F5> :NERDTreeToggle<CR>
 
 " git gutter
 nmap <space>p <Plug>(GitGutterPreviewHunk)
@@ -209,10 +210,6 @@ nmap <space>p <Plug>(GitGutterPreviewHunk)
 " insert ; to end line
 inoremap <A-CR> <ESC><S-A>;
 nnoremap <A-CR> <S-A>;<ESC>
-
-" prettier
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
-nnoremap <F5> :Prettier<CR>
 
 " move in insert and command mode
 inoremap <C-h> <Left>
@@ -243,15 +240,8 @@ inoremap <A-j> <Esc>:m .+1<CR>==gi
 inoremap <A-k> <Esc>:m .-2<CR>==gi
 
 " switch tab
-nnoremap <A-1> 1gt
-nnoremap <A-2> 2gt
-nnoremap <A-3> 3gt
-nnoremap <A-4> 4gt
-nnoremap <A-5> 5gt
-nnoremap <A-6> 6gt
-nnoremap <A-7> 7gt
-nnoremap <A-8> 8gt
-nnoremap <A-9> 9gt
+nnoremap gn :bn<cr>
+nnoremap gp :bp<cr>
 
 " prevent 'q + :'
 nnoremap q: <CR>
@@ -261,7 +251,7 @@ fun! s:smoothScroll(up)
     execute "normal " . (a:up ? "\<c-y>" : "\<c-e>")
     redraw
     for l:count in range(3, &scroll, 2)
-        sleep 5m
+        sleep 3m
         execute "normal " . (a:up ? "\<c-y>" : "\<c-e>")
         redraw
     endfor

@@ -4,6 +4,10 @@
 
   "javascript.suggest.enabled": false,
   "typescript.suggest.enabled": false,
+  "javascript.suggestionActions.enabled": false,
+  "typescript.suggestionActions.enabled": false,
+  "javascript.showUnused": false,
+  "typescript.showUnused": false,
 
   "eslint.nodePath": "/usr/lib/node_modules",
 
