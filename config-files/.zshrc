@@ -74,9 +74,11 @@ ZSH_DISABLE_COMPFIX="true"
 
 
 
-plugins=(git zsh-autosuggestions cp)
+plugins=(git zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
+
+export EDITOR='vim'
 
 # User configuration
 
@@ -89,7 +91,6 @@ source $ZSH/oh-my-zsh.sh
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
-#   export EDITOR='mvim'
 # fi
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -129,7 +130,7 @@ jva() {
 }
 
 runc() {
-  if gcc -o $(sed -r "s/\.\w+$//g" <<< $1) $1
+  if gcc -o $(sed -r "s/\.\w+$//g" <<< $1) $1 -lm
   then
     ./$(sed -r "s/\.\w+$//g" <<< $1)
   fi

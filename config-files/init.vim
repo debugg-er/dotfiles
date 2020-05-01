@@ -96,12 +96,14 @@ syntax enable
 
 " prevent cursorline ignore symbol
 hi CursorLine ctermfg=00 ctermbg=00 cterm=bold
+hi Normal guibg=NONE ctermbg=NONE
 
 " NERDTree
 let NERDTreeShowHidden=1
 let g:NERDTreeIgnore = ['^.git$', '.class$']
 let g:NERDTreeDirArrowExpandable = '+'
 let g:NERDTreeDirArrowCollapsible = '~'
+let NERDTreeMinimalUI=1
 
 " indent tab┊
 let g:indentLine_char_list = ['┊']
@@ -123,11 +125,11 @@ let airline#extensions#tmuxline#snapshot_file = "~/.tmux-status.conf"
 
 let g:coc_global_extensions = [
             \ 'coc-tsserver',
-            \ 'coc-java',
             \ 'coc-json',
             \ 'coc-snippets',
             \ 'coc-prettier',
-            \ 'coc-eslint'
+            \ 'coc-eslint',
+            \ 'coc-spell-checker'
         \ ]
 
 " open and close nerdtree automatically
@@ -149,17 +151,8 @@ au FileType json set tabstop=2
 au FileType json set shiftwidth=2
 au FileType json set softtabstop=2
 
-au FileType c nnoremap <C-A-n> :exe "silent !tmux send -t 1 'runc"@%"' Enter"<CR>
 " ================================ mapping ================================
 
-" tmux navigator
-" let g:tmux_navigator_no_mappings = 1
-
-" nnoremap <silent> <A-h> :TmuxNavigateLeft<cr>
-" nnoremap <silent> <A-j> :TmuxNavigateDown<cr>
-" nnoremap <silent> <A-k> :TmuxNavigateUp<cr>
-" nnoremap <silent> <A-l> :TmuxNavigateRight<cr>
-" nnoremap <silent> <A-\> :TmuxNavigatePrevious<cr>
 
 " refresh NERDTree
 nmap <space>r :NERDTreeFocus<cr> \| R \| <c-w><c-p>
@@ -175,6 +168,7 @@ nnoremap <C-CR> <S-A>;<ESC>
 
 " replace
 nnoremap <C-A-h> :%s//g<left><left>
+
 " indent multiple line
 vmap <A-l> >gv
 vmap <A-h> <gv
@@ -262,7 +256,7 @@ endf
 nnoremap <silent> <c-d> :call <sid>smoothScroll(0)<cr>
 nnoremap <silent> <c-u> :call <sid>smoothScroll(1)<cr>
 
-" auto trim whitespace
+" trim whitespace
 fun! TrimWhitespace()
     let l:save = winsaveview()
     keeppatterns %s/\s\+$//e
@@ -271,6 +265,14 @@ endfun
 
 nnoremap <space>t :call TrimWhitespace()<CR>
 
+" code runner
+fun Execute(command)
+    :w
+    :exe "silent !tmux send -t 1 '"a:command""@%"' Enter"
+endfun
+
+au FileType c nnoremap <C-A-n> :call Execute("runc")<CR>
+au FileType javascript nnoremap <C-A-n> :call Execute("node")<CR>
 
 
 " =========================== coc.nvim config ==========================
@@ -365,7 +367,7 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Using CocList
 " Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <space>e  :<C-u>CocList diagnostics<cr>
 " Manage extensions
 nnoremap <silent> <Leader>e  :<C-u>CocList extensions<cr>
 " Show commands
