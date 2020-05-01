@@ -90,6 +90,7 @@ set foldlevel=30 " expand all fold when open file
 set clipboard=unnamedplus
 
 filetype plugin indent on
+let g:gruvbox_italic=1
 colorscheme gruvbox
 syntax enable
 
@@ -101,9 +102,6 @@ let NERDTreeShowHidden=1
 let g:NERDTreeIgnore = ['^.git$', '.class$']
 let g:NERDTreeDirArrowExpandable = '+'
 let g:NERDTreeDirArrowCollapsible = '~'
-
-" theme
-let g:gruvbox_italic=1
 
 " indent tab┊
 let g:indentLine_char_list = ['┊']
@@ -147,9 +145,11 @@ au FocusGained,BufEnter * :silent! !
 au FileType javascript set tabstop=2
 au FileType javascript set shiftwidth=2
 au FileType javascript set softtabstop=2
+au FileType json set tabstop=2
+au FileType json set shiftwidth=2
+au FileType json set softtabstop=2
 
 au FileType c nnoremap <C-A-n> :exe "silent !tmux send -t 1 'runc"@%"' Enter"<CR>
-
 " ================================ mapping ================================
 
 " tmux navigator

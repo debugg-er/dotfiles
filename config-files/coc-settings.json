@@ -1,4 +1,6 @@
 {
+  "eslint.nodePath": "/usr/lib/node_modules",
+
   "suggest.noselect": false,
   "suggest.enablePreselect": false,
 
@@ -8,8 +10,6 @@
   "typescript.suggestionActions.enabled": false,
   "javascript.showUnused": false,
   "typescript.showUnused": false,
-
-  "eslint.nodePath": "/usr/lib/node_modules",
 
   "snippets.extends": {
     "javascriptreact": ["javascript"],
