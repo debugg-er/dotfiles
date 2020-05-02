@@ -16,7 +16,7 @@ Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'edkolev/tmuxline.vim'
+" Plug 'edkolev/tmuxline.vim'
 
 Plug 'morhetz/gruvbox'
 Plug 'dracula/vim', { 'as': 'dracula' }
@@ -115,9 +115,9 @@ let g:indentLine_concealcursor=0
 let g:vim_json_syntax_conceal = 0
 
 " airline
-let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail'
+" let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_section_y = ''
 
 let g:airline#extensions#tmuxline#enabled = 1
