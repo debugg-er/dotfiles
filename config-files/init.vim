@@ -274,6 +274,7 @@ endfun
 au FileType c nnoremap <C-A-n> :call Execute("runc")<CR>
 au FileType javascript nnoremap <C-A-n> :call Execute("node")<CR>
 
+nnoremap <C-A-b> :exe "silent !tmux send -t 1 ^C"<CR>
 
 " =========================== coc.nvim config ==========================
 " Use tab for trigger completion with characters ahead and navigate.
