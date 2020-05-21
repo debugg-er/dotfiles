@@ -5,7 +5,6 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 Plug 'ryanoasis/vim-devicons'
 
-" Plug 'itchyny/lightline.vim'
 Plug 'cohama/lexima.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-commentary'
@@ -19,6 +18,7 @@ Plug 'vim-airline/vim-airline-themes'
 " Plug 'edkolev/tmuxline.vim'
 
 Plug 'morhetz/gruvbox'
+Plug 'rakr/vim-one'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'crusoexia/vim-monokai'
 Plug 'pangloss/vim-javascript'
@@ -36,7 +36,6 @@ set mouse=a       " mouse enable
 set cursorline
 
 set termguicolors
-set background=dark
 
 set nowrap        " prevent break line
 set colorcolumn=80
@@ -90,13 +89,18 @@ set foldlevel=30 " expand all fold when open file
 set clipboard=unnamedplus
 
 filetype plugin indent on
-let g:gruvbox_italic=1
-colorscheme gruvbox
+" let g:gruvbox_italic=1
+" colorscheme gruvbox
+colorscheme one
+" set background=light
+set background=dark
 syntax enable
 
 " prevent cursorline ignore symbol
 hi CursorLine ctermfg=00 ctermbg=00 cterm=bold
-hi Normal guibg=NONE ctermbg=NONE
+
+" allow transparent
+" hi Normal guibg=NONE ctermbg=NONE
 
 " NERDTree
 let NERDTreeShowHidden=1
@@ -115,13 +119,15 @@ let g:indentLine_concealcursor=0
 let g:vim_json_syntax_conceal = 0
 
 " airline
-" let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
-" let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline_section_y = ''
+" let g:airline#extensions#tmuxline#enabled = 1
+" let airline#extensions#tmuxline#snapshot_file = "~/.tmux-status.conf"
 
-let g:airline#extensions#tmuxline#enabled = 1
-let airline#extensions#tmuxline#snapshot_file = "~/.tmux-status.conf"
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#tabline#left_sep = ' '
+
+let g:airline_powerline_fonts = 1
+let g:airline_section_y = ''
 
 let g:coc_global_extensions = [
             \ 'coc-tsserver',
