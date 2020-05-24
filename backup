@@ -15,7 +15,7 @@ cp ~/.imwheelrc config-files
 
 dconf dump /org/gnome/terminal/legacy/profiles:/ > ./config-files/profiles.dconf
 # backup terminal profiles command
-# dconf dump /org/gnome/terminal/legacy/profiles:/:1430663d-083b-4737-a7f5-8378cc8226d1/ < ./config-files/profiles.dconf
+# dconf dump /org/gnome/terminal/legacy/profiles:/ < ./config-files/profiles.dconf
 
 echo "**** Backup config files success ****"
 
