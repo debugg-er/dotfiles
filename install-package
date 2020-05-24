@@ -1,0 +1,51 @@
+#!/bin/bash
+echo "installing utilities..."
+sudo apt-get -y install git zsh curl > /dev/null
+echo "installing completed!"
+
+echo "installing nvim..."
+wget -q https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
+tar -xzf nvim-linux64.tar.gz
+sudo cp -r nvim-linux64/* /usr
+sudo cp /usr/bin/nvim /usr/bin/vim
+echo "installing completed"
+
+echo "installing nodejs..."
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - > /dev/null
+sudo apt-get -y install nodejs > /dev/null
+sudo npm install -g --silent neovim
+echo "installing completed"
+
+echo "installing vim-plug..."
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+echo "installing completed"
+
+
+echo "installing fzf"
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+echo "installing completed"
+
+echo "migrating config files..."
+if [ -d "~/.config" ]; then
+    if [ -d "~/.config/nvim"]; then
+        cp ./config-files/init.nvim
+        cp ./config-files/coc-settings.json
+    else
+        mkdir ~/.config/nvim
+        cp ./config-files/init.nvim
+        cp ./config-files/coc-settings.json
+    fi
+else
+    mkdir ~/.config
+    mkdir ~/.config/nvim
+    cp ./config-files/init.nvim
+    cp ./config-files/coc-settings.json
+fi
+cp ./config-files/{.ideavimrc,.imwheelrc,.zshrc,.tmux.conf,.Xmodmap} ~
+echo "migratting completed"
+
+echo "installing oh-my-zsh..."
+sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+echo "installing completed!"
