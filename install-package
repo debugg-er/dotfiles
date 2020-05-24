@@ -23,27 +23,27 @@ echo "installing completed"
 
 
 echo "installing fzf"
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
+git clone --depth 1 https://github.com/junegunn/fzf.git ${HOME}/.fzf
+${HOME}/.fzf/install
 echo "installing completed"
 
 echo "migrating config files..."
-if [ -d "~/.config" ]; then
-    if [ -d "~/.config/nvim"]; then
-        cp ./config-files/init.nvim
-        cp ./config-files/coc-settings.json
+if [ -d "${HOME}/.config" ]; then
+    if [ -d "${HOME}/.config/nvim"]; then
+        cp ./config-files/init.nvim ${HOME}/.config/nvim
+        cp ./config-files/coc-settings.json ${HOME}/.config/nvim
     else
-        mkdir ~/.config/nvim
-        cp ./config-files/init.nvim
-        cp ./config-files/coc-settings.json
+        mkdir ${HOME}/.config/nvim
+        cp ./config-files/init.nvim ${HOME}/.config/nvim
+        cp ./config-files/coc-settings.json ${HOME}/.config/nvim
     fi
 else
-    mkdir ~/.config
-    mkdir ~/.config/nvim
-    cp ./config-files/init.nvim
-    cp ./config-files/coc-settings.json
+    mkdir ${HOME}/.config
+    mkdir ${HOME}/.config/nvim
+    cp ./config-files/init.nvim ${HOME}/.config/nvim
+    cp ./config-files/coc-settings.json ${HOME}/.config/nvim
 fi
-cp ./config-files/{.ideavimrc,.imwheelrc,.zshrc,.tmux.conf,.Xmodmap} ~
+cp ./config-files/{.ideavimrc,.imwheelrc,.zshrc,.tmux.conf,.Xmodmap} ${HOME}
 echo "migratting completed"
 
 echo "installing oh-my-zsh..."
