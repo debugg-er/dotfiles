@@ -3,24 +3,23 @@ call plug#begin()
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
-Plug 'ryanoasis/vim-devicons'
+" Plug 'ryanoasis/vim-devicons'
 
-Plug 'cohama/lexima.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-Plug 'easymotion/vim-easymotion'
+" Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Plug 'edkolev/tmuxline.vim'
-
 Plug 'morhetz/gruvbox'
 Plug 'rakr/vim-one'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'crusoexia/vim-monokai'
+
 Plug 'pangloss/vim-javascript'
 Plug 'elzr/vim-json' " fix indentline on json file
 Plug 'mxw/vim-jsx'
@@ -89,9 +88,9 @@ set foldlevel=30 " expand all fold when open file
 set clipboard=unnamedplus
 
 filetype plugin indent on
-" let g:gruvbox_italic=1
-" colorscheme gruvbox
-colorscheme one
+let g:gruvbox_italic=1
+colorscheme gruvbox
+" colorscheme one
 " set background=light
 set background=dark
 syntax enable
@@ -135,7 +134,7 @@ let g:coc_global_extensions = [
             \ 'coc-snippets',
             \ 'coc-prettier',
             \ 'coc-eslint',
-            \ 'coc-spell-checker'
+            \ 'coc-pairs',
         \ ]
 
 " open and close nerdtree automatically
@@ -220,12 +219,6 @@ cnoremap <C-h> <Left>
 cnoremap <C-j> <Down>
 cnoremap <C-k> <Up>
 cnoremap <C-l> <Right>
-
-" easymotion
-nmap <space><space> <Plug>(easymotion-bd-w)
-nmap <space>f  <Plug>(easymotion-bd-f)
-vmap <space><space> <Plug>(easymotion-bd-w)
-vmap <space>f  <Plug>(easymotion-bd-f)
 
 " W to save file
 cabb W w

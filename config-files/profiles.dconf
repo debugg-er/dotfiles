@@ -24,7 +24,7 @@ highlight-foreground-color='#'
 
 [/]
 list=['80523372-3de7-4b40-95b4-54407a1ccb0e', '77d057f2-aa08-4cd0-9159-b30c7a826abc', '58a4757d-0de8-4ae6-be85-8d190926bc71']
-default='58a4757d-0de8-4ae6-be85-8d190926bc71'
+default='80523372-3de7-4b40-95b4-54407a1ccb0e'
 
 [:77d057f2-aa08-4cd0-9159-b30c7a826abc]
 foreground-color='#2A2A2B2B3232'
