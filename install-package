@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "installing utilities..."
-sudo apt-get -y install git zsh curl > /dev/null
+sudo apt-get -y install zsh curl xclip > /dev/null
 echo "installing completed!"
 
 echo "installing nvim..."
