@@ -1,0 +1,23 @@
+#!/bin/bash
+
+echo "migrating config files..."
+
+if [ -d "${HOME}/.config" ]; then
+    if [ -d "${HOME}/.config/nvim" ]; then
+        cp ./config-files/init.vim ${HOME}/.config/nvim
+        cp ./config-files/coc-settings.json ${HOME}/.config/nvim
+    else
+        mkdir ${HOME}/.config/nvim
+        cp ./config-files/init.vim ${HOME}/.config/nvim
+        cp ./config-files/coc-settings.json ${HOME}/.config/nvim
+    fi
+else
+    mkdir ${HOME}/.config
+    mkdir ${HOME}/.config/nvim
+    cp ./config-files/init.vim ${HOME}/.config/nvim
+    cp ./config-files/coc-settings.json ${HOME}/.config/nvim
+fi
+
+cp ./config-files/{.ideavimrc,.imwheelrc,.zshrc,.tmux.conf,.Xmodmap} ${HOME}
+
+echo "migratting completed"
