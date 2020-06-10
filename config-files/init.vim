@@ -11,6 +11,7 @@ Plug 'tpope/vim-surround'
 " Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'jiangmiao/auto-pairs'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -117,6 +118,9 @@ let g:indentLine_concealcursor=0
 " fix indentLine on json file
 let g:vim_json_syntax_conceal = 0
 
+" disable AutoPairs remap C-H in insert mode
+let g:AutoPairsMapCh = 0
+
 " airline
 " let g:airline#extensions#tmuxline#enabled = 1
 " let airline#extensions#tmuxline#snapshot_file = "~/.tmux-status.conf"
@@ -125,7 +129,7 @@ let g:vim_json_syntax_conceal = 0
 " let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#left_sep = ' '
 
-let g:airline_powerline_fonts = 1
+" let g:airline_powerline_fonts = 1
 let g:airline_section_y = ''
 
 let g:coc_global_extensions = [
@@ -134,7 +138,6 @@ let g:coc_global_extensions = [
             \ 'coc-snippets',
             \ 'coc-prettier',
             \ 'coc-eslint',
-            \ 'coc-pairs',
         \ ]
 
 " open and close nerdtree automatically
@@ -158,6 +161,8 @@ au FileType json set softtabstop=2
 
 " ================================ mapping ================================
 
+" breakline
+nmap <S-k> i<CR><ESC>k$
 
 " refresh NERDTree
 nmap <space>r :NERDTreeFocus<cr> \| R \| <c-w><c-p>
@@ -309,7 +314,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)

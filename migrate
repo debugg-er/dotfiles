@@ -2,23 +2,23 @@
 
 echo "migrating config files..."
 
-if [ -d "${HOME}/.config" ]; then
-    if [ -d "${HOME}/.config/nvim" ]; then
-        cp ./config-files/init.vim ${HOME}/.config/nvim
-        cp ./config-files/coc-settings.json ${HOME}/.config/nvim
-    else
-        mkdir ${HOME}/.config/nvim
-        cp ./config-files/init.vim ${HOME}/.config/nvim
-        cp ./config-files/coc-settings.json ${HOME}/.config/nvim
-    fi
-else
+if [ ! -d "${HOME}/.config" ]; then
     mkdir ${HOME}/.config
-    mkdir ${HOME}/.config/nvim
-    cp ./config-files/init.vim ${HOME}/.config/nvim
-    cp ./config-files/coc-settings.json ${HOME}/.config/nvim
+    if [ ! -d "${HOME}/.config/nvim" ]; then
+        mkdir ${HOME}/.config/nvim
+    fi
 fi
 
+if [ ! -d "${HOME}/.config/coc" ]; then
+    mkdir ${HOME}/.config/coc
+fi
+
+cp ./config-files/init.vim ${HOME}/.config/nvim
+cp ./config-files/coc-settings.json ${HOME}/.config/nvim
+
 cp ./config-files/{.ideavimrc,.imwheelrc,.zshrc,.tmux.conf,.Xmodmap} ${HOME}
+
+cp ./config-files/ultisnips ${HOME}/.config/coc
 
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 

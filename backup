@@ -13,10 +13,8 @@ cp ~/.ideavimrc config-files
 cp ~/.Xmodmap config-files
 cp ~/.imwheelrc config-files
 
-dconf dump /org/gnome/terminal/legacy/profiles:/ > ./config-files/profiles.dconf
+# dconf dump /org/gnome/terminal/legacy/profiles:/ > ./config-files/profiles.dconf
 # backup terminal profiles command
 # dconf dump /org/gnome/terminal/legacy/profiles:/ < ./config-files/profiles.dconf
 
 echo "**** Backup config files success ****"
-
-# cp ~/{.zshrc,.tmux.conf,.ideavimrc,.Xmodmap,.imwheelrc} config-files
