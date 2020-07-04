@@ -102,3 +102,4 @@ nnoremap <A-8> 8gt
 nnoremap <A-9> 9gt
 
 command FixKey :!killall -9 ibus-x11
+set ideajoin

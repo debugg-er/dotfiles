@@ -110,6 +110,8 @@ export EDITOR='vim'
 #   pkill terminal
 # fi
 
+export PATH=/home/backyard/.config/my_bin:$PATH
+
 alias killimwheel="kill $(ps aux | pgrep imwheel)"
 alias fzf="fzf --height 50% --reverse"
 # alias idea="XMODIFIERS="" ~/Desktop/idea-IC-193.6911.18/bin/idea.sh"
@@ -136,13 +138,20 @@ runc() {
   fi
 }
 
+runcpp() {
+  if g++ -o $(sed -r "s/\.\w+$//g" <<< $1) $1
+  then
+    ./$(sed -r "s/\.\w+$//g" <<< $1)
+  fi
+}
+
 # Username Tag
 prompt_context() {
   prompt_segment 'green' '#000' 'zsh'
 }
 
 # Prevent exit terminal when Ctrl+D
-set -o ignoreeof
+# set -o ignoreeof
 
 # Alt+Endter to auto complete command
 bindkey '^[^M' autosuggest-accept

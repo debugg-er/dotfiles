@@ -165,7 +165,7 @@ au FileType json set softtabstop=2
 nmap <S-k> i<CR><ESC>k$
 
 " refresh NERDTree
-nmap <space>r :NERDTreeFocus<cr> \| R \| <c-w><c-p>
+nmap <space>r :NERDTreeRefreshRoot<CR>
 
 " return to normal mode
 inoremap jk <ESC>
@@ -188,7 +188,6 @@ nnoremap <A-h> :nohl<CR>
 
 " fzf
 noremap ` :Files<CR>
-noremap - :Buffers<CR>
 
 " prevent cut or copy of some key
 vnoremap c "_c
@@ -202,10 +201,6 @@ nnoremap C "_C
 nmap <F2> <Plug>(coc-rename)
 
 " NERDTree
-nnoremap <Left> <C-w><
-nnoremap <Right> <C-w>>
-nnoremap <Up> <C-w>+
-nnoremap <Down> <C-w>-
 nnoremap <F5> :NERDTreeToggle<CR>
 
 " git gutter
@@ -276,6 +271,7 @@ fun Execute(command)
 endfun
 
 au FileType c nnoremap <C-A-n> :call Execute("runc")<CR>
+au FileType cpp nnoremap <C-A-n> :call Execute("runcpp")<CR>
 au FileType javascript nnoremap <C-A-n> :call Execute("node")<CR>
 
 nnoremap <C-A-b> :exe "silent !tmux send -t 1 ^C"<CR>
