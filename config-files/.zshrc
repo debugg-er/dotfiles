@@ -110,44 +110,52 @@ export EDITOR='vim'
 #   pkill terminal
 # fi
 
-export PATH=/home/backyard/.config/my_bin:$PATH
-
 alias killimwheel="kill $(ps aux | pgrep imwheel)"
 alias fzf="fzf --height 50% --reverse"
+alias docker="sudo docker"
 # alias idea="XMODIFIERS="" ~/Desktop/idea-IC-193.6911.18/bin/idea.sh"
 
 enter() {
-  xdg-open $1
+    xdg-open $1
 }
 
 isound() {
-  pactl -- set-sink-volume 0 $1%
+    pactl -- set-sink-volume 0 $1%
 }
 
 jva() {
-  if javac $1
-  then
-    java $(sed -r "s/\.\w+$//g" <<< $1)
-  fi
+    if javac $1
+    then
+        java ${1%.*}
+    fi
 }
 
 runc() {
-  if gcc -o $(sed -r "s/\.\w+$//g" <<< $1) $1 -lm
-  then
-    ./$(sed -r "s/\.\w+$//g" <<< $1)
-  fi
+    if gcc -o ${1%.*} $1 -lm
+    then
+        ./${1%.*}
+        # rm $(sed -r "s/\.\w+$//g" <<< $1)
+    fi
 }
 
 runcpp() {
-  if g++ -o $(sed -r "s/\.\w+$//g" <<< $1) $1
-  then
-    ./$(sed -r "s/\.\w+$//g" <<< $1)
-  fi
+    if g++ -o ${1%.*} $1
+    then
+        ./${1%.*}
+        # rm $(sed -r "s/\.\w+$//g" <<< $1)
+    fi
+}
+
+scriptcs() {
+    if csc -nologo $1
+    then
+        mono ${1%.*}.exe
+    fi
 }
 
 # Username Tag
 prompt_context() {
-  prompt_segment 'green' '#000' 'zsh'
+    prompt_segment 'green' '#000' 'zsh'
 }
 
 # Prevent exit terminal when Ctrl+D
