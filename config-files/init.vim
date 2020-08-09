@@ -22,6 +22,7 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'crusoexia/vim-monokai'
 
 Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
 Plug 'elzr/vim-json' " fix indentline on json file
 Plug 'mxw/vim-jsx'
 
@@ -137,8 +138,8 @@ let g:coc_global_extensions = [
             \ 'coc-json',
             \ 'coc-snippets',
             \ 'coc-prettier',
-            \ 'coc-eslint',
         \ ]
+" \ 'coc-eslint',
 
 " open and close nerdtree automatically
 autocmd StdinReadPre * let s:std_in=1
@@ -155,6 +156,9 @@ au FocusGained,BufEnter * :silent! !
 au FileType javascript set tabstop=2
 au FileType javascript set shiftwidth=2
 au FileType javascript set softtabstop=2
+au FileType typescript set tabstop=2
+au FileType typescript set shiftwidth=2
+au FileType typescript set softtabstop=2
 au FileType json set tabstop=2
 au FileType json set shiftwidth=2
 au FileType json set softtabstop=2
