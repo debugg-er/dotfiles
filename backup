@@ -5,7 +5,6 @@ mkdir config-files
 
 cp ~/.config/nvim/init.vim config-files
 cp ~/.config/nvim/coc-settings.json config-files
-cp -r ~/.config/coc/ultisnips config-files
 
 cp ~/.zshrc config-files
 cp ~/.tmux.conf config-files

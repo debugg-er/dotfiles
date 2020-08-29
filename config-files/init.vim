@@ -52,13 +52,12 @@ set ruler         " show the cursor position all the time
 set showcmd       " display incomplete commands
 set incsearch     " do incremental searching
 set laststatus=2  " Always display the status line
-set autowrite     " Automatically :write before running commands
 
 set autoindent
 set smartindent
 
 set autoread
-set autowrite
+set autowrite     " Automatically :write before running commands
 
 " Softtabs, 2 spaces
 set shiftwidth=4
@@ -110,6 +109,9 @@ let g:NERDTreeDirArrowExpandable = '+'
 let g:NERDTreeDirArrowCollapsible = '~'
 let NERDTreeMinimalUI=1
 
+" make fuzzy search show hidden file
+let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
+
 " indent tab┊
 let g:indentLine_char_list = ['┊']
 
@@ -122,13 +124,8 @@ let g:vim_json_syntax_conceal = 0
 " disable AutoPairs remap C-H in insert mode
 let g:AutoPairsMapCh = 0
 
-" airline
-" let g:airline#extensions#tmuxline#enabled = 1
-" let airline#extensions#tmuxline#snapshot_file = "~/.tmux-status.conf"
-
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " let g:airline_powerline_fonts = 1
 let g:airline_section_y = ''
@@ -173,7 +170,6 @@ nmap <space>r :NERDTreeRefreshRoot<CR>
 
 " return to normal mode
 inoremap jk <ESC>
-vnoremap ii <ESC>
 
 " prevent yank jump back
 " vnoremap y ygv<ESC>
@@ -200,6 +196,7 @@ nnoremap x "_x
 nnoremap c "_c
 nnoremap D "_D
 nnoremap C "_C
+vnoremap p "_dP
 
 " rename current word like VSCode
 nmap <F2> <Plug>(coc-rename)
@@ -243,22 +240,6 @@ nnoremap gp :bp<cr>
 " prevent 'q + :'
 nnoremap q: <CR>
 
-" smooth scroll
-fun! s:smoothScroll(up)
-    execute "normal " . (a:up ? "\<c-y>" : "\<c-e>")
-    redraw
-    for l:count in range(3, &scroll, 2)
-        sleep 3m
-        execute "normal " . (a:up ? "\<c-y>" : "\<c-e>")
-        redraw
-    endfor
-    " bring the cursor in the middle of screen
-    execute "normal M"
-endf
-
-nnoremap <silent> <c-d> :call <sid>smoothScroll(0)<cr>
-nnoremap <silent> <c-u> :call <sid>smoothScroll(1)<cr>
-
 " trim whitespace
 fun! TrimWhitespace()
     let l:save = winsaveview()
@@ -277,6 +258,7 @@ endfun
 au FileType c nnoremap <C-A-n> :call Execute("runc")<CR>
 au FileType cpp nnoremap <C-A-n> :call Execute("runcpp")<CR>
 au FileType javascript nnoremap <C-A-n> :call Execute("node")<CR>
+au FileType typescript nnoremap <C-A-n> :call Execute("ts-node")<CR>
 
 nnoremap <C-A-b> :exe "silent !tmux send -t 1 ^C"<CR>
 
