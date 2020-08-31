@@ -13,8 +13,11 @@ echo "installing completed"
 echo "installing nodejs..."
 curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - > /dev/null
 sudo apt-get -y install nodejs > /dev/null
-sudo npm install -g --silent neovim
 echo "installing completed"
+
+echo "installing node global module..."
+sudo npm install -g --silent neovim nodemon eslint http-server typescript ts-node
+echo "install completed"
 
 echo "installing vim-plug..."
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
