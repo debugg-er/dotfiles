@@ -1,6 +1,4 @@
 {
-  "eslint.nodePath": "/usr/lib/node_modules",
-
   "suggest.noselect": false,
   "suggest.enablePreselect": false,
 

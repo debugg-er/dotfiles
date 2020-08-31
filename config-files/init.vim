@@ -135,8 +135,8 @@ let g:coc_global_extensions = [
             \ 'coc-json',
             \ 'coc-snippets',
             \ 'coc-prettier',
+            \ 'coc-eslint',
         \ ]
-" \ 'coc-eslint',
 
 " open and close nerdtree automatically
 autocmd StdinReadPre * let s:std_in=1

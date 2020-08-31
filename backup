@@ -11,6 +11,7 @@ cp ~/.tmux.conf config-files
 cp ~/.ideavimrc config-files
 cp ~/.Xmodmap config-files
 cp ~/.imwheelrc config-files
+cp ~/.eslintrc.json config-files
 
 # dconf dump /org/gnome/terminal/legacy/profiles:/ > ./config-files/profiles.dconf
 # backup terminal profiles command

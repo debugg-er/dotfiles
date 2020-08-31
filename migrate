@@ -2,21 +2,13 @@
 
 echo "migrating config files..."
 
-if [ ! -d "${HOME}/.config" ]; then
-    mkdir ${HOME}/.config
-    if [ ! -d "${HOME}/.config/nvim" ]; then
-        mkdir ${HOME}/.config/nvim
-    fi
-fi
+# ensure folders exist
+mkdir ${HOME}/.config/coc -p
+mkdir ${HOME}/.config/nvim -p
 
-if [ ! -d "${HOME}/.config/coc" ]; then
-    mkdir ${HOME}/.config/coc
-fi
+cp ./config-files/{init.vim,coc-settings.json} ${HOME}/.config/nvim
 
-cp ./config-files/init.vim ${HOME}/.config/nvim
-cp ./config-files/coc-settings.json ${HOME}/.config/nvim
-
-cp ./config-files/{.ideavimrc,.imwheelrc,.zshrc,.tmux.conf,.Xmodmap} ${HOME}
+cp ./config-files/{.ideavimrc,.imwheelrc,.zshrc,.tmux.conf,.Xmodmap,.eslintrc.json} ${HOME}
 
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
