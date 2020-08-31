@@ -3,10 +3,8 @@ echo "installing utilities..."
 sudo apt-get -y install zsh curl xclip silversearcher-ag tmux > /dev/null
 echo "installing completed!"
 
-echo "installing nvim..."
-wget -q https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
-tar -xzf nvim-linux64.tar.gz
-sudo cp -r nvim-linux64/* /usr
+echo "installing neovim..."
+sudo apt-get -y neovim > /dev/null
 sudo cp /usr/bin/nvim /usr/bin/vim
 echo "installing completed"
 
