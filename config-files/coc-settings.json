@@ -2,6 +2,8 @@
   "suggest.noselect": false,
   "suggest.enablePreselect": false,
 
+  "eslint.filetypes": ["javascript", "javascriptreact"],
+
   "javascript.suggest.enabled": false,
   "javascript.suggestionActions.enabled": false,
   "javascript.showUnused": false,
@@ -18,7 +20,6 @@
 
   "prettier.singleQuote": true,
   "prettier.trailingComma": "all",
-  "prettier.arrowParens": "avoid",
   "cSpell.ignorePaths": ["**/node_modules/**", ".git"],
 
   "coc.preferences.formatOnSaveFiletypes": [

@@ -170,6 +170,9 @@ nmap <space>r :NERDTreeRefreshRoot<CR>
 
 " return to normal mode
 inoremap jk <ESC>
+inoremap Jk <ESC>
+inoremap jK <ESC>
+inoremap JK <ESC>
 
 " prevent yank jump back
 " vnoremap y ygv<ESC>
@@ -233,9 +236,12 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 inoremap <A-j> <Esc>:m .+1<CR>==gi
 inoremap <A-k> <Esc>:m .-2<CR>==gi
 
-" switch tab
+" next buffer
 nnoremap gn :bn<cr>
+" previous buffer
 nnoremap gp :bp<cr>
+" delete current buffer
+nnoremap ge :bd "@%"<cr>
 
 " prevent 'q + :'
 nnoremap q: <CR>
@@ -254,6 +260,31 @@ fun Execute(command)
     :w
     :exe "silent !tmux send -t 1 '"a:command""@%"' Enter"
 endfun
+
+fun GoToBuffer(num)
+    let l:bufferDetail=@%
+    redir => l:bufferDetail
+    :exe "silent :ls"
+    redir END
+
+    let l:buffers = []
+    let l:regex = '\d\+\( \)\@='
+    call substitute(l:bufferDetail, regex, '\=add(l:buffers, submatch(0))', 'g')
+
+    if a:num <= len(l:buffers) && a:num >= 0
+        :exec "buffer" l:buffers[a:num - 1]
+    endif
+endfun
+
+nnoremap <A-1> :call GoToBuffer(1)<CR>
+nnoremap <A-2> :call GoToBuffer(2)<CR>
+nnoremap <A-3> :call GoToBuffer(3)<CR>
+nnoremap <A-4> :call GoToBuffer(4)<CR>
+nnoremap <A-5> :call GoToBuffer(5)<CR>
+nnoremap <A-6> :call GoToBuffer(6)<CR>
+nnoremap <A-7> :call GoToBuffer(7)<CR>
+nnoremap <A-8> :call GoToBuffer(8)<CR>
+nnoremap <A-9> :call GoToBuffer(9)<CR>
 
 au FileType c nnoremap <C-A-n> :call Execute("runc")<CR>
 au FileType cpp nnoremap <C-A-n> :call Execute("runcpp")<CR>
