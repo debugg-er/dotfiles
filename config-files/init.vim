@@ -11,7 +11,7 @@ Plug 'tpope/vim-surround'
 " Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -136,12 +136,13 @@ let g:coc_global_extensions = [
             \ 'coc-snippets',
             \ 'coc-prettier',
             \ 'coc-eslint',
+            \ 'coc-pairs'
         \ ]
 
-" open and close nerdtree automatically
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" Open and close nerdtree automatically
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " prevent commentary in new line
 au Filetype * set fo-=cro
@@ -191,6 +192,9 @@ nnoremap <A-h> :nohl<CR>
 
 " fzf
 noremap ` :Files<CR>
+
+" search without case-sensitive
+nnoremap ? /\c
 
 " prevent cut or copy of some key
 vnoremap c "_c
@@ -315,6 +319,10 @@ inoremap <silent><expr> <A-t> coc#refresh()
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " Or use `complete_info` if your vim support it, like:
 " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Improve coc-pairs when breakline
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+				\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
