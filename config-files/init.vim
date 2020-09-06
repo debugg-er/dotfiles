@@ -1,7 +1,7 @@
 call plug#begin()
 
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'scrooloose/nerdtree'
+" Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 " Plug 'ryanoasis/vim-devicons'
 
@@ -103,11 +103,11 @@ hi CursorLine ctermfg=00 ctermbg=00 cterm=bold
 " hi Normal guibg=NONE ctermbg=NONE
 
 " NERDTree
-let NERDTreeShowHidden=1
-let g:NERDTreeIgnore = ['^.git$', '.class$']
-let g:NERDTreeDirArrowExpandable = '+'
-let g:NERDTreeDirArrowCollapsible = '~'
-let NERDTreeMinimalUI=1
+" let NERDTreeShowHidden=1
+" let g:NERDTreeIgnore = ['^.git$', '.class$']
+" let g:NERDTreeDirArrowExpandable = '+'
+" let g:NERDTreeDirArrowCollapsible = '~'
+" let NERDTreeMinimalUI=1
 
 " make fuzzy search show hidden file
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
@@ -116,13 +116,13 @@ let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
 let g:indentLine_char_list = ['┊']
 
 " resolve indentline conflict with cursorline
-let g:indentLine_concealcursor=0
+let g:indentLine_concealcursor = 0
 
 " fix indentLine on json file
 let g:vim_json_syntax_conceal = 0
 
 " disable AutoPairs remap C-H in insert mode
-let g:AutoPairsMapCh = 0
+" let g:AutoPairsMapCh = 0
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
@@ -167,7 +167,7 @@ au FileType json set softtabstop=2
 nmap <S-k> i<CR><ESC>k$
 
 " refresh NERDTree
-nmap <space>r :NERDTreeRefreshRoot<CR>
+" nmap <space>r :NERDTreeRefreshRoot<CR>
 
 " return to normal mode
 inoremap jk <ESC>
@@ -209,7 +209,10 @@ vnoremap p "_dP
 nmap <F2> <Plug>(coc-rename)
 
 " NERDTree
-nnoremap <F5> :NERDTreeToggle<CR>
+" nnoremap <space>f :NERDTreeToggle<CR>
+
+" open coc-explorer
+nmap <space>f :CocCommand explorer<CR>
 
 " git gutter
 nmap <space>p <Plug>(GitGutterPreviewHunk)
