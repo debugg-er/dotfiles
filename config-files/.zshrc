@@ -134,7 +134,7 @@ runc() {
     if gcc -o ${1%.*} $1 -lm
     then
         ./${1%.*}
-        # rm $(sed -r "s/\.\w+$//g" <<< $1)
+        rm $(sed -r "s/\.\w+$//g" <<< $1)
     fi
 }
 

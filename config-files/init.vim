@@ -21,10 +21,12 @@ Plug 'rakr/vim-one'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'crusoexia/vim-monokai'
 
-Plug 'pangloss/vim-javascript'
-Plug 'leafgarland/typescript-vim'
-Plug 'elzr/vim-json' " fix indentline on json file
-Plug 'mxw/vim-jsx'
+Plug 'sheerun/vim-polyglot/'
+" Plug 'pangloss/vim-javascript'
+" Plug 'HerringtonDarkholme/yats.vim'
+" Plug 'leafgarland/typescript-vim'
+" Plug 'elzr/vim-json' " fix indentline on json file
+" Plug 'mxw/vim-jsx'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -119,7 +121,7 @@ let g:indentLine_char_list = ['┊']
 let g:indentLine_concealcursor = 0
 
 " fix indentLine on json file
-let g:vim_json_syntax_conceal = 0
+" let g:vim_json_syntax_conceal = 0
 
 " disable AutoPairs remap C-H in insert mode
 " let g:AutoPairsMapCh = 0
@@ -151,15 +153,10 @@ au Filetype * set fo-=cro
 au FocusGained,BufEnter * :silent! !
 
 " indent
-au FileType javascript set tabstop=2
-au FileType javascript set shiftwidth=2
-au FileType javascript set softtabstop=2
-au FileType typescript set tabstop=2
-au FileType typescript set shiftwidth=2
-au FileType typescript set softtabstop=2
-au FileType json set tabstop=2
-au FileType json set shiftwidth=2
-au FileType json set softtabstop=2
+au FileType javascript set tabstop=2 shiftwidth=2 softtabstop=2
+au FileType typescript set tabstop=2 shiftwidth=2 softtabstop=2
+au FileType json set tabstop=2 shiftwidth=2 softtabstop=2
+au FileType html set tabstop=2 shiftwidth=2 softtabstop=2
 
 " ================================ mapping ================================
 
@@ -216,6 +213,8 @@ nmap <space>f :CocCommand explorer<CR>
 
 " git gutter
 nmap <space>p <Plug>(GitGutterPreviewHunk)
+nmap ghs <Plug>(GitGutterStageHunk)
+nmap ghu <Plug>(GitGutterUndoHunk)
 
 " insert ; to end line
 inoremap <A-CR> <ESC><S-A>;
@@ -327,10 +326,6 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 				\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -348,7 +343,7 @@ function! s:show_documentation()
     endif
 endfunction
 
-" " Highlight symbol under cursor on CursorHold
+" Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for format selected region
@@ -369,8 +364,6 @@ nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 " Remap for do codeAction of current line
 nmap <leader>ac  <Plug>(coc-codeaction)
-" Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Create mappings for function text object, requires document symbols feature of languageserver.
 xmap if <Plug>(coc-funcobj-i)
@@ -395,14 +388,12 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Using CocList
-" Show all diagnostics
-nnoremap <silent> <space>e  :<C-u>CocList diagnostics<cr>
 " Manage extensions
 nnoremap <silent> <Leader>e  :<C-u>CocList extensions<cr>
 " Show commands
 nnoremap <silent> <Leader>c  :<C-u>CocList commands<cr>
 " Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+nnoremap <silent> <Leader>o  :<C-u>CocList outline<cr>
 " Search workspace symbols
 nnoremap <silent> <Leader>s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
@@ -411,3 +402,13 @@ nnoremap <silent> <Leader>j  :<C-u>CocNext<CR>
 nnoremap <silent> <Leader>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <Leader>p  :<C-u>CocListResume<CR>
+
+" =========================== coc.nvim remap ==========================
+
+" Show all diagnostics
+nnoremap <silent> <space>e  :<C-u>CocList diagnostics<cr>
+" Fix autofix problem of current line
+nmap <space>l  <Plug>(coc-fix-current)
+" Navigate diagnostics
+nmap <silent> <space>k <Plug>(coc-diagnostic-prev)
+nmap <silent> <space>j <Plug>(coc-diagnostic-next)
