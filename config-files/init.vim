@@ -8,7 +8,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-" Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'christoomey/vim-tmux-navigator'
 " Plug 'jiangmiao/auto-pairs'
@@ -28,6 +27,7 @@ Plug 'sheerun/vim-polyglot/'
 " Plug 'elzr/vim-json' " fix indentline on json file
 " Plug 'mxw/vim-jsx'
 
+Plug 'tpope/vim-fugitive'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -165,6 +165,9 @@ nmap <S-k> i<CR><ESC>k$
 
 " refresh NERDTree
 " nmap <space>r :NERDTreeRefreshRoot<CR>
+
+" copy all line
+nnoremap <space>y ggyG<C-o>zz
 
 " return to normal mode
 inoremap jk <ESC>
