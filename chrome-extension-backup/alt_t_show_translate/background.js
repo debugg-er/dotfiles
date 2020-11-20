@@ -17,6 +17,24 @@ async function popupGGTranslate() {
   });
 }
 
+async function focusTranslatePopup() {
+  return new Promise((resolve, reject) => {
+    chrome.windows.getAll((windows) => {
+      const popup = windows.find(
+        (window) => window.height == 300 && window.type == 'popup',
+      );
+      console.log(windows)
+
+      if (!popup) {
+        return reject();
+      }
+
+      windowId = popup.id;
+      chrome.windows.update(popup.id, { focused: true }, resolve);
+    });
+  });
+}
+
 async function focusWindow(windowId) {
   return new Promise((resolve, reject) => {
     chrome.windows.update(windowId, { focused: true }, () => {
@@ -32,9 +50,14 @@ async function focusWindow(windowId) {
 chrome.commands.onCommand.addListener(async function () {
   if (windowId !== null) {
     try {
-      await focusWindow(windowId);
+      await focusWindow(windowId)
       return;
-    } catch (err) { }
+    } catch (_e1) {
+      try {
+        await focusTranslatePopup();
+        return;
+      } catch (_e2) {}
+    }
   }
 
   windowId = await popupGGTranslate();
