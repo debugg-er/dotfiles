@@ -29,9 +29,7 @@ async function focusWindow(windowId) {
   })
 }
 
-chrome.runtime.onMessage.addListener(async function (msg, sender, sendResponse) {
-  if (msg !== 'open') return;
-
+chrome.commands.onCommand.addListener(async function () {
   if (windowId !== null) {
     try {
       await focusWindow(windowId);
