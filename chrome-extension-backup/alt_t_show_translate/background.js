@@ -1,6 +1,18 @@
-let windowId = null;
+function getStorage() {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.get(null, (data) => {
+      resolve(data);
+    });
+  });
+}
 
-async function popupGGTranslate() {
+function setStorage(data) {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.set(data, resolve);
+  });
+}
+
+function popupGGTranslate() {
   return new Promise((resolve) => {
     chrome.windows.create(
       {
@@ -17,49 +29,31 @@ async function popupGGTranslate() {
   });
 }
 
-async function focusTranslatePopup() {
-  return new Promise((resolve, reject) => {
-    chrome.windows.getAll((windows) => {
-      const popup = windows.find(
-        (window) => window.height == 300 && window.type == 'popup',
-      );
-      console.log(windows)
-
-      if (!popup) {
-        return reject();
-      }
-
-      windowId = popup.id;
-      chrome.windows.update(popup.id, { focused: true }, resolve);
-    });
-  });
-}
-
 async function focusWindow(windowId) {
   return new Promise((resolve, reject) => {
     chrome.windows.update(windowId, { focused: true }, () => {
       if (chrome.runtime.lastError) {
-        reject(chrome.runtime.lastError.message)
+        reject(chrome.runtime.lastError.message);
       } else {
         resolve();
       }
     });
-  })
+  });
 }
 
 chrome.commands.onCommand.addListener(async function () {
-  console.log(windowId);
+  const store = await getStorage();
 
-  if (windowId !== null) {
+  if (store.windowId) {
     try {
-      await focusWindow(windowId)
+      await focusWindow(store.windowId);
       return;
-    } catch { }
-  } else {
-    try {
-      await focusTranslatePopup();
-    } catch {
-      windowId = await popupGGTranslate();
+    } catch (err) {
+      console.log(err);
     }
   }
+
+  const windowId = await popupGGTranslate();
+
+  await setStorage({ windowId });
 });
