@@ -48,17 +48,18 @@ async function focusWindow(windowId) {
 }
 
 chrome.commands.onCommand.addListener(async function () {
+  console.log(windowId);
+
   if (windowId !== null) {
     try {
       await focusWindow(windowId)
       return;
-    } catch (_e1) {
-      try {
-        await focusTranslatePopup();
-        return;
-      } catch (_e2) {}
+    } catch { }
+  } else {
+    try {
+      await focusTranslatePopup();
+    } catch {
+      windowId = await popupGGTranslate();
     }
   }
-
-  windowId = await popupGGTranslate();
 });
