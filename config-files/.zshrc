@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/$(whoami)/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -113,6 +113,7 @@ export EDITOR='vim'
 alias killimwheel="kill $(ps aux | pgrep imwheel)"
 alias fzf="fzf --height 50% --reverse"
 alias docker="sudo docker"
+alias t="trans -b :vi"
 # alias idea="XMODIFIERS="" ~/Desktop/idea-IC-193.6911.18/bin/idea.sh"
 
 enter() {
@@ -242,3 +243,4 @@ fe() {
   local file
   file=$(fq1 "$1") && ${EDITOR:-vim} "$file"
 }
+

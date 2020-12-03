@@ -1,9 +1,11 @@
 call plug#begin()
 
+Plug 'wikitopian/hardmode'
 " Plug 'scrooloose/nerdtree'
 " Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 " Plug 'ryanoasis/vim-devicons'
+
 
 Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-commentary'
@@ -41,7 +43,6 @@ set cursorline
 set termguicolors
 
 set nowrap        " prevent break line
-set colorcolumn=80
 
 " set cmdheight=1
 set signcolumn=yes
@@ -153,8 +154,8 @@ au Filetype * set fo-=cro
 au FocusGained,BufEnter * :silent! !
 
 " indent
-au FileType javascript set tabstop=2 shiftwidth=2 softtabstop=2
-au FileType typescript set tabstop=2 shiftwidth=2 softtabstop=2
+au FileType typescript set colorcolumn=100
+au FileType javascript set tabstop=2 shiftwidth=2 softtabstop=2 colorcolumn=80
 au FileType json set tabstop=2 shiftwidth=2 softtabstop=2
 au FileType html set tabstop=2 shiftwidth=2 softtabstop=2
 
@@ -285,15 +286,15 @@ fun GoToBuffer(num)
     endif
 endfun
 
-nnoremap <A-1> :call GoToBuffer(1)<CR>
-nnoremap <A-2> :call GoToBuffer(2)<CR>
-nnoremap <A-3> :call GoToBuffer(3)<CR>
-nnoremap <A-4> :call GoToBuffer(4)<CR>
-nnoremap <A-5> :call GoToBuffer(5)<CR>
-nnoremap <A-6> :call GoToBuffer(6)<CR>
-nnoremap <A-7> :call GoToBuffer(7)<CR>
-nnoremap <A-8> :call GoToBuffer(8)<CR>
-nnoremap <A-9> :call GoToBuffer(9)<CR>
+nnoremap <silent> <A-1> :call GoToBuffer(1)<CR>
+nnoremap <silent> <A-2> :call GoToBuffer(2)<CR>
+nnoremap <silent> <A-3> :call GoToBuffer(3)<CR>
+nnoremap <silent> <A-4> :call GoToBuffer(4)<CR>
+nnoremap <silent> <A-5> :call GoToBuffer(5)<CR>
+nnoremap <silent> <A-6> :call GoToBuffer(6)<CR>
+nnoremap <silent> <A-7> :call GoToBuffer(7)<CR>
+nnoremap <silent> <A-8> :call GoToBuffer(8)<CR>
+nnoremap <silent> <A-9> :call GoToBuffer(9)<CR>
 
 au FileType c nnoremap <C-A-n> :call Execute("runc")<CR>
 au FileType cpp nnoremap <C-A-n> :call Execute("runcpp")<CR>
@@ -411,7 +412,8 @@ nnoremap <silent> <Leader>p  :<C-u>CocListResume<CR>
 " Show all diagnostics
 nnoremap <silent> <space>e  :<C-u>CocList diagnostics<cr>
 " Fix autofix problem of current line
-nmap <space>l  <Plug>(coc-fix-current)
+nmap <space>l <Plug>(coc-fix-current)
 " Navigate diagnostics
 nmap <silent> <space>k <Plug>(coc-diagnostic-prev)
 nmap <silent> <space>j <Plug>(coc-diagnostic-next)
+
