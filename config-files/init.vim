@@ -147,6 +147,9 @@ let g:coc_global_extensions = [
 " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
+" disable indentLine in coc-explorer
+au FileType coc-explorer exec('IndentLinesDisable')
+
 " prevent commentary in new line
 au Filetype * set fo-=cro
 
