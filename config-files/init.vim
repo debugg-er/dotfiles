@@ -170,6 +170,9 @@ nmap <S-k> i<CR><ESC>k$
 " copy all line
 nnoremap <space>y ggyG<C-o>zz
 
+" indent whole file
+nnoremap <space>= gg=G<C-o>zz
+
 " return to normal mode
 inoremap jk <ESC>
 inoremap Jk <ESC>
