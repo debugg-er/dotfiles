@@ -114,9 +114,10 @@ export EDITOR='vim'
 
 alias killimwheel="kill $(ps aux | pgrep imwheel)"
 alias fzf="fzf --height 50% --reverse"
+alias vim="nvim"
 alias docker="sudo docker"
+alias docker-compose="sudo docker-compose"
 alias t="trans -b :vi"
-# alias idea="XMODIFIERS="" ~/Desktop/idea-IC-193.6911.18/bin/idea.sh"
 
 enter() {
     xdg-open $1
@@ -245,7 +246,3 @@ fe() {
   local file
   file=$(fq1 "$1") && ${EDITOR:-vim} "$file"
 }
-
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-  exec tmux
-fi

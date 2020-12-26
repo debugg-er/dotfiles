@@ -139,7 +139,8 @@ let g:coc_global_extensions = [
             \ 'coc-snippets',
             \ 'coc-prettier',
             \ 'coc-eslint',
-            \ 'coc-pairs'
+            \ 'coc-pairs',
+            \ 'coc-explorer'
         \ ]
 
 " Open and close nerdtree automatically
@@ -202,6 +203,10 @@ noremap ` :Files<CR>
 
 " search without case-sensitive
 nnoremap ? /\c
+
+" fix <S-k> visual mode throw error
+vnoremap <S-k> <up>
+vnoremap <S-j> <down>
 
 " prevent cut or copy of some key
 vnoremap c "_c
