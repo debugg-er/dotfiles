@@ -1,6 +1,6 @@
 call plug#begin()
 
-Plug 'wikitopian/hardmode'
+" Plug 'wikitopian/hardmode'
 " Plug 'scrooloose/nerdtree'
 " Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
@@ -13,6 +13,7 @@ Plug 'tpope/vim-surround'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'christoomey/vim-tmux-navigator'
 " Plug 'jiangmiao/auto-pairs'
+Plug 'mattn/emmet-vim'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -114,6 +115,7 @@ hi CursorLine ctermfg=00 ctermbg=00 cterm=bold
 
 " make fuzzy search show hidden file
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
+let g:fzf_layout = { 'down': '~40%' }
 
 " indent tab┊
 let g:indentLine_char_list = ['┊']
@@ -140,7 +142,8 @@ let g:coc_global_extensions = [
             \ 'coc-prettier',
             \ 'coc-eslint',
             \ 'coc-pairs',
-            \ 'coc-explorer'
+            \ 'coc-explorer',
+            \ 'coc-css'
         \ ]
 
 " Open and close nerdtree automatically
@@ -262,7 +265,7 @@ nnoremap gn :bn<cr>
 " previous buffer
 nnoremap gp :bp<cr>
 " delete current buffer
-nnoremap ge :bd "@%"<cr>
+nnoremap ge :bp<bar>sp<bar>bn<bar>bd<CR>
 
 " prevent 'q + :'
 nnoremap q: <CR>
