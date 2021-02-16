@@ -168,6 +168,9 @@ au FileType html set tabstop=2 shiftwidth=2 softtabstop=2
 
 " ================================ mapping ================================
 
+" refresh
+nmap <space>r :w<cr>:source ~/.config/nvim/init.vim<cr>
+
 " breakline
 nmap <S-k> i<CR><ESC>k$
 
@@ -277,12 +280,36 @@ fun! TrimWhitespace()
     call winrestview(l:save)
 endfun
 
-nnoremap <space>t :call TrimWhitespace()<CR>
-
 " code runner
 fun Execute(command)
     :w
     :exe "silent !tmux send -t 1 '"a:command""@%"' Enter"
+endfun
+
+function GetSelectedText()
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+    let lines = getline(line_start, line_end)
+    if len(lines) == 0
+        return ''
+    endif
+    let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+    let lines[0] = lines[0][column_start - 1:]
+    return join(lines, "\n")
+endfunction
+
+function SendToTmux(input)
+    let l:command = a:input
+
+    let l:command = substitute(l:command, "\"", "\\\\\"", "g")
+    let l:command = substitute(l:command, ";", "\\\\;", "g")
+    let l:command = substitute(l:command, "#", "\\\\#", "g")
+    let l:command = substitute(l:command, "%", "\\\\%", "g")
+    let l:command = substitute(l:command, "!", "\\\\!", "g")
+    let l:command = substitute(l:command, "\n", "\" Enter \"", "g")
+
+    " echo 'silent !tmux send -t 1 "' . l:command . '" Enter'
+    :exec 'silent !tmux send -t 1 "' . l:command . '" Enter'
 endfun
 
 fun GoToBuffer(num)
@@ -315,7 +342,13 @@ au FileType cpp nnoremap <C-A-n> :call Execute("runcpp")<CR>
 au FileType javascript nnoremap <C-A-n> :call Execute("node")<CR>
 au FileType typescript nnoremap <C-A-n> :call Execute("ts-node")<CR>
 
+vnoremap <space>q :<del><del><del><del><del>call SendToTmux(GetSelectedText())<CR>
+nnoremap <space>q V:<del><del><del><del><del>call SendToTmux(GetSelectedText())<CR>
+
 nnoremap <C-A-b> :exe "silent !tmux send -t 1 ^C"<CR>
+
+nnoremap <space>t :call TrimWhitespace()<CR>
+
 
 " =========================== coc.nvim config ==========================
 " Use tab for trigger completion with characters ahead and navigate.

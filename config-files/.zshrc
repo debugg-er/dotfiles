@@ -157,6 +157,7 @@ scriptcs() {
     fi
 }
 
+
 # Username Tag
 prompt_context() {
     prompt_segment 'green' '#000' 'zsh'
