@@ -7,6 +7,7 @@ Plug 'airblade/vim-gitgutter'
 " Plug 'ryanoasis/vim-devicons'
 
 
+Plug 'ap/vim-buftabline'
 Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
@@ -15,9 +16,10 @@ Plug 'christoomey/vim-tmux-navigator'
 " Plug 'jiangmiao/auto-pairs'
 Plug 'mattn/emmet-vim'
 
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 " Plug 'edkolev/tmuxline.vim'
+Plug 'itchyny/lightline.vim'
 Plug 'morhetz/gruvbox'
 Plug 'rakr/vim-one'
 Plug 'dracula/vim', { 'as': 'dracula' }
@@ -123,17 +125,25 @@ let g:indentLine_char_list = ['┊']
 " resolve indentline conflict with cursorline
 let g:indentLine_concealcursor = 0
 
+" label buffers by ordinary number
+let g:buftabline_numbers = 2
+
+
 " fix indentLine on json file
 " let g:vim_json_syntax_conceal = 0
 
 " disable AutoPairs remap C-H in insert mode
 " let g:AutoPairsMapCh = 0
 
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail'
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " let g:airline_powerline_fonts = 1
-let g:airline_section_y = ''
+" let g:airline_section_y = ''
+
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ }
 
 let g:coc_global_extensions = [
             \ 'coc-tsserver',
@@ -255,6 +265,9 @@ cnoremap <C-l> <Right>
 cabb W w
 cabb Q q
 
+" prevent 'q + :'
+nnoremap q: <CR>
+
 " move line
 nnoremap <A-j> :m +1<CR>==
 nnoremap <A-k> :m -2<CR>==
@@ -269,9 +282,18 @@ nnoremap gn :bn<cr>
 nnoremap gp :bp<cr>
 " delete current buffer
 nnoremap ge :bp<bar>sp<bar>bn<bar>bd<CR>
-
-" prevent 'q + :'
-nnoremap q: <CR>
+" go to last buffer
+nmap gl <Plug>BufTabLine.Go(-1)
+" alt + number to switch buffer
+nmap <silent> <A-1> <Plug>BufTabLine.Go(1) 
+nmap <silent> <A-2> <Plug>BufTabLine.Go(2) 
+nmap <silent> <A-3> <Plug>BufTabLine.Go(3) 
+nmap <silent> <A-4> <Plug>BufTabLine.Go(4) 
+nmap <silent> <A-5> <Plug>BufTabLine.Go(5) 
+nmap <silent> <A-6> <Plug>BufTabLine.Go(6) 
+nmap <silent> <A-7> <Plug>BufTabLine.Go(7) 
+nmap <silent> <A-8> <Plug>BufTabLine.Go(8) 
+nmap <silent> <A-9> <Plug>BufTabLine.Go(9) 
 
 " trim whitespace
 fun! TrimWhitespace()
@@ -312,30 +334,21 @@ function SendToTmux(input)
     :exec 'silent !tmux send -t 1 "' . l:command . '" Enter'
 endfun
 
-fun GoToBuffer(num)
-    let l:bufferDetail=@%
-    redir => l:bufferDetail
-    :exe "silent :ls"
-    redir END
+" fun GoToBuffer(num)
+"     let l:bufferDetail=@%
+"     redir => l:bufferDetail
+"     :exe "silent :ls"
+"     redir END
 
-    let l:buffers = []
-    let l:regex = '\d\+\( \)\@='
-    call substitute(l:bufferDetail, regex, '\=add(l:buffers, submatch(0))', 'g')
+"     let l:buffers = []
+"     let l:regex = '\d\+\( \)\@='
+"     call substitute(l:bufferDetail, regex, '\=add(l:buffers, submatch(0))', 'g')
 
-    if a:num <= len(l:buffers) && a:num >= 0
-        :exec "buffer" l:buffers[a:num - 1]
-    endif
-endfun
+"     if a:num <= len(l:buffers) && a:num >= 0
+"         :exec "buffer" l:buffers[a:num - 1]
+"     endif
+" endfun
 
-nnoremap <silent> <A-1> :call GoToBuffer(1)<CR>
-nnoremap <silent> <A-2> :call GoToBuffer(2)<CR>
-nnoremap <silent> <A-3> :call GoToBuffer(3)<CR>
-nnoremap <silent> <A-4> :call GoToBuffer(4)<CR>
-nnoremap <silent> <A-5> :call GoToBuffer(5)<CR>
-nnoremap <silent> <A-6> :call GoToBuffer(6)<CR>
-nnoremap <silent> <A-7> :call GoToBuffer(7)<CR>
-nnoremap <silent> <A-8> :call GoToBuffer(8)<CR>
-nnoremap <silent> <A-9> :call GoToBuffer(9)<CR>
 
 au FileType c nnoremap <C-A-n> :call Execute("runc")<CR>
 au FileType cpp nnoremap <C-A-n> :call Execute("runcpp")<CR>
@@ -464,3 +477,7 @@ nmap <space>l <Plug>(coc-fix-current)
 nmap <silent> <space>k <Plug>(coc-diagnostic-prev)
 nmap <silent> <space>j <Plug>(coc-diagnostic-next)
 
+hi TabLine      ctermfg=Black  ctermbg=Green     cterm=NONE
+hi TabLine      ctermfg=Black  ctermbg=Green     cterm=NONE
+hi TabLineFill  ctermfg=Black  ctermbg=Green     cterm=NONE
+hi TabLineSel   ctermfg=White  ctermbg=DarkBlue  cterm=NONE
