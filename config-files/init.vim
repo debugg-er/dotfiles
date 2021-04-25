@@ -476,8 +476,3 @@ nmap <space>l <Plug>(coc-fix-current)
 " Navigate diagnostics
 nmap <silent> <space>k <Plug>(coc-diagnostic-prev)
 nmap <silent> <space>j <Plug>(coc-diagnostic-next)
-
-hi TabLine      ctermfg=Black  ctermbg=Green     cterm=NONE
-hi TabLine      ctermfg=Black  ctermbg=Green     cterm=NONE
-hi TabLineFill  ctermfg=Black  ctermbg=Green     cterm=NONE
-hi TabLineSel   ctermfg=White  ctermbg=DarkBlue  cterm=NONE

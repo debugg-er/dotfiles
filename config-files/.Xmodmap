@@ -10,5 +10,5 @@ keycode 39 = s S Left NoSymbol
 
 ! Swap caps lock and escape
 clear Lock
-keycode 9 = Caps_Lock NoSymbol Caps_Lock
-keycode 66 = Escape NoSymbol Escape
+keycode 66 = Escape Caps_Lock
+keycode 9 = grave asciitilde
