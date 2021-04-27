@@ -118,6 +118,8 @@ alias vim="nvim"
 alias docker="sudo docker"
 alias docker-compose="sudo docker-compose"
 alias t="trans -b :vi"
+alias disable-keyboard="xinput float \"AT Translated Set 2 keyboard\""
+alias enable-keyboard="xinput reattach \"AT Translated Set 2 keyboard\" 3"
 
 enter() {
     xdg-open $1

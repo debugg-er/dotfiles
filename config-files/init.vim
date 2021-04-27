@@ -161,6 +161,8 @@ let g:coc_global_extensions = [
 " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
+au bufnewfile,bufread *.tsx set filetype=typescriptreact
+
 " disable indentLine in coc-explorer
 au FileType coc-explorer exec('IndentLinesDisable')
 
@@ -172,6 +174,7 @@ au FocusGained,BufEnter * :silent! !
 
 " indent
 au FileType typescript set colorcolumn=100
+au FileType typescriptreact set colorcolumn=100 tabstop=2 shiftwidth=2 softtabstop=2
 au FileType javascript set tabstop=2 shiftwidth=2 softtabstop=2 colorcolumn=80
 au FileType json set tabstop=2 shiftwidth=2 softtabstop=2
 au FileType html set tabstop=2 shiftwidth=2 softtabstop=2
@@ -282,6 +285,8 @@ nnoremap gn :bn<cr>
 nnoremap gp :bp<cr>
 " delete current buffer
 nnoremap ge :bp<bar>sp<bar>bn<bar>bd<CR>
+" delete all buffers
+nnoremap gae :bufdo bd<cr>
 " go to last buffer
 nmap gl <Plug>BufTabLine.Go(-1)
 " alt + number to switch buffer
