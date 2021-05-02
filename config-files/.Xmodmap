@@ -3,10 +3,10 @@
 
 ! Right Alt + sdfg to move
 keycode 108 = Mode_switch
-keycode 42 = g G Right NoSymbol
-keycode 41 = f F Down NoSymbol
-keycode 40 = d D Up NoSymbol
+keycode 26 = e E Up NoSymbol
 keycode 39 = s S Left NoSymbol
+keycode 40 = d D Down NoSymbol
+keycode 41 = f F Right NoSymbol
 
 ! Swap caps lock and escape
 clear Lock

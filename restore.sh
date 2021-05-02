@@ -7,8 +7,6 @@ then
     [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1
 fi
 
-echo "migrating config files..."
-
 # ensure folders exist
 mkdir ${HOME}/.config/coc -p
 mkdir ${HOME}/.config/nvim -p
@@ -18,6 +16,8 @@ cp -r ./config-files/ultisnips ${HOME}/.config/coc
 
 cp ./config-files/{.ideavimrc,.imwheelrc,.zshrc,.tmux.conf,.Xmodmap,.eslintrc.json} ${HOME}
 
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+if [ ! -d "${HOME}/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+fi
 
-echo "migratting completed"
+echo "OK"

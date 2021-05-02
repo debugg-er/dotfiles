@@ -18,4 +18,4 @@ cp ~/.eslintrc.json config-files
 # backup terminal profiles command
 # dconf dump /org/gnome/terminal/legacy/profiles:/ < ./config-files/profiles.dconf
 
-echo "**** Backup config files success ****"
+echo "OK"
