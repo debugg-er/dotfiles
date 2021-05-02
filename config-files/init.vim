@@ -20,10 +20,13 @@ Plug 'mattn/emmet-vim'
 " Plug 'vim-airline/vim-airline-themes'
 " Plug 'edkolev/tmuxline.vim'
 Plug 'itchyny/lightline.vim'
+Plug 'dracula/vim', { 'as': 'dracula' }
+
+" Plug 'sonph/onehalf', { 'rtp': 'vim' }
+" Plug 'sjl/badwolf'
+" Plug 'crusoexia/vim-monokai'
 Plug 'morhetz/gruvbox'
 Plug 'rakr/vim-one'
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'crusoexia/vim-monokai'
 
 Plug 'sheerun/vim-polyglot/'
 " Plug 'pangloss/vim-javascript'
@@ -96,8 +99,9 @@ set clipboard=unnamedplus
 
 filetype plugin indent on
 let g:gruvbox_italic=1
+let g:gruvbox_contrast_dark='hard'
 colorscheme gruvbox
-" colorscheme one
+" colorscheme badwolf
 " set background=light
 set background=dark
 syntax enable
