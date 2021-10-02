@@ -80,7 +80,10 @@ plugins=(git zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
+export PATH=$PATH:/home/backyard/.local/bin
 export EDITOR='vim'
+# export WINEPREFIX="$HOME/.wine32" 
+# export WINEARCH=win32
 
 # User configuration
 
@@ -115,11 +118,10 @@ export EDITOR='vim'
 alias killimwheel="kill $(ps aux | pgrep imwheel)"
 alias fzf="fzf --height 50% --reverse"
 alias vim="nvim"
-alias docker="sudo docker"
-alias docker-compose="sudo docker-compose"
 alias t="trans -b :vi"
 alias disable-keyboard="xinput float \"AT Translated Set 2 keyboard\""
 alias enable-keyboard="xinput reattach \"AT Translated Set 2 keyboard\" 3"
+alias show-installed-package="comm -23 <(apt-mark showmanual | sort -u) <(gzip -dc /var/log/installer/initial-status.gz | sed -n 's/^Package: //p' | sort -u)"
 
 enter() {
     xdg-open $1
@@ -248,4 +250,17 @@ fq1() {
 fe() {
   local file
   file=$(fq1 "$1") && ${EDITOR:-vim} "$file"
+}
+
+crfc() {
+    mkdir -p $1
+    touch $1/{index.tsx,$(basename "$1").css}
+}
+
+ytdl-playlist() {
+    youtube-dl -ciw -f "bestvideo[filesize<100M]+bestaudio" \
+    --max-downloads 25 \
+    --merge-output-format mkv \
+    -o '%(id)s.%(ext)s' \
+    $1
 }

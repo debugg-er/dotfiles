@@ -34,7 +34,23 @@ import React from 'react';
 import './${0:Component}.css';
 
 function ${0:Component}() {
-	return <div></div>
+	return <div className="${0:className}"></div>
+}
+
+export default ${0:Component};
+endsnippet
+
+snippet crfcwp "Create react functional component" b
+import React from 'react';
+
+import './${0:Component}.css';
+
+interface ${0:Component}Props {
+
+}
+
+function ${0:Component}(props: ${0:Component}Props) {
+	return <div className="${0:className}"></div>
 }
 
 export default ${0:Component};

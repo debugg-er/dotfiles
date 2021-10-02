@@ -20,13 +20,14 @@ Plug 'mattn/emmet-vim'
 " Plug 'vim-airline/vim-airline-themes'
 " Plug 'edkolev/tmuxline.vim'
 Plug 'itchyny/lightline.vim'
-Plug 'dracula/vim', { 'as': 'dracula' }
 
 " Plug 'sonph/onehalf', { 'rtp': 'vim' }
 " Plug 'sjl/badwolf'
 " Plug 'crusoexia/vim-monokai'
 Plug 'morhetz/gruvbox'
-Plug 'rakr/vim-one'
+" Plug 'dracula/vim', { 'as': 'dracula' }
+" Plug 'rakr/vim-one'
+" Plug 'sainnhe/sonokai'
 
 Plug 'sheerun/vim-polyglot/'
 " Plug 'pangloss/vim-javascript'
@@ -82,7 +83,7 @@ set list
 set hidden
 
 " You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
+set updatetime=100
 
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
@@ -100,10 +101,12 @@ set clipboard=unnamedplus
 filetype plugin indent on
 let g:gruvbox_italic=1
 let g:gruvbox_contrast_dark='hard'
+let g:gruvbox_bold=0
 colorscheme gruvbox
 " colorscheme badwolf
 " set background=light
 set background=dark
+" let g:sonokai_style='espresso'
 syntax enable
 
 " prevent cursorline ignore symbol
@@ -223,6 +226,7 @@ nnoremap <A-h> :nohl<CR>
 
 " fzf
 noremap ` :Files<CR>
+noremap gs :Ag<CR>
 
 " search without case-sensitive
 nnoremap ? /\c
@@ -241,7 +245,7 @@ nnoremap C "_C
 vnoremap p "_dP
 
 " rename current word like VSCode
-nmap <F2> <Plug>(coc-rename)
+nmap <space>r <Plug>(coc-rename)
 
 " NERDTree
 " nnoremap <space>f :NERDTreeToggle<CR>
@@ -406,7 +410,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window
-" nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> <space>h :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
@@ -481,7 +485,7 @@ nnoremap <silent> <Leader>p  :<C-u>CocListResume<CR>
 " Show all diagnostics
 nnoremap <silent> <space>e  :<C-u>CocList diagnostics<cr>
 " Fix autofix problem of current line
-nmap <space>l <Plug>(coc-fix-current)
+nmap <space>l :CocAction<CR>
 " Navigate diagnostics
 nmap <silent> <space>k <Plug>(coc-diagnostic-prev)
 nmap <silent> <space>j <Plug>(coc-diagnostic-next)
