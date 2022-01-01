@@ -259,8 +259,8 @@ crfc() {
 
 ytdl-playlist() {
     youtube-dl -ciw -f "bestvideo[filesize<100M]+bestaudio" \
-    --max-downloads 25 \
-    --merge-output-format mkv \
+    --max-downloads 12 \
+    --merge-output-format mp4 \
     -o '%(id)s.%(ext)s' \
     $1
 }

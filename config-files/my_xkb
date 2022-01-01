@@ -7,7 +7,12 @@ xkb_symbols "basic"  {
         name[Group1] = "EurKEY (US based layout with European letters)";
 
         key <ESC>  { [           grave,     asciitilde    ] };
-        key <CAPS> { [          Escape,         Escape   ] };
+//        key <CAPS> { [          Escape,         Escape   ] };
+	key <CAPS> {
+	    type[group1]="TWO_LEVEL",
+	    symbols[group1]=[ Escape, Caps_Lock],
+	    actions[group1]=[ NoAction(), LockMods(modifiers=Lock)]
+	};
 
         key <AD03> { [              e,                 E,         Up     ] };
         key <AC02> { [              s,                 S,         Left   ] };
