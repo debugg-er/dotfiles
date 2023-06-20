@@ -116,6 +116,7 @@ export EDITOR='vim'
 # fi
 
 alias killimwheel="kill $(ps aux | pgrep imwheel)"
+alias k="kubectl"
 alias fzf="fzf --height 50% --reverse"
 alias vim="nvim"
 alias t="trans -b :vi"
@@ -264,3 +265,57 @@ ytdl-playlist() {
     -o '%(id)s.%(ext)s' \
     $1
 }
+
+kns(){             
+  kubectl get namespace --no-headers | \
+  fzf | awk '{print $1}' | \
+  xargs -o -I % kubectl config set-context --current --namespace=%
+}      
+
+# fnm
+export PATH="/home/khainguyen/.local/share/fnm:$PATH"
+eval "`fnm env`"
+
+load-nvmrc() {
+  if [[ -f .nvmrc && -r .nvmrc ]] || [[ -f .node-version && -r .node-version ]]; then
+      fnm use
+  fi
+}
+
+kport() {
+    kill -9 $(lsof -t -i:$1)
+}
+
+load-nvmrc
+
+fkill() {
+  local process_id
+  process_id=$(ps aux | fzf --multi --header='Select process to kill:' | awk '{print $2}')
+
+  if [[ -n "$process_id" ]]; then
+    echo "Killing process with ID: $process_id"
+    kill "$process_id"
+  else
+    echo "No process selected."
+  fi
+}
+
+n() {
+    kubectl config set-context --current --namespace=$1
+}
+kport() {
+  kill -9 $(lsof -t -i:$1)
+}
+
+alias kcuc="kubectl config use-context"
+alias kcgc="kubectl config get-contexts"
+alias kgp="kubectl get po"
+alias kga="kubectl get all"
+
+alias fkuc="kubectl config use-context \$(kubectl config get-contexts --no-headers=true | fzf | awk '{print \$1}')"
+alias fkn="kubectl config set-context --current --namespace=\$(kubectl get namespaces --no-headers=true | fzf | awk '{print \$1}')"
+alias fklog="kubectl logs \$(kubectl get po --no-headers=true | fzf | awk '{print \$1}')"
+alias fkexec="kubectl exec -it \$(kubectl get po --no-headers=true | fzf | awk '{print \$1}') -- "
+alias fgc="git checkout \$(git branch | fzf)"
+alias gcp="git commit -am \"$1\" && git push"
+alias gcb="git checkout -b $1"

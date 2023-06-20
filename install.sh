@@ -5,12 +5,6 @@ sudo apt-get -y install zsh curl xclip silversearcher-ag tmux neovim
 # sudo apt-get -y install snapd
 echo "---------> done!"
 
-echo "Step 2/7 : Install nodejs"
-curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-sudo apt-get -y install nodejs
-# sudo snap install node --classic
-echo "---------> done!"
-
 echo "Step 3/7 : Install global node modules"
 sudo npm install -g --silent neovim eslint
 echo "---------> done!"
