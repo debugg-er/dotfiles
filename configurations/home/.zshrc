@@ -11,6 +11,6 @@ export PATH=$PATH:$HOME/.local/bin
 
 export EDITOR='vim'
 
+source "$HOME/zsh/omz.sh"
 source "$HOME/zsh/init.sh"
-source "$HOME/zsh/plugin.sh"
 source "$HOME/zsh/alias.sh"
