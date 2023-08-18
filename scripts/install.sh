@@ -2,35 +2,44 @@
 
 set -e
 
-source ./scripts/lib.sh
+Color_Off='\033[0m'
+BGreen='\033[1;32m'
+print_step() {
+    echo -e "$BGreen🚀 $1$Color_Off"
+    echo -e "$BGreen-----------------------------------------------$Color_Off"
+}
 
-BGreen='\033[1;32m'       # Green
 
-log $BGreen "🚀 Install essensial dependencies"
+print_step "Migrate configuration files"
+source ./scripts/migrate.sh
+
+print_step "Install Nala package manager"
 apt-get update
 apt -y install nala
-nala install -y zsh curl xclip silversearcher-ag tmux neovim git make
 
-log $BGreen "🚀 Install Node version manager (nvm)"
+print_step "Install essensial dependencies"
+nala install -y zsh curl xclip silversearcher-ag tmux git make wget
+
+print_step "Install Node version manager (nvm)"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$HOME/.nvm/nvm.sh" ] && \. "$HOME/.nvm/nvm.sh"
 
-log $BGreen "🚀 Install global node's modules"
+print_step "Install lastest NodeJS"
 nvm install --lts
+
+print_step "Install global node's modules"
 npm install -g yarn
 yarn global add neovim eslint
 
-log $BGreen "🚀 Install vim-plug"
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-
-log $BGreen "🚀 Install tpm"
+print_step "Install tpm"
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-log $BGreen "🚀 Install fzf"
-git clone --depth 1 https://github.com/junegunn/fzf.git ${HOME}/.fzf
-yes | ${HOME}/.fzf/install
+print_step "Install fzf"
+git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
+yes | $HOME/.fzf/install
 
-log $BGreen "🚀 Install oh-my-zsh"
-sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+print_step "Install oh-my-zsh"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
+
+print_step "Install zsh-autosuggestions plugin"
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions

@@ -193,4 +193,4 @@ kport() {
     kill -9 $(lsof -t -i:$1)
 }
 
-eval $(thefuck --alias)
+# eval $(thefuck --alias)
