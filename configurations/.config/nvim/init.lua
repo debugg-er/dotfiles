@@ -1,0 +1,5 @@
+vim.cmd("source ~/.vimrc")
+
+require('core.lazy')
+require("core.plugin")
+require("core.mapping")
