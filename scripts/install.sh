@@ -9,9 +9,6 @@ print_step() {
     echo -e "$BGreen-----------------------------------------------$Color_Off"
 }
 
-print_step "Migrate configuration files"
-source ./scripts/migrate.sh
-
 print_step "Install Nala package manager"
 sudo apt-get update
 sudo apt -y install nala
