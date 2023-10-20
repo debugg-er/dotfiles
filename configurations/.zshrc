@@ -7,14 +7,13 @@ DISABLE_AUTO_UPDATE=true
 ZSH_THEME="strug"
 ZSH_DISABLE_COMPFIX="true"
 
-export GTK_IM_MODULE=xim # đổi thành xim
-export QT_IM_MODULE=ibus
-export XMODIFIERS=@im=ibus
-# Dành cho những phần mềm dựa trên qt4
-export QT4_IM_MODULE=ibus
-# Dành cho những phần mềm dùng thư viện đồ họa clutter/OpenGL
-export CLUTTER_IM_MODULE=ibus
-export GLFW_IM_MODULE=ibus
+export HISTSIZE=1000000                   # Maximum events for internal history
+export SAVEHIST=1000000                   # Maximum events in history file
+
+# fzf
+export FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git'"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
 ### PATH
 if [ -d "$HOME/.bin" ]; then
   PATH="$HOME/.bin:$PATH"

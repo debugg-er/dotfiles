@@ -22,6 +22,36 @@ alias fkexec="kubectl exec -it \$(kubectl get po --no-headers=true | fzf | awk '
 
 alias fgc="git checkout \$(git branch --all | fzf)"
 
+fk() {
+    operator=$1
+    shift 1
+    resource=$1
+    shift 1
+
+    if [[ "$operator" == "" || "$resource" == "" ]]; then
+        echo "Missing required arguments, Ex. 'fk describe po'"
+        return 1
+    fi
+
+    case "$operator" in
+    "d")
+        operator="describe"
+        ;;
+    "g")
+        operator="get"
+        ;;
+    "e")
+        operator="edit"
+        ;;
+    "del")
+        operator="delete"
+        ;;
+    esac
+
+    target=$(kubectl get $resource --no-headers=true | fzf | awk '{print $1}')
+    kubectl $operator $resource $target $@
+}
+
 isound() {
     pactl -- set-sink-volume 0 $1%
 }
