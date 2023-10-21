@@ -1,3 +1,6 @@
-[submodule "configurations/.config/alacritty/themes"]
-	path = configurations/.config/alacritty/themes
+[submodule "config/alacritty/themes"]
+	path = config/alacritty/themes
 	url = https://github.com/alacritty/alacritty-theme
+[submodule "config/.oh-my-zsh/plugins/zsh-autosuggestions"]
+	path = config/.oh-my-zsh/plugins/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions

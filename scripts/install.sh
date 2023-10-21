@@ -55,6 +55,7 @@ print_step "Install zsh-autosuggestions plugin"
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 print_step "Download kubectl"
+mkdir -p ~/.local/bin
 curl -L -o $HOME/.local/bin/kubectl "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 
 print_step "Install keyd"
