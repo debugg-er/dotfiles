@@ -2,8 +2,9 @@
 
 set -e
 
+mkdir -p ~/.local/bin
 mkdir -p ~/.config
 
-ln -snf ~/dotfiles/configurations/.config/* ~/.config
-ln -sf  ~/dotfiles/configurations/.zshrc    ~/.zshrc
-ln -sf  ~/dotfiles/configurations/keyd       /etc/keyd
+ln -svnf ~/dotfiles/configurations/.config/* ~/.config
+ln -svf ~/dotfiles/configurations/.zshrc ~/.zshrc
+ln -svf ~/dotfiles/configurations/keyd /etc/keyd

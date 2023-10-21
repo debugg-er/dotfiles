@@ -9,12 +9,18 @@ print_step() {
     echo -e "$BGreen-----------------------------------------------$Color_Off"
 }
 
-print_step "Install Nala package manager"
-sudo apt-get update
-sudo apt -y install nala
+# print_step "Install Nala package manager"
+# sudo apt -y install nala
 
-print_step "Install essensial dependencies"
-sudo nala install -y zsh curl xclip ripgrep tmux git make wget snap xsel
+print_step "Install installation tools"
+sudo apt update
+sudo apt install -y software-properties-common build-essential
+
+print_step "Setting up apt repositories"
+cat ./scripts/stuff/apt-repos | while read repo; do sudo add-apt-repository -y $repo; done
+
+print_step "Install programs"
+sudo apt install -y $(cat ./scripts/stuff/apt-packages)
 
 print_step "Install Node version manager (nvm)"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
@@ -27,13 +33,13 @@ nvm install --lts
 # npm install -g yarn
 # yarn global add neovim eslint
 
-print_step "Install alacritty"
-sudo add-apt-repository ppa:aslatter/ppa -y
-sudo nala install alacritty -y
+# print_step "Install alacritty"
+# sudo add-apt-repository ppa:aslatter/ppa -y
+# sudo apt install alacritty -y
 
-print_step "Install alacritty theme"
-mkdir -p ~/.config/alacritty/themes
-git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes
+# print_step "Install alacritty theme"
+# mkdir -p ~/.config/alacritty/themes
+# git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes
 
 print_step "Install tpm"
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -60,9 +66,9 @@ cd .. && rm -rf keyd
 keyd reload
 
 print_step "Install ibus-bamboo"
-add-apt-repository ppa:bamboo-engine/ibus-bamboo -y
-nala update
-nala install -y ibus ibus-bamboo --install-recommends
+# add-apt-repository ppa:bamboo-engine/ibus-bamboo -y
+# sudo apt update
+# sudo apt install -y ibus ibus-bamboo --install-recommends
 ibus restart
 env DCONF_PROFILE=ibus dconf write /desktop/ibus/general/preload-engines "['BambooUs', 'Bamboo']" && gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('ibus', 'Bamboo')]"
 
