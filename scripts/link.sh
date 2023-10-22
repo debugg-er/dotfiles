@@ -14,6 +14,6 @@ ln -svf ~/dotfiles/config/.zshrc ~/.zshrc
 ln -svf ~/dotfiles/config/.vimrc ~/.vimrc
 ln -svf ~/dotfiles/config/.fonts ~/.fonts
 
-ln -svf ~/dotfiles/config/.oh-my-zsh/plugins ~/.oh-my-zsh/custom/plugins
+ln -svf ~/dotfiles/config/.oh-my-zsh/plugins/* ~/.oh-my-zsh/custom/plugins
 
 sudo ln -svf ~/dotfiles/config/keyd /etc/keyd

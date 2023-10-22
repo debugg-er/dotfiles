@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -e
+DOTFILES_DIR=~/dotfiles
 
 Color_Off='\033[0m'
 BGreen='\033[1;32m'
@@ -17,14 +18,14 @@ sudo apt update
 sudo apt install -y software-properties-common build-essential
 
 print_step "Setting up apt repositories"
-cat ./scripts/stuff/apt-repos | while read repo; do sudo add-apt-repository -y $repo; done
+cat $DOTFILES_DIR/scripts/stuff/apt-repos | while read repo; do sudo add-apt-repository -y $repo; done
 
 print_step "Install programs"
-sudo apt install -y $(cat ./scripts/stuff/apt-packages)
+sudo apt install -y $(cat $DOTFILES_DIR/scripts/stuff/apt-packages)
 
 print_step "Install Node version manager (nvm)"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
-[ -s "$HOME/.nvm/nvm.sh" ] && \. "$HOME/.nvm/nvm.sh"
+[ -s "~/.nvm/nvm.sh" ] && \. "~/.nvm/nvm.sh"
 
 print_step "Install lastest NodeJS"
 nvm install --lts
@@ -45,18 +46,19 @@ print_step "Install tpm"
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # print_step "Install fzf"
-# git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
-# yes | $HOME/.fzf/install
+# git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+# yes | ~/.fzf/install
 
 print_step "Install oh-my-zsh"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
 
-print_step "Install zsh-autosuggestions plugin"
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+# print_step "Install zsh-autosuggestions plugin"
+# git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 print_step "Download kubectl"
 mkdir -p ~/.local/bin
-curl -L -o $HOME/.local/bin/kubectl "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+curl -L -o ~/.local/bin/kubectl "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+chmod +x ~/.local/bin/kubectl
 
 print_step "Install keyd"
 git clone https://github.com/rvaiya/keyd
