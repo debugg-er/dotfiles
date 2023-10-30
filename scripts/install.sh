@@ -44,7 +44,6 @@ cd keyd
 make && sudo make install
 systemctl enable keyd && sudo systemctl start keyd
 cd .. && rm -rf keyd
-keyd reload
 
 print_step "Config ibus-bamboo"
 ibus restart
