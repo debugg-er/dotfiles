@@ -31,6 +31,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 
 print_step "Install docker"
 curl https://get.docker.com | bash -
+sudo usermod -aG docker $USER
 
 print_step "Download kubectl"
 mkdir -p ~/.local/bin
