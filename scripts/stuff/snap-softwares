@@ -1,4 +1,4 @@
 nvim --classic
 code --classic
-telegram-desktop --classic
+telegram-desktop
 postman
