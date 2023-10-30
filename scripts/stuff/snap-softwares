@@ -1,3 +1,4 @@
-nvim
-code
+nvim --classic
+code --classic
+telegram-desktop --classic
 postman

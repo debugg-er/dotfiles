@@ -25,10 +25,10 @@ sudo apt install -y $(cat $DOTFILES_DIR/scripts/stuff/apt-packages)
 
 print_step "Install Node version manager (nvm)"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
-[ -s "~/.nvm/nvm.sh" ] && \. "~/.nvm/nvm.sh"
+# [ -s "~/.nvm/nvm.sh" ] && \. "~/.nvm/nvm.sh"
 
-print_step "Install lastest NodeJS"
-nvm install --lts
+# print_step "Install lastest NodeJS"
+# nvm install --lts
 
 # print_step "Install global node's modules"
 # npm install -g yarn
@@ -68,7 +68,7 @@ systemctl enable keyd && sudo systemctl start keyd
 cd .. && rm -rf keyd
 keyd reload
 
-print_step "Install ibus-bamboo"
+print_step "Config ibus-bamboo"
 # add-apt-repository ppa:bamboo-engine/ibus-bamboo -y
 # sudo apt update
 # sudo apt install -y ibus ibus-bamboo --install-recommends
@@ -76,4 +76,4 @@ ibus restart
 env DCONF_PROFILE=ibus dconf write /desktop/ibus/general/preload-engines "['BambooUs', 'Bamboo']" && gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('ibus', 'Bamboo')]"
 
 print_step "Install Snap Applications"
-sudo snap install nvim --classic
+cat $DOTFILES_DIR/scripts/stuff/snap-softwares | while read repo; do sudo snap install $repo; done

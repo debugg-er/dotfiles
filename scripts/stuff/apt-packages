@@ -3,6 +3,7 @@ git
 make
 curl
 wget
+fzf
 net-tools
 nmap
 ripgrep
@@ -12,3 +13,5 @@ xsel
 alacritty
 ibus
 ibus-bamboo
+gnome-shell-extension-manager
+gnome-tweaks
