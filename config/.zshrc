@@ -27,8 +27,10 @@ if [ -d "$HOME/.cargo/bin" ]; then
   PATH="$HOME/.cargo/bin:$PATH"
 fi
 
-export EDITOR='lvim'
+export EDITOR='nvim'
 
 source "$HOME/.config/zsh/omz.sh"
 source "$HOME/.config/zsh/init.sh"
 source "$HOME/.config/zsh/alias.sh"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

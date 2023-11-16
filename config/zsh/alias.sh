@@ -20,7 +20,10 @@ alias fklog="kubectl logs -f \$(kubectl get po --no-headers=true | fzf | awk '{p
 alias fkdelete="kubectl delete pod \$(kubectl get po --no-headers=true | fzf | awk '{print \$1}')"
 alias fkexec="kubectl exec -it \$(kubectl get po --no-headers=true | fzf | awk '{print \$1}') -- "
 
-alias fgc="git checkout \$(git branch --all | fzf)"
+fgc() {
+    b=$(git branch --all | fzf | xargs | sed 's/^remotes\/origin\///')
+    git checkout $b
+}
 
 fk() {
     operator=$1
