@@ -15,6 +15,9 @@ function M.setup()
             enable = true,
             update_cwd = true
         },
+        filters = {
+            -- dotfiles = false
+        }
     })
     vim.keymap.set('n', '<space>e', api.tree.toggle)
 end
