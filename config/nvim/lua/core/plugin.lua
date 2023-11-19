@@ -88,8 +88,6 @@ require("lazy").setup({
             "nvim-tree/nvim-web-devicons"
         }
     },
-    -- { "neovim/nvim-lspconfig", },
-    -- { "williamboman/mason.nvim", },
     {
         'williamboman/mason-lspconfig.nvim',
         config = require("core.plugin.lsp").setup,
@@ -98,7 +96,6 @@ require("lazy").setup({
             "williamboman/mason.nvim",
         },
     },
-
     {
         'hrsh7th/nvim-cmp',
         config = require("core.plugin.cmp").setup,

@@ -1,0 +1,25 @@
+{
+    "workspace.library": [
+        "/home/khainguyen/.config/nvim",
+        "/home/khainguyen/.local/share/nvim/lazy/lazy.nvim",
+        "/home/khainguyen/.local/share/nvim/lazy/cmp-nvim-lsp",
+        "/home/khainguyen/.local/share/nvim/lazy/mason.nvim",
+        "/home/khainguyen/.local/share/nvim/lazy/nvim-lspconfig",
+        "/home/khainguyen/.local/share/nvim/lazy/mason-lspconfig.nvim",
+        "/home/khainguyen/.local/share/nvim/lazy/guess-indent.nvim",
+        "/home/khainguyen/.local/share/nvim/lazy/onedark.nvim",
+        "/home/khainguyen/.local/share/nvim/lazy/workspaces.nvim",
+        "/home/khainguyen/.local/share/nvim/lazy/plenary.nvim",
+        "/home/khainguyen/.local/share/nvim/lazy/telescope.nvim",
+        "/home/khainguyen/.local/share/nvim/lazy/vim-visual-multi",
+        "/home/khainguyen/.local/share/nvim/lazy/nvim-web-devicons",
+        "/home/khainguyen/.local/share/nvim/lazy/lualine.nvim",
+        "/home/khainguyen/.local/share/nvim/lazy/nvim-treesitter",
+        "/home/khainguyen/.local/share/nvim/lazy/vim-illuminate",
+        "/home/khainguyen/.local/share/nvim/lazy/vim-tmux-navigator",
+        "/snap/nvim/2809/usr/share/nvim/runtime",
+        "/home/khainguyen/.local/state/nvim/lazy/readme",
+        "/home/khainguyen/.local/share/nvim/lazy/cmp-nvim-lsp/after",
+        "${3rd}/luassert/library"
+    ]
+}

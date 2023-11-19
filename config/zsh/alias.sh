@@ -88,7 +88,7 @@ chpwd() {
         nvm use
         if [ $? -eq 3 ]; then
             nvm install
-            npm install -g yarn
+            npm install -g yarn @fsouza/prettierd eslint_d
         fi
     fi
     if [[ -n $TMUX ]]; then

@@ -20,11 +20,25 @@ local function setupMason()
             }
         end,
     }
+
+    require('lspconfig').lua_ls.setup {
+        settings = {
+            Lua = {
+                diagnostics = {
+                    globals = { 'vim', 'require' },
+                },
+                workspace = {
+                    -- Make the server aware of Neovim runtime files
+                    library = vim.api.nvim_get_runtime_file("", true),
+                },
+            }
+        }
+    }
 end
 
 local function lspKeymap()
-    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-    vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+    -- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+    -- vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
     -- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 
     -- Use LspAttach autocommand to only map the following keys
@@ -43,7 +57,7 @@ function M.setup()
     setupMason()
     lspKeymap()
 
-vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", {undercurl=true, sp='#ffff00'})
+    vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { undercurl = true, sp = '#ffff00' })
 end
 
 return M

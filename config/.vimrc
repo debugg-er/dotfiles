@@ -55,53 +55,53 @@ set foldlevel=30 " expand all fold when open file
 " System clipboard
 set clipboard=unnamedplus
 
-tnoremap JK <C-\><C-n>
+" Disable insert the comment character on new line
+autocmd FileType * set formatoptions-=cro
 
 " refresh
 nmap <space>r :w<cr>:source ~/.config/nvim/init.vim<cr>
 
-" refresh NERDTree
-" nmap <space>r :NERDTreeRefreshRoot<CR>
-
-" copy all line
+" Copy all line
 nnoremap <space>y ggyG<C-o>zz
 
-" indent whole file
+" Indent whole file
 nnoremap <space>= gg=G<C-o>zz
 
-" return to normal mode
+" Return to normal mode
+tnoremap jk <C-\><C-n>
 inoremap jk <ESC>
-inoremap Jk <ESC>
-inoremap jK <ESC>
-inoremap JK <ESC>
 
-" prevent yank jump back
+" Prevent yank jump back
 " vnoremap y ygv<ESC>
 " inoremap <C-CR> <ESC><S-A>;
 " nnoremap <C-CR> <S-A>;<ESC>
 
-" replace
-nnoremap <C-A-h> :%s//g<left><left>
+" Replace
+" nnoremap <C-A-h> :%s//g<left><left>
 
-" indent multiple line
+" Indent multiple line
 vmap <A-l> >gv
 vmap <A-h> <gv
+
+" Move line
+nnoremap <A-j> :m +1<CR>==
+nnoremap <A-k> :m -2<CR>==
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
 
 " Remove highlight
 nnoremap <A-h> :nohl<CR>
 
-" fzf
-" noremap ` :Files<CR>
-" noremap gs :Ag<CR>
-
-" search without case-sensitive
+" Search without case-sensitive
 nnoremap ? /\c
 
-" fix <S-k> visual mode throw error
+" Fix <S-k> visual mode throw error
 vnoremap <S-k> <up>
 vnoremap <S-j> <down>
 
-" prevent cut or copy of some key
+" Prevent cut or copy of some key
 vnoremap c "_c
 vnoremap x "_x
 nnoremap x "_x
@@ -110,50 +110,6 @@ nnoremap D "_D
 nnoremap C "_C
 vnoremap p "_dP
 
-
+" Save/Quit
 nmap <space>q :q<CR>
 nmap <space>w :w<CR>
-" rename current word like VSCode
-" nmap <space>r <Plug>(coc-rename)
-
-" NERDTree
-" nnoremap <space>f :NERDTreeToggle<CR>
-
-" open coc-explorer
-" nmap <space>f :CocCommand explorer<CR>
-
-" git gutter
-" nmap <space>p <Plug>(GitGutterPreviewHunk)
-" nmap ghs <Plug>(GitGutterStageHunk)
-" nmap ghu <Plug>(GitGutterUndoHunk)
-
-" insert ; to end line
-" inoremap <A-CR> <ESC><S-A>;
-" nnoremap <A-CR> <S-A>;<ESC>
-
-" move in insert and command mode
-" inoremap <C-h> <Left>
-" inoremap <C-j> <Down>
-" inoremap <C-k> <Up>
-" inoremap <C-l> <Right>
-" cnoremap <C-h> <Left>
-" cnoremap <C-j> <Down>
-" cnoremap <C-k> <Up>
-" cnoremap <C-l> <Right>
-
-" W to save file
-" cabb W w
-" cabb Q q
-
-" prevent 'q + :'
-" nnoremap q: <CR>
-
-" move line
-nnoremap <A-j> :m +1<CR>==
-nnoremap <A-k> :m -2<CR>==
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
-inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-2<CR>==gi
-
-tnoremap jk <C-\><C-n>

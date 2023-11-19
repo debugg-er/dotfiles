@@ -2,8 +2,6 @@ local M = {}
 
 local config = {
   ---@usage disable which-key completely [not recommended]
-  active = true,
-  on_config_done = nil,
   setup = {
     plugins = {
       marks = false,       -- shows a list of your marks on ' and `
@@ -77,6 +75,14 @@ local config = {
     },
   },
 
+  noPrefixOpts = {
+    mode = "n",       -- NORMAL mode
+    prefix = "",
+    buffer = nil,     -- Global mappings. Specify a buffer number for buffer local mappings
+    silent = true,    -- use `silent` when creating keymaps
+    noremap = true,   -- use `noremap` when creating keymaps
+    nowait = true,    -- use `nowait` when creating keymaps
+  },
   opts = {
     mode = "n",       -- NORMAL mode
     prefix = "<leader>",
@@ -95,6 +101,21 @@ local config = {
   },
   -- NOTE: Prefer using : over <cmd> as the latter avoids going back in normal-mode.
   -- see https://neovim.io/doc/user/map.html#:map-cmd
+  noPrefixMapping = {
+    ["g"] = {
+      i = { "<cmd>Telescope lsp_implementations<cr>", "Go to implementations" },
+      d = { "<cmd>Telescope lsp_definitions<cr>", "Go to definitions" },
+      D = { "<cmd>Telescope lsp_type_definitions<cr>", "Go to type definitions" },
+      r = { "<cmd>Telescope lsp_references<cr>", "Go to references" },
+      e = { "<cmd>BufferClose<CR>", "Close Buffer" },
+      a = {
+        "Close many buffer",
+        o = {"<cmd>BufferCloseAllButCurrent<CR>", "Close all buffers but current" },
+        h = {"<cmd>BufferCloseBuffersLeft<CR>", "Close all buffers to left" },
+        l = {"<cmd>BufferCloseBuffersRight<CR>", "Close all buffers to right" },
+      }
+    }
+  },
   vmappings = {
     ["/"] = { "<Plug>(comment_toggle_linewise_visual)", "Comment toggle linewise (visual)" },
     l = {
@@ -107,15 +128,12 @@ local config = {
     ["w"] = { "<cmd>w!<CR>", "Save" },
     ["q"] = { "<cmd>confirm q<CR>", "Quit" },
     ["/"] = { "<Plug>(comment_toggle_linewise_current)", "Comment toggle current line" },
-    ["c"] = { "<cmd>BufferKill<CR>", "Close Buffer" },
-    ["f"] = {
-      function()
-        -- require("lvim.core.telescope.custom-finders").find_project_files { previewer = false }
-      end,
-      "Find File",
-    },
+    -- ["c"] = { "<cmd>BufferKill<CR>", "Close Buffer" },
     ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
     ["e"] = { "<cmd>NvimTreeToggle<CR>", "Explorer" },
+    ["f"] = { "<cmd>Telescope find_files<cr>", "Find in file" },
+    ["a"] = { "<cmd>Telescope live_grep<cr>", "Find in workspace" },
+    ["r"] = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
     b = {
       name = "Buffers",
       h = { "<cmd>BufferCloseBuffersLeft<cr>", "Close all to the left" },
@@ -193,10 +211,11 @@ local config = {
     l = {
       name = "LSP",
       a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
-      d = { "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>", "Buffer Diagnostics" },
+      -- d = { "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>", "Buffer Diagnostics" },
       w = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
       -- f = { "<cmd>lua require('lvim.lsp.utils').format()<cr>", "Format" },
-      i = { "<cmd>LspInfo<cr>", "Info" },
+      -- i = { "<cmd>Telescope lsp_implementations<cr>", "Go to implementations" },
+      -- d = { "<cmd>Telescope lsp_definitions<cr>", "Go to definitions" },
       I = { "<cmd>Mason<cr>", "Mason Info" },
       j = {
         "<cmd>lua vim.diagnostic.goto_next()<cr>",
@@ -209,27 +228,25 @@ local config = {
       l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
       -- q = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "Quickfix" },
       q = { "<cmd>lua vim.lsp.buf.code_action({ apply = true })<cr>", "Quickfix" },
-      r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
-      s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
-      S = {
-        "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
-        "Workspace Symbols",
-      },
+      -- r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
+      -- s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
+      -- S = {
+      --   "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
+      --   "Workspace Symbols",
+      -- },
       e = { "<cmd>Telescope quickfix<cr>", "Telescope Quickfix" },
     },
     s = {
       name = "Search",
       b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
-      c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
-      f = { "<cmd>Telescope find_files<cr>", "Find File" },
-      g = { "<cmd>Telescope live_grep<cr>", "Find String" },
+      c = { "<cmd>Telescope colorscheme<cr>", "Choose colorscheme" },
 
       h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
       H = { "<cmd>Telescope highlights<cr>", "Find highlight groups" },
       M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
       r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
       R = { "<cmd>Telescope registers<cr>", "Registers" },
-      t = { "<cmd>Telescope live_grep<cr>", "Text" },
+      -- t = { "<cmd>Telescope live_grep<cr>", "Text" },
       k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
       C = { "<cmd>Telescope commands<cr>", "Commands" },
       l = { "<cmd>Telescope resume<cr>", "Resume last search" },
@@ -250,18 +267,9 @@ M.setup = function()
 
   which_key.setup(config.setup)
 
-  local opts = config.opts
-  local vopts = config.vopts
-
-  local mappings = config.mappings
-  local vmappings = config.vmappings
-
-  which_key.register(mappings, opts)
-  which_key.register(vmappings, vopts)
-
-  if config.on_config_done then
-    config.on_config_done(which_key)
-  end
+  which_key.register(config.mappings, config.opts)
+  which_key.register(config.vmappings, config.vopts)
+  which_key.register(config.noPrefixMapping, config.noPrefixOpts)
 end
 
 return M
