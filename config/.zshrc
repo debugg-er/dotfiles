@@ -14,6 +14,8 @@ export SAVEHIST=1000000                   # Maximum events in history file
 export FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
+export EDITOR='nvim'
+
 ### PATH
 if [ -d "$HOME/.bin" ]; then
   PATH="$HOME/.bin:$PATH"
@@ -27,7 +29,10 @@ if [ -d "$HOME/.cargo/bin" ]; then
   PATH="$HOME/.cargo/bin:$PATH"
 fi
 
-export EDITOR='nvim'
+if [ -d "$HOME/.local/share/fnm" ]; then
+  PATH="$HOME/.local/share/fnm:$PATH"
+  eval "$(fnm env --use-on-cd)"
+fi
 
 source "$HOME/.config/zsh/omz.sh"
 source "$HOME/.config/zsh/init.sh"

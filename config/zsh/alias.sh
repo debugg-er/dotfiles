@@ -3,7 +3,7 @@
 alias killimwheel="kill $(ps aux | pgrep imwheel)"
 alias k="kubectl"
 alias fzf="fzf --height 50% --reverse"
-alias vim="nvim"
+alias vim="fnm exec --using=default nvim"
 alias t="trans -b :vi"
 alias disable-keyboard="xinput float \"AT Translated Set 2 keyboard\""
 alias enable-keyboard="xinput reattach \"AT Translated Set 2 keyboard\" 3"
@@ -84,13 +84,13 @@ kport() {
 
 # auto load correct node version
 chpwd() {
-    if [[ -f .nvmrc && -r .nvmrc ]] && [[ $(cat .nvmrc) != $(node -v) ]]; then
-        nvm use
-        if [ $? -eq 3 ]; then
-            nvm install
-            npm install -g yarn @fsouza/prettierd eslint_d
-        fi
-    fi
+    # if [[ -f .nvmrc && -r .nvmrc ]] && [[ $(cat .nvmrc) != $(node -v) ]]; then
+    #     nvm use
+    #     if [ $? -eq 3 ]; then
+    #         nvm install
+    #         npm install -g yarn @fsouza/prettierd eslint_d
+    #     fi
+    # fi
     if [[ -n $TMUX ]]; then
         tmux rename-window $(basename $(pwd))
     fi
