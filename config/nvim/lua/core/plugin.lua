@@ -3,17 +3,14 @@ require("lazy").setup({
     "tpope/vim-surround",
     "tpope/vim-commentary",
     "mg979/vim-visual-multi",
-    -- {
-    --     "folke/neodev.nvim",
-    --     opts = {}
-    -- },
-    --
+    {
+        "andrewferrier/debugprint.nvim",
+        config = require('core.plugin.debugprint').setup
+    },
     {
         "natecraddock/workspaces.nvim",
         config = function()
-            require("workspaces").setup({
-                cd_type = "global",
-            })
+            require("workspaces").setup({ cd_type = "global", })
         end
     },
     {
