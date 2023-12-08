@@ -24,7 +24,6 @@ require("lazy").setup({
     },
     {
         'akinsho/toggleterm.nvim',
-        version = "*",
         config = require('core.plugin.terminal').setup
     },
     {
@@ -49,7 +48,9 @@ require("lazy").setup({
         'nvim-telescope/telescope.nvim',
         tag = '0.1.2',
         config = require('core.plugin.telescope').setup,
-        dependencies = { 'nvim-lua/plenary.nvim' },
+        dependencies = {
+            'nvim-lua/plenary.nvim'
+        },
     },
     {
         "lukas-reineke/indent-blankline.nvim",
