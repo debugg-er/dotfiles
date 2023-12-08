@@ -4,22 +4,22 @@ local config = {
   ---@usage disable which-key completely [not recommended]
   setup = {
     plugins = {
-      marks = false,       -- shows a list of your marks on ' and `
-      registers = false,   -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+      marks = false,     -- shows a list of your marks on ' and `
+      registers = false, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
       spelling = {
         enabled = true,
         suggestions = 20,
-      },   -- use which-key for spelling hints
+      }, -- use which-key for spelling hints
       -- the presets plugin, adds help for a bunch of default keybindings in Neovim
       -- No actual key bindings are created
       presets = {
-        operators = false,      -- adds help for operators like d, y, ...
-        motions = false,        -- adds help for motions
-        text_objects = false,   -- help for text objects triggered after entering an operator
-        windows = false,        -- default bindings on <c-w>
-        nav = false,            -- misc bindings to work with windows
-        z = false,              -- bindings for folds, spelling and others prefixed with z
-        g = false,              -- bindings for prefixed with g
+        operators = false,    -- adds help for operators like d, y, ...
+        motions = false,      -- adds help for motions
+        text_objects = false, -- help for text objects triggered after entering an operator
+        windows = false,      -- default bindings on <c-w>
+        nav = false,          -- misc bindings to work with windows
+        z = false,            -- bindings for folds, spelling and others prefixed with z
+        g = false,            -- bindings for prefixed with g
       },
     },
     -- add operators that will trigger motion and text object completion
@@ -38,27 +38,27 @@ local config = {
       -- group = lvim.icons.ui.Plus,                      -- symbol prepended to a group
     },
     popup_mappings = {
-      scroll_down = "<c-d>",   -- binding to scroll down inside the popup
-      scroll_up = "<c-u>",     -- binding to scroll up inside the popup
+      scroll_down = "<c-d>", -- binding to scroll down inside the popup
+      scroll_up = "<c-u>",   -- binding to scroll up inside the popup
     },
     window = {
-      border = "single",          -- none, single, double, shadow
-      position = "bottom",        -- bottom, top
-      margin = { 1, 0, 1, 0 },    -- extra window margin [top, right, bottom, left]
-      padding = { 2, 2, 2, 2 },   -- extra window padding [top, right, bottom, left]
+      border = "single",        -- none, single, double, shadow
+      position = "bottom",      -- bottom, top
+      margin = { 1, 0, 1, 0 },  -- extra window margin [top, right, bottom, left]
+      padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
       winblend = 0,
     },
     layout = {
-      height = { min = 4, max = 25 },                                               -- min and max height of the columns
-      width = { min = 20, max = 50 },                                               -- min and max width of the columns
-      spacing = 3,                                                                  -- spacing between columns
-      align = "left",                                                               -- align columns left, center or right
+      height = { min = 4, max = 25 },                                             -- min and max height of the columns
+      width = { min = 20, max = 50 },                                             -- min and max width of the columns
+      spacing = 3,                                                                -- spacing between columns
+      align = "left",                                                             -- align columns left, center or right
     },
-    ignore_missing = true,                                                          -- enable this to hide mappings for which you didn't specify a label
-    hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " },   -- hide mapping boilerplate
-    show_help = true,                                                               -- show help message on the command line when the popup is visible
-    show_keys = true,                                                               -- show the currently pressed key and its label as a message in the command line
-    triggers = "auto",                                                              -- automatically setup triggers
+    ignore_missing = true,                                                        -- enable this to hide mappings for which you didn't specify a label
+    hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
+    show_help = true,                                                             -- show help message on the command line when the popup is visible
+    show_keys = true,                                                             -- show the currently pressed key and its label as a message in the command line
+    triggers = "auto",                                                            -- automatically setup triggers
     -- triggers = {"<leader>"} -- or specify a list manually
     triggers_blacklist = {
       -- list of mode / prefixes that should never be hooked by WhichKey
@@ -76,28 +76,28 @@ local config = {
   },
 
   noPrefixOpts = {
-    mode = "n",       -- NORMAL mode
+    mode = "n",     -- NORMAL mode
     prefix = "",
-    buffer = nil,     -- Global mappings. Specify a buffer number for buffer local mappings
-    silent = true,    -- use `silent` when creating keymaps
-    noremap = true,   -- use `noremap` when creating keymaps
-    nowait = true,    -- use `nowait` when creating keymaps
+    buffer = nil,   -- Global mappings. Specify a buffer number for buffer local mappings
+    silent = true,  -- use `silent` when creating keymaps
+    noremap = true, -- use `noremap` when creating keymaps
+    nowait = true,  -- use `nowait` when creating keymaps
   },
   opts = {
-    mode = "n",       -- NORMAL mode
+    mode = "n",     -- NORMAL mode
     prefix = "<leader>",
-    buffer = nil,     -- Global mappings. Specify a buffer number for buffer local mappings
-    silent = true,    -- use `silent` when creating keymaps
-    noremap = true,   -- use `noremap` when creating keymaps
-    nowait = true,    -- use `nowait` when creating keymaps
+    buffer = nil,   -- Global mappings. Specify a buffer number for buffer local mappings
+    silent = true,  -- use `silent` when creating keymaps
+    noremap = true, -- use `noremap` when creating keymaps
+    nowait = true,  -- use `nowait` when creating keymaps
   },
   vopts = {
-    mode = "v",       -- VISUAL mode
+    mode = "v",     -- VISUAL mode
     prefix = "<leader>",
-    buffer = nil,     -- Global mappings. Specify a buffer number for buffer local mappings
-    silent = true,    -- use `silent` when creating keymaps
-    noremap = true,   -- use `noremap` when creating keymaps
-    nowait = true,    -- use `nowait` when creating keymaps
+    buffer = nil,   -- Global mappings. Specify a buffer number for buffer local mappings
+    silent = true,  -- use `silent` when creating keymaps
+    noremap = true, -- use `noremap` when creating keymaps
+    nowait = true,  -- use `nowait` when creating keymaps
   },
   -- NOTE: Prefer using : over <cmd> as the latter avoids going back in normal-mode.
   -- see https://neovim.io/doc/user/map.html#:map-cmd
@@ -109,10 +109,10 @@ local config = {
       r = { "<cmd>Telescope lsp_references<cr>", "Go to references" },
       e = { "<cmd>BufferClose<CR>", "Close Buffer" },
       a = {
-        "Close many buffer",
-        o = {"<cmd>BufferCloseAllButCurrent<CR>", "Close all buffers but current" },
-        h = {"<cmd>BufferCloseBuffersLeft<CR>", "Close all buffers to left" },
-        l = {"<cmd>BufferCloseBuffersRight<CR>", "Close all buffers to right" },
+        name = "Buffers",
+        o = { "<cmd>BufferCloseAllButCurrent<CR>", "Close all buffers but current" },
+        h = { "<cmd>BufferCloseBuffersLeft<CR>", "Close all buffers to left" },
+        l = { "<cmd>BufferCloseBuffersRight<CR>", "Close all buffers to right" },
       }
     }
   },
@@ -124,28 +124,15 @@ local config = {
     },
   },
   mappings = {
-    [";"] = { "<cmd>Alpha<CR>", "Dashboard" },
+    [";"] = { "<cmd>lua require'telescope'.extensions.projects.projects{}<cr>", "Workspaces" },
     ["w"] = { "<cmd>w!<CR>", "Save" },
     ["q"] = { "<cmd>confirm q<CR>", "Quit" },
     ["/"] = { "<Plug>(comment_toggle_linewise_current)", "Comment toggle current line" },
-    -- ["c"] = { "<cmd>BufferKill<CR>", "Close Buffer" },
     ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
     ["e"] = { "<cmd>NvimTreeToggle<CR>", "Explorer" },
     ["f"] = { "<cmd>Telescope find_files<cr>", "Find in file" },
     ["a"] = { "<cmd>Telescope live_grep<cr>", "Find in workspace" },
     ["r"] = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
-    b = {
-      name = "Buffers",
-      h = { "<cmd>BufferCloseBuffersLeft<cr>", "Close all to the left" },
-      l = {
-        "<cmd>BufferCloseBuffersRight<cr>",
-        "Close all to the right",
-      },
-      o = {
-        "<cmd>BufferCloseAllButCurrent<cr>",
-        "Close other tabs"
-      }
-    },
     d = {
       name = "Debug",
       t = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Toggle Breakpoint" },

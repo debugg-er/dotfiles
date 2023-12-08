@@ -3,15 +3,21 @@ require("lazy").setup({
     "tpope/vim-surround",
     "tpope/vim-commentary",
     "mg979/vim-visual-multi",
+    "iamcco/coc-spell-checker",
+    {
+        "ahmedkhalf/project.nvim",
+        config = function ()
+            require("project_nvim").setup({
+                require('telescope').load_extension('projects')
+            })
+        end,
+        dependencies = {
+            'nvim-telescope/telescope.nvim',
+        }
+    },
     {
         "andrewferrier/debugprint.nvim",
         config = require('core.plugin.debugprint').setup
-    },
-    {
-        "natecraddock/workspaces.nvim",
-        config = function()
-            require("workspaces").setup({ cd_type = "global", })
-        end
     },
     {
         "folke/which-key.nvim",
