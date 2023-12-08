@@ -1,4 +1,10 @@
 nvim --classic
 code --classic
+helm --classic
+prospect-mail
 telegram-desktop
 postman
+wps-office
+slack
+redisinsight
+dbeaver-ce
