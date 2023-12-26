@@ -17,7 +17,11 @@ function M.setup()
         },
         filters = {
             -- dotfiles = false
-        }
+        },
+        view = {
+            width = 40,
+            side = "left",
+        },
     })
     vim.keymap.set('n', '<space>e', api.tree.toggle)
 end

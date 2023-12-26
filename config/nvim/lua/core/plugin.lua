@@ -4,17 +4,17 @@ require("lazy").setup({
     "tpope/vim-commentary",
     "mg979/vim-visual-multi",
     "iamcco/coc-spell-checker",
-    {
-        "ahmedkhalf/project.nvim",
-        config = function ()
-            require("project_nvim").setup({
-                require('telescope').load_extension('projects')
-            })
-        end,
-        dependencies = {
-            'nvim-telescope/telescope.nvim',
-        }
-    },
+    -- {
+    --     "ahmedkhalf/project.nvim",
+    --     config = function ()
+    --         require("project_nvim").setup({
+    --             require('telescope').load_extension('projects')
+    --         })
+    --     end,
+    --     dependencies = {
+    --         'nvim-telescope/telescope.nvim',
+    --     }
+    -- },
     {
         "andrewferrier/debugprint.nvim",
         config = require('core.plugin.debugprint').setup

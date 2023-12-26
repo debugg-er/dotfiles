@@ -1,14 +1,13 @@
 #!/bin/bash
 
-alias killimwheel="kill $(ps aux | pgrep imwheel)"
-alias k="kubectl"
-alias fzf="fzf --height 50% --reverse"
+# alias w="cd \$(cat ~/.workspaces | fzf | awk '{print \$2}')"
 alias vim="fnm exec --using=default nvim"
+
+alias fzf="fzf --height 50% --reverse"
 alias t="trans -b :vi"
-alias disable-keyboard="xinput float \"AT Translated Set 2 keyboard\""
-alias enable-keyboard="xinput reattach \"AT Translated Set 2 keyboard\" 3"
 alias show-installed-package="comm -23 <(apt-mark showmanual | sort -u) <(gzip -dc /var/log/installer/initial-status.gz | sed -n 's/^Package: //p' | sort -u)"
 
+alias k="kubectl"
 alias kcuc="kubectl config use-context"
 alias kcgc="kubectl config get-contexts"
 alias kgp="kubectl get po"
@@ -19,6 +18,23 @@ alias fkn="kubectl config set-context --current --namespace=\$(kubectl get names
 alias fklog="kubectl logs -f \$(kubectl get po --no-headers=true | fzf | awk '{print \$1}')"
 alias fkdelete="kubectl delete pod \$(kubectl get po --no-headers=true | fzf | awk '{print \$1}')"
 alias fkexec="kubectl exec -it \$(kubectl get po --no-headers=true | fzf | awk '{print \$1}') -- "
+
+cleanup_workspaces() {
+    while IFS= read -r line; do
+        dir_path=$(echo "$line" | awk '{print $2}')
+
+        if [ -d "$dir_path" ]; then
+            echo "$line"
+        fi
+    done < ~/.workspaces
+}
+
+w() {
+    cleaned_workspaces=$(cleanup_workspaces)
+    selected_dir=$(echo $cleaned_workspaces | fzf | awk '{print $2}')
+    cd $selected_dir
+    vim
+}
 
 fgc() {
     b=$(git branch --all | fzf | xargs | sed 's/^remotes\/origin\///')
@@ -91,9 +107,25 @@ chpwd() {
     #         npm install -g yarn @fsouza/prettierd eslint_d
     #     fi
     # fi
-    if [[ -n $TMUX ]]; then
-        tmux rename-window $(basename $(pwd))
+    # if [[ -n $TMUX ]]; then
+    #     tmux rename-window $(basename $(pwd))
+    # fi
+
+    if [[ ! -d ".git" ]]; then
+        return 1
     fi
+
+    if [[ ! -e "~/.workspaces" ]]; then
+        touch ~/.workspaces
+    fi
+
+    current_dir=$(pwd)
+    workspace_existed=$(grep -R $current_dir ~/.workspaces)
+    if [[ $workspace_existed ]]; then
+        return 1
+    fi
+
+    printf '%-24s %s\n' $(basename $current_dir) $current_dir >> ~/.workspaces
 }
 
 fkill() {
