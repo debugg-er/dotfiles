@@ -19,7 +19,7 @@ function M.setup()
             -- dotfiles = false
         },
         view = {
-            width = 40,
+            width = 36,
             side = "left",
         },
     })

@@ -64,6 +64,7 @@ function M.setup()
             { name = "treesitter" },
             { name = "crates" },
             { name = "tmux" },
+            { name = "nvim_lsp_signature_help" }
         }, {
             { name = 'buffer' },
         }),

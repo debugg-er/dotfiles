@@ -3,7 +3,6 @@ require("lazy").setup({
     "tpope/vim-surround",
     "tpope/vim-commentary",
     "mg979/vim-visual-multi",
-    "iamcco/coc-spell-checker",
     -- {
     --     "ahmedkhalf/project.nvim",
     --     config = function ()
@@ -104,8 +103,11 @@ require("lazy").setup({
         'hrsh7th/nvim-cmp',
         config = require("core.plugin.cmp").setup,
         dependencies = {
-            { 'hrsh7th/cmp-nvim-lsp' },
-            { 'onsails/lspkind.nvim' },
+            'hrsh7th/cmp-nvim-lsp',
+            'onsails/lspkind.nvim',
+            "hrsh7th/cmp-path",
+            "ray-x/cmp-treesitter",
+            "hrsh7th/cmp-nvim-lsp-signature-help",
             { "L3MON4D3/LuaSnip",    version = "2.*", build = "make install_jsregexp" },
         },
     },
