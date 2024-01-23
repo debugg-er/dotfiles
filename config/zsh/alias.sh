@@ -19,6 +19,14 @@ alias fklog="kubectl logs -f \$(kubectl get po --no-headers=true | fzf | awk '{p
 alias fkdelete="kubectl delete pod \$(kubectl get po --no-headers=true | fzf | awk '{print \$1}')"
 alias fkexec="kubectl exec -it \$(kubectl get po --no-headers=true | fzf | awk '{print \$1}') -- "
 
+glogw() {
+    git log --date=iso-local --pretty=format:'%h|%an|%ad|%s' | 
+    while IFS='|' read hash author date message
+    do
+        printf '\033[0;32m%s\033[0m  \033[1;31m%-20s\033[0m %-28s \033[0;33m%s\033[0m\n' "$hash" "$author" "$date" "$message"
+    done | less
+}
+
 cleanup_workspaces() {
     while IFS= read -r line; do
         dir_path=$(echo "$line" | awk '{print $2}')
