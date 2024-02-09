@@ -3,17 +3,23 @@ require("lazy").setup({
     "tpope/vim-surround",
     "tpope/vim-commentary",
     "mg979/vim-visual-multi",
-    -- {
-    --     "ahmedkhalf/project.nvim",
-    --     config = function ()
-    --         require("project_nvim").setup({
-    --             require('telescope').load_extension('projects')
-    --         })
-    --     end,
-    --     dependencies = {
-    --         'nvim-telescope/telescope.nvim',
-    --     }
-    -- },
+    {
+        "aaronhallaert/advanced-git-search.nvim",
+        lazy = true,
+        config = function()
+            require("telescope").load_extension("advanced_git_search")
+        end,
+        dependencies = {
+            "nvim-telescope/telescope.nvim",
+            "tpope/vim-fugitive",
+        },
+    },
+    {
+        'nvim-pack/nvim-spectre',
+        dependencies = {
+            'nvim-lua/plenary.nvim'
+        },
+    },
     {
         "andrewferrier/debugprint.nvim",
         config = require('core.plugin.debugprint').setup
@@ -75,9 +81,7 @@ require("lazy").setup({
             'lewis6991/gitsigns.nvim',
             'nvim-tree/nvim-web-devicons',
         },
-        init = function()
-            vim.g.barbar_auto_setup = true
-        end,
+        config = require("core.plugin.barbar").setup
     },
     {
         'nvim-treesitter/nvim-treesitter',
@@ -108,7 +112,7 @@ require("lazy").setup({
             "hrsh7th/cmp-path",
             "ray-x/cmp-treesitter",
             "hrsh7th/cmp-nvim-lsp-signature-help",
-            { "L3MON4D3/LuaSnip",    version = "2.*", build = "make install_jsregexp" },
+            { "L3MON4D3/LuaSnip", version = "2.*", build = "make install_jsregexp" },
         },
     },
     {

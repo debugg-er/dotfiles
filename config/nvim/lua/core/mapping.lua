@@ -13,7 +13,7 @@ function M.toggleFormatOnSave()
         callback = function()
             print(formatOnSave)
             if formatOnSave then
-                vim.lsp.buf.format({ async = false, timeout = 10 * 1000 })
+                vim.lsp.buf.format({ async = false, timeout = 1000 * 1000 })
             end
         end,
     })

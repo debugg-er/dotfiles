@@ -124,7 +124,6 @@ local config = {
     },
   },
   mappings = {
-    [";"] = { "<cmd>lua require'telescope'.extensions.projects.projects{}<cr>", "Workspaces" },
     ["w"] = { "<cmd>w!<CR>", "Save" },
     ["q"] = { "<cmd>confirm q<CR>", "Quit" },
     ["/"] = { "<Plug>(comment_toggle_linewise_current)", "Comment toggle current line" },
@@ -133,6 +132,7 @@ local config = {
     ["f"] = { "<cmd>Telescope find_files<cr>", "Find in file" },
     ["a"] = { "<cmd>Telescope live_grep<cr>", "Find in workspace" },
     ["r"] = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
+    ["S"] = { '<cmd>lua require("spectre").toggle()<cr>', "Spectre replace" },
     d = {
       name = "Debug",
       t = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Toggle Breakpoint" },
@@ -194,6 +194,8 @@ local config = {
         "<cmd>Gitsigns diffthis HEAD<cr>",
         "Git Diff",
       },
+      -- advanced_git_search
+      h = { "<cmd>Telescope advanced_git_search diff_commit_file<cr>", "Current file history" }
     },
     l = {
       name = "LSP",
