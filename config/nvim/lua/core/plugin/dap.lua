@@ -19,7 +19,7 @@ function M.setup()
             request = "launch",
             name = "Launch file",
             runtimeExecutable = "yarn",
-            runtimeArgs = { "dev" },
+            runtimeArgs = { "debug" },
             program = "${file}",
             cwd = "${workspaceFolder}",
         },
