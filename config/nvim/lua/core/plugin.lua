@@ -3,6 +3,15 @@ require("lazy").setup({
     "tpope/vim-surround",
     "tpope/vim-commentary",
     "mg979/vim-visual-multi",
+    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+    {
+        "rcarriga/nvim-dap-ui",
+        lazy = true,
+        config = require('core.plugin.dap').setup,
+        dependencies = {
+            "mfussenegger/nvim-dap"
+        }
+    },
     {
         "aaronhallaert/advanced-git-search.nvim",
         lazy = true,
@@ -16,6 +25,7 @@ require("lazy").setup({
     },
     {
         'nvim-pack/nvim-spectre',
+        lazy = true,
         dependencies = {
             'nvim-lua/plenary.nvim'
         },

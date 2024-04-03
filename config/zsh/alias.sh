@@ -52,11 +52,39 @@ fgc() {
 fk() {
     operator=$1
     shift 1
+    if [[ "$operator" == "" ]]; then
+        echo "Missing arguments!"
+        return 1
+    fi
+
+    if [[ "$operator" == "pf" ]]; then
+        localPort=""
+        if [[ $1 =~ '^[0-9]+$' ]]; then
+            localPort=$1
+            shift 1
+        fi
+
+        pod=$(kubectl get pod --no-headers=true $@ | fzf | awk '{print $1}')
+        ports=$(kubectl get pod $pod -o jsonpath='{.spec.containers[*].ports}' $@ | jq -r '.[] | [.containerPort, .name] | @tsv')
+        targetPort=""
+        if [[ $(echo $ports | wc -l) == 1 ]]; then 
+            targetPort=$(echo $ports | awk '{print $1}')
+        else
+            targetPort=$(echo $ports | fzf | awk '{print $1}')
+        fi
+
+        if [[ $localPort == "" ]]; then
+            localPort=$targetPort
+        fi
+
+        kubectl port-forward $pod $localPort:$targetPort $@
+        return 0
+    fi
+
     resource=$1
     shift 1
-
-    if [[ "$operator" == "" || "$resource" == "" ]]; then
-        echo "Missing required arguments, Ex. 'fk describe po'"
+    if [[ "$resource" == "" ]]; then
+        echo "Missing arguments!"
         return 1
     fi
 
