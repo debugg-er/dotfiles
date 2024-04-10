@@ -11,7 +11,6 @@ function M.toggleFormatOnSave()
         group = augroup,
         buffer = bufnr,
         callback = function()
-            print(formatOnSave)
             if formatOnSave then
                 vim.lsp.buf.format({ async = false, timeout = 1000 * 1000 })
             end
@@ -46,7 +45,7 @@ function M.lsp(ev)
     -- vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
     -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     vim.keymap.set('n', '<space>p', function()
-        vim.lsp.buf.format { asynfc = true, timeout = 10 * 1000 }
+        vim.lsp.buf.format { async = false, timeout = 10 * 1000 }
     end, opts)
 end
 

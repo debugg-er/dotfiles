@@ -24,6 +24,17 @@ function M.setup()
             cwd = "${workspaceFolder}",
         },
     }
+    dap.configurations.typescript = {
+        {
+            type = "pwa-node",
+            request = "launch",
+            name = "Launch file",
+            runtimeExecutable = "yarn",
+            runtimeArgs = { "debug" },
+            program = "${file}",
+            cwd = "${workspaceFolder}",
+        },
+    }
 
     require('dapui').setup({
         layouts = {

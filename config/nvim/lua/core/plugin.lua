@@ -126,8 +126,11 @@ require("lazy").setup({
         },
     },
     {
-        "jose-elias-alvarez/null-ls.nvim",
-        config = require("core.plugin.null-ls").setup
+        "nvimtools/none-ls.nvim",
+        config = require("core.plugin.null-ls").setup,
+        dependencies = {
+            "nvimtools/none-ls-extras.nvim"
+        }
     },
     {
         "navarasu/onedark.nvim",
