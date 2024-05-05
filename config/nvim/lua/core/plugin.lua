@@ -96,7 +96,10 @@ require("lazy").setup({
     {
         'nvim-treesitter/nvim-treesitter',
         config = require("core.plugin.treesitter").setup,
-        build = ":TSUpdate"
+        build = ":TSUpdate",
+        dependencies = {
+            'windwp/nvim-ts-autotag'
+        }
     },
     {
         "nvim-tree/nvim-tree.lua",
