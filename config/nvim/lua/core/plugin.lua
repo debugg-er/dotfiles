@@ -3,6 +3,11 @@ require("lazy").setup({
     "tpope/vim-surround",
     "tpope/vim-commentary",
     "mg979/vim-visual-multi",
+    -- "mhinz/vim-startify",
+    -- {
+    --     'numToStr/Comment.nvim',
+    --     lazy = false,
+    -- },
     { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
     {
         "rcarriga/nvim-dap-ui",
@@ -98,7 +103,8 @@ require("lazy").setup({
         config = require("core.plugin.treesitter").setup,
         build = ":TSUpdate",
         dependencies = {
-            'windwp/nvim-ts-autotag'
+            'windwp/nvim-ts-autotag',
+            'nvim-treesitter/nvim-treesitter-textobjects'
         }
     },
     {

@@ -12,8 +12,7 @@ function M.setup()
             null_ls.builtins.formatting.stylua,
             null_ls.builtins.formatting.prettierd,
             -- null_ls.builtins.formatting.beautysh,
-
-            null_ls.builtins.completion.spell,
+            null_ls.builtins.diagnostics.codespell,
         },
         on_attach = function(client, bufnr)
             if client.supports_method("textDocument/formatting") then
