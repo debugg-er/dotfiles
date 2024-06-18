@@ -43,3 +43,5 @@ source "$HOME/.config/zsh/init.sh"
 source "$HOME/.config/zsh/alias.sh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
