@@ -65,7 +65,7 @@ program = "/usr/bin/tmux"
 [window]
 decorations = "none"
 decorations_theme_variant = "Dark"
-opacity = 0.98
+opacity = 0.99
 
 [window.class]
 general = "Alacritty"

@@ -13,7 +13,7 @@ function M.setup()
     require("nvim-tree").setup({
         update_focused_file = {
             enable = true,
-            update_cwd = true
+            -- update_cwd = true
         },
         filters = {
             -- dotfiles = false
@@ -22,8 +22,22 @@ function M.setup()
             width = 36,
             side = "left",
         },
+        -- renderer = {
+        --     indent_markers = {
+        --         enable = true,
+        --         icons = {
+        --             corner = "└",
+        --             edge = "│",
+        --             item = "│",
+        --             bottom = "─",
+        --             none = " ",
+        --         }
+        --     }
+        -- }
     })
     vim.keymap.set('n', '<space>e', api.tree.toggle)
+    -- vim.cmd[[autocmd NvimTree_1 highlight NvimTreeIndentMarker     guifg=#444444]]
+    -- vim.cmd[[autocmd NvimTree_1 highlight  NvimTreeFolderArrowOpen  guifg=#dddddd]]
 end
 
 return M

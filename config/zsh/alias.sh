@@ -8,6 +8,7 @@ alias t="trans -b :vi"
 alias show-installed-package="comm -23 <(apt-mark showmanual | sort -u) <(gzip -dc /var/log/installer/initial-status.gz | sed -n 's/^Package: //p' | sort -u)"
 
 alias k="kubectl"
+alias kg="kubectl get"
 alias kcuc="kubectl config use-context"
 alias kcgc="kubectl config get-contexts"
 alias kgp="kubectl get po"
