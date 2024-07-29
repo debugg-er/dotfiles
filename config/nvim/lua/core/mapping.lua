@@ -90,8 +90,27 @@ function M.git()
     map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
 end
 
+function M.setupClipboard()
+    local wsl_distro_name = os.getenv("WSL_DISTRO_NAME")
+    if wsl_distro_name ~= nil then
+        vim.g.clipboard = {
+            name = 'win32yank-wsl',
+            copy = {
+                ['+'] = 'win32yank.exe -i --crlf',
+                ['*'] = 'win32yank.exe -i --crlf',
+            },
+            paste = {
+                ['+'] = 'win32yank.exe -o --lf',
+                ['*'] = 'win32yank.exe -o --lf',
+            },
+            cache_enabled = true,
+        }
+    end
+end
 
 M.toggleFormatOnSave()
 M.barbarSwitchTab()
+M.setupClipboard()
+
 
 return M
