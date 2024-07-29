@@ -4,7 +4,7 @@
 # Path to your oh-my-zsh installation.
 DISABLE_AUTO_UPDATE=true
 
-ZSH_THEME="strug"
+ZSH_THEME="candy"
 ZSH_DISABLE_COMPFIX="true"
 
 export HISTSIZE=1000000                   # Maximum events for internal history
