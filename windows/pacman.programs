@@ -1,0 +1,10 @@
+git
+base-devel
+wget
+zsh
+tmux
+neovim
+fzf
+ripgrep
+unzip
+jq
