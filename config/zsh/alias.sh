@@ -144,9 +144,9 @@ chpwd() {
     #         npm install -g yarn @fsouza/prettierd eslint_d
     #     fi
     # fi
-    # if [[ -n $TMUX ]]; then
-    #     tmux rename-window $(basename $(pwd))
-    # fi
+    if [[ -n $TMUX ]]; then
+        tmux rename-window $(basename $(pwd))
+    fi
 
     if [[ ! -d ".git" ]]; then
         return 1

@@ -1,4 +1,6 @@
-﻿Capslock::Esc
+﻿#MaxHotkeysPerInterval 500
+
+Capslock::Esc
 Esc::`
 
 RAlt::
