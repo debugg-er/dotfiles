@@ -8,6 +8,7 @@ require("lazy").setup({
     --     'numToStr/Comment.nvim',
     --     lazy = false,
     -- },
+    "sainnhe/sonokai",
     { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
     {
         "rcarriga/nvim-dap-ui",

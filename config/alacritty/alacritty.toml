@@ -4,29 +4,29 @@
 TERM = "tmux-256color"
 
 [colors.primary]
-background = '#171d23'
-# background = '#171d23'
-foreground = '#abb2bf'
+background = "0x27292E"
+foreground = "0xe2e2e3"
 
 [colors.normal]
-black   = '#1e2127'
-red     = '#e06c75'
-green   = '#98c379'
-yellow  = '#d19a66'
-blue    = '#61afef'
-magenta = '#c678dd'
-cyan    = '#56b6c2'
-white   = '#abb2bf'
+black     = "0x181819"
+red       = "0xfc5d7c"
+green     = "0x9ed072"
+yellow    = "0xe7c664"
+blue      = "0x76cce0"
+magenta   = "0xb39df3"
+cyan      = "0xf39660"
+white     = "0xe2e2e3"
+
 
 [colors.bright]
-black   = '#5c6370'
-red     = '#e06c75'
-green   = '#98c379'
-yellow  = '#d19a66'
-blue    = '#61afef'
-magenta = '#c678dd'
-cyan    = '#56b6c2'
-white   = '#ffffff'
+black     = "0x7f8490"
+red       = "0xfc5d7c"
+green     = "0x9ed072"
+yellow    = "0xe7c664"
+blue      = "0x76cce0"
+magenta   = "0xb39df3"
+cyan      = "0xf39660"
+white     = "0xe2e2e3"
 
 [font]
 size = 10
@@ -65,7 +65,7 @@ program = "/usr/bin/tmux"
 [window]
 decorations = "none"
 decorations_theme_variant = "Dark"
-opacity = 0.99
+# opacity = 0.98
 
 [window.class]
 general = "Alacritty"
