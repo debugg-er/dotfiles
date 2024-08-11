@@ -8,8 +8,6 @@ require("lazy").setup({
     --     'numToStr/Comment.nvim',
     --     lazy = false,
     -- },
-    "sainnhe/sonokai",
-    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
     {
         "rcarriga/nvim-dap-ui",
         lazy = true,
@@ -143,6 +141,10 @@ require("lazy").setup({
             "nvimtools/none-ls-extras.nvim",
         }
     },
+
+    -- Themes
+    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+    "sainnhe/sonokai",
     {
         "navarasu/onedark.nvim",
         config = require("core.plugin.onedark").setup,
