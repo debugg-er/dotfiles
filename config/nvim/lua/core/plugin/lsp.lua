@@ -1,5 +1,24 @@
 local M = {}
 
+function setupSonarLint()
+    local filetypes = { 'typescript', 'typescriptreact' }
+    require('sonarlint').setup({
+        server = {
+            cmd       = {
+                'sonarlint-language-server',
+                -- Ensure that sonarlint-language-server uses stdio channel
+                '-stdio',
+                '-analyzers',
+                -- paths to the analyzers you need, using those for python and java in this example
+                vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarjs.jar"),
+            },
+            autostart = true,
+            filetypes = filetypes
+        },
+        filetypes = filetypes
+    })
+end
+
 local function setupMason()
     require('mason').setup()
     require("mason-lspconfig").setup {
@@ -11,6 +30,8 @@ local function setupMason()
         ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
         ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
     }
+
+    setupSonarLint()
 
     require("mason-lspconfig").setup_handlers {
         function(server_name)

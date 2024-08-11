@@ -121,6 +121,7 @@ require("lazy").setup({
         dependencies = {
             "neovim/nvim-lspconfig",
             "williamboman/mason.nvim",
+            "https://gitlab.com/schrieveslaach/sonarlint.nvim",
         },
     },
     {
@@ -139,7 +140,7 @@ require("lazy").setup({
         "nvimtools/none-ls.nvim",
         config = require("core.plugin.null-ls").setup,
         dependencies = {
-            "nvimtools/none-ls-extras.nvim"
+            "nvimtools/none-ls-extras.nvim",
         }
     },
     {
