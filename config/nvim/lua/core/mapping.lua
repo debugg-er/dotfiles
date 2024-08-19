@@ -26,6 +26,13 @@ function M.barbarSwitchTab()
     map('n', '<A-.>', '<Cmd>BufferNext<CR>', opts)
 end
 
+function M.bufferlineSwitchTab()
+    local map = vim.api.nvim_set_keymap
+    local opts = { noremap = true, silent = true }
+    map('n', '<A-,>', '<Cmd>BufferLineCyclePrev<CR>', opts)
+    map('n', '<A-.>', '<Cmd>BufferLineCycleNext<CR>', opts)
+end
+
 function M.lsp(ev)
     -- Buffer local mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -109,7 +116,8 @@ function M.setupClipboard()
 end
 
 M.toggleFormatOnSave()
-M.barbarSwitchTab()
+-- M.barbarSwitchTab()
+M.bufferlineSwitchTab()
 M.setupClipboard()
 
 

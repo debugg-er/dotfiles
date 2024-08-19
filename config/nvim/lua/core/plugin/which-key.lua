@@ -107,12 +107,12 @@ local config = {
       d = { "<cmd>Telescope lsp_definitions<cr>", "Go to definitions" },
       D = { "<cmd>Telescope lsp_type_definitions<cr>", "Go to type definitions" },
       r = { "<cmd>Telescope lsp_references<cr>", "Go to references" },
-      e = { "<cmd>BufferClose<CR>", "Close Buffer" },
+      e = { "<cmd>Bdelete<CR>", "Close Buffer" },
       a = {
         name = "Buffers",
-        o = { "<cmd>BufferCloseAllButCurrent<CR>", "Close all buffers but current" },
-        h = { "<cmd>BufferCloseBuffersLeft<CR>", "Close all buffers to left" },
-        l = { "<cmd>BufferCloseBuffersRight<CR>", "Close all buffers to right" },
+        o = { "<cmd>BufferLineCloseOther<CR>", "Close all buffers but current" },
+        h = { "<cmd>BufferLineCloseLeft<CR>", "Close all buffers to left" },
+        l = { "<cmd>BufferLineCloseRight<CR>", "Close all buffers to right" },
       }
     }
   },

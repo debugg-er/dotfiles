@@ -88,14 +88,23 @@ require("lazy").setup({
         },
         config = require("core.plugin.lualine").setup
     },
+    -- {
+    --     'romgrk/barbar.nvim',
+    --     version = '^1.0.0',
+    --     dependencies = {
+    --         'lewis6991/gitsigns.nvim',
+    --         'nvim-tree/nvim-web-devicons',
+    --     },
+    --     config = require("core.plugin.barbar").setup
+    -- },
     {
-        'romgrk/barbar.nvim',
-        version = '^1.0.0',
+        'akinsho/bufferline.nvim',
+        version = "*",
+        config = require("core.plugin.bufferline").setup,
         dependencies = {
-            'lewis6991/gitsigns.nvim',
             'nvim-tree/nvim-web-devicons',
+            'moll/vim-bbye'
         },
-        config = require("core.plugin.barbar").setup
     },
     {
         'nvim-treesitter/nvim-treesitter',
