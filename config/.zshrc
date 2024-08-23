@@ -10,10 +10,6 @@ ZSH_DISABLE_COMPFIX="true"
 export HISTSIZE=1000000                   # Maximum events for internal history
 export SAVEHIST=1000000                   # Maximum events in history file
 
-# fzf
-export FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git'"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-
 export EDITOR='nvim'
 
 ### PATH
@@ -42,4 +38,10 @@ source "$HOME/.config/zsh/omz.sh"
 source "$HOME/.config/zsh/init.sh"
 source "$HOME/.config/zsh/alias.sh"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# fzf
+export FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git'"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+if [ "$(which "fzf")" != "" ]; then
+  source <(fzf --zsh)
+fi
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

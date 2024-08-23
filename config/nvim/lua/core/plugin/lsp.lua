@@ -31,7 +31,7 @@ local function setupMason()
         ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
     }
 
-    setupSonarLint()
+    -- setupSonarLint()
 
     require("mason-lspconfig").setup_handlers {
         function(server_name)

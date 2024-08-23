@@ -8,3 +8,5 @@ fzf
 ripgrep
 unzip
 jq
+tree
+python3

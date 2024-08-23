@@ -13,7 +13,7 @@ require("lazy").setup({
         lazy = true,
         config = require('core.plugin.dap').setup,
         dependencies = {
-            "mfussenegger/nvim-dap"
+            "mfussenegger/nvim-dap",
         }
     },
     {

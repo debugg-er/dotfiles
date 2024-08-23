@@ -8,8 +8,8 @@ function M.setup()
         host = "localhost",
         port = "${port}",
         executable = {
-            command = "node",
-            args = { "/home/khainguyen/Documents/debug/js-debug/src/dapDebugServer.js", "${port}" },
+            command = "js-debug-adapter",
+            -- args = { "/home/khainguyen/Documents/debug/js-debug/src/dapDebugServer.js", "${port}" },
         }
     }
 
