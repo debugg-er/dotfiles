@@ -5,11 +5,11 @@ function M.setup()
 
     dap.adapters["pwa-node"] = {
         type = "server",
-        host = "localhost",
+        host = "127.0.0.1",
         port = "${port}",
         executable = {
             command = "js-debug-adapter",
-            -- args = { "/home/khainguyen/Documents/debug/js-debug/src/dapDebugServer.js", "${port}" },
+            args = { "${port}" },
         }
     }
 
@@ -30,8 +30,10 @@ function M.setup()
             request = "launch",
             name = "Launch file",
             runtimeExecutable = "yarn",
-            runtimeArgs = { "debug" },
-            program = "${file}",
+            runtimeArgs = { "api" },
+            port = "${port}",
+            skipFiles = { "<node_internals>/**" },
+            -- program = "${file}",
             cwd = "${workspaceFolder}",
         },
     }

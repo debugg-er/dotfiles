@@ -20,6 +20,8 @@ alias fklog="kubectl logs -f \$(kubectl get po --no-headers=true | fzf | awk '{p
 alias fkdelete="kubectl delete pod \$(kubectl get po --no-headers=true | fzf | awk '{print \$1}')"
 alias fkexec="kubectl exec -it \$(kubectl get po --no-headers=true | fzf | awk '{print \$1}') -- "
 
+alias fssh="ssh \$(cat ~/.ssh/config | grep \"^Host\" | awk '{print \$2}' | fzf)"
+
 glogw() {
     git log --date=iso-local --pretty=format:'%h|%an|%ad|%s' | 
     while IFS='|' read hash author date message
@@ -41,6 +43,9 @@ cleanup_workspaces() {
 w() {
     cleaned_workspaces=$(cleanup_workspaces)
     selected_dir=$(echo $cleaned_workspaces | fzf | awk '{print $2}')
+    if [[ $selected_dir == "" ]]; then
+        return 1
+    fi
     cd $selected_dir
     vim
 }

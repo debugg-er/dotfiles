@@ -8,13 +8,31 @@ require("lazy").setup({
     --     'numToStr/Comment.nvim',
     --     lazy = false,
     -- },
+
     {
         "rcarriga/nvim-dap-ui",
-        lazy = true,
+        config = require('core.plugin.dap-ui').setup,
+        dependencies = {
+            "nvim-neotest/nvim-nio"
+        }
+    },
+    {
+        "mxsdev/nvim-dap-vscode-js",
         config = require('core.plugin.dap').setup,
         dependencies = {
             "mfussenegger/nvim-dap",
+            {
+                'microsoft/vscode-js-debug',
+                build = 'npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out'
+            },
         }
+    },
+    {
+        "mfussenegger/nvim-dap",
+        -- lazy = true,
+        -- dependencies = {
+        --     "mfussenegger/nvim-dap",
+        -- }
     },
     {
         "aaronhallaert/advanced-git-search.nvim",
@@ -152,10 +170,16 @@ require("lazy").setup({
     },
 
     -- Themes
+    { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true },
     { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
     "sainnhe/sonokai",
-    {
+    "Mofiqul/vscode.nvim",
+    -- {
         "navarasu/onedark.nvim",
-        config = require("core.plugin.onedark").setup,
-    },
+        -- config = require("core.plugin.onedark").setup,
+    -- },
+    -- {
+    --     "olimorris/onedarkpro.nvim",
+    --     priority = 1000, -- Ensure it loads first
+    -- }
 })

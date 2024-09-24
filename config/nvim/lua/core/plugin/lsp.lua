@@ -35,10 +35,18 @@ local function setupMason()
 
     require("mason-lspconfig").setup_handlers {
         function(server_name)
-            require("lspconfig")[server_name].setup {
-                handlers = handlers,
-                capabilities = require('cmp_nvim_lsp').default_capabilities()
-            }
+            if server_name == "tsserver" then
+                require("lspconfig")[server_name].setup {
+                    handlers = handlers,
+                    capabilities = require('cmp_nvim_lsp').default_capabilities(),
+                    root_dir = require('lspconfig.util').root_pattern('.git')
+                }
+            else
+                require("lspconfig")[server_name].setup {
+                    handlers = handlers,
+                    capabilities = require('cmp_nvim_lsp').default_capabilities()
+                }
+            end
         end,
     }
 
