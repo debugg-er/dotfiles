@@ -40,13 +40,18 @@ cleanup_workspaces() {
     done < ~/.workspaces
 }
 
-w() {
+wd() {
     cleaned_workspaces=$(cleanup_workspaces)
     selected_dir=$(echo $cleaned_workspaces | fzf | awk '{print $2}')
     if [[ $selected_dir == "" ]]; then
         return 1
     fi
     cd $selected_dir
+    # vim
+}
+
+w() {
+    wd
     vim
 }
 

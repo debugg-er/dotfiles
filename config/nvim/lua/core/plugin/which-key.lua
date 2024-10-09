@@ -200,8 +200,8 @@ local config = {
     l = {
       name = "LSP",
       a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
-      -- d = { "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>", "Buffer Diagnostics" },
-      w = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
+      d = { "<cmd>Telescope diagnostics bufnr=0 severity_limit=2<cr>", "Buffer Diagnostics" },
+      w = { "<cmd>Telescope diagnostics severity_limit=2<cr>", "Diagnostics" },
       s = {
         name = "LSP Document Symbols",
         m = { "<cmd>Telescope lsp_document_symbols symbols=method<cr>", "All Methods" }

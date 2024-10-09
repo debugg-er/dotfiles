@@ -27,14 +27,11 @@ function M.setup()
     dap.configurations.typescript = {
         {
             type = "pwa-node",
-            request = "launch",
-            name = "Launch file",
-            runtimeExecutable = "yarn",
-            runtimeArgs = { "api" },
-            port = "${port}",
-            skipFiles = { "<node_internals>/**" },
-            -- program = "${file}",
-            cwd = "${workspaceFolder}",
+            request = "attach",
+            name = "Attach",
+            -- processId = require("dap.utils").pick_process,
+            cwd = vim.fn.getcwd(),
+            sourceMaps = true,
         },
     }
 

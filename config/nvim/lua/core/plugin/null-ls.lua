@@ -5,8 +5,9 @@ function M.setup()
     local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
     null_ls.setup({
+        debug = true,
         sources = {
-            require("none-ls.diagnostics.eslint_d"),
+            require("none-ls.diagnostics.eslint"),
 
             require("none-ls.formatting.eslint_d"),
             null_ls.builtins.formatting.stylua,
