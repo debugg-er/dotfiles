@@ -204,7 +204,7 @@ local config = {
       w = { "<cmd>Telescope diagnostics severity_limit=2<cr>", "Diagnostics" },
       s = {
         name = "LSP Document Symbols",
-        m = { "<cmd>Telescope lsp_document_symbols symbols=method<cr>", "All Methods" }
+        m = { "<cmd>Telescope lsp_document_symbols symbols=method symbol_width=60<cr>", "All Methods" }
       },
       -- f = { "<cmd>lua require('lvim.lsp.utils').format()<cr>", "Format" },
       -- i = { "<cmd>Telescope lsp_implementations<cr>", "Go to implementations" },

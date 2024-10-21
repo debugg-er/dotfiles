@@ -52,7 +52,11 @@ function M.lsp(ev)
     -- vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
     -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     vim.keymap.set('n', '<A-f>', function()
-        vim.lsp.buf.format { async = false, timeout = 10 * 1000 }
+        local start_time = vim.fn.reltime()  -- Start the timer
+        vim.lsp.buf.format({ async = false, timeout_ms = 10 * 1000 })
+        local end_time = vim.fn.reltime()  -- End the timer
+        local elapsed = vim.fn.reltimefloat(vim.fn.reltime(start_time, end_time))
+        print(string.format("Formatted in %.3f seconds", elapsed))
     end, opts)
 end
 
