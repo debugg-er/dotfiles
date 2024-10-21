@@ -8,7 +8,17 @@ require("lazy").setup({
     --     'numToStr/Comment.nvim',
     --     lazy = false,
     -- },
-
+    {
+        'stevearc/conform.nvim',
+        opts = {},
+        config = function ()
+            require("conform").setup({
+                formatters_by_ft = {
+                    typescript = { "prettierd", "eslint_d" },
+                },
+            })
+        end,
+    },
     {
         'theHamsta/nvim-dap-virtual-text',
         config = function ()
