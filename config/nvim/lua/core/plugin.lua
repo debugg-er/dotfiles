@@ -10,30 +10,46 @@ require("lazy").setup({
     -- },
 
     {
+        'theHamsta/nvim-dap-virtual-text',
+        config = function ()
+            require('nvim-dap-virtual-text').setup()
+        end,
+        dependencies = {
+            "mfussenegger/nvim-dap",
+        }
+    },
+    {
         "rcarriga/nvim-dap-ui",
         config = require('core.plugin.dap-ui').setup,
         dependencies = {
-            "nvim-neotest/nvim-nio"
-        }
-    },
-    {
-        "mxsdev/nvim-dap-vscode-js",
-        config = require('core.plugin.dap').setup,
-        dependencies = {
+            "nvim-neotest/nvim-nio",
             "mfussenegger/nvim-dap",
-            {
-                'microsoft/vscode-js-debug',
-                build = 'npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out'
-            },
+            "powerman/vim-plugin-AnsiEsc",
         }
     },
+    -- {
+    --     "mxsdev/nvim-dap-vscode-js",
+    --     config = require('core.plugin.dap').setup,
+    --     dependencies = {
+    --         "mfussenegger/nvim-dap",
+    --         {
+    --             'microsoft/vscode-js-debug',
+    --             build = 'npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out'
+    --         },
+    --     }
+    -- },
     {
         "mfussenegger/nvim-dap",
-        -- lazy = true,
-        -- dependencies = {
-        --     "mfussenegger/nvim-dap",
-        -- }
+        config = require('core.plugin.dap').setup,
     },
+    -- {
+    --     "leoluz/nvim-dap-go",
+    --     config = require('core.plugin.dap-go').setup,
+    --     dependencies = {
+    --         "mfussenegger/nvim-dap",
+    --     }
+    -- },
+    "tpope/vim-fugitive",
     {
         "aaronhallaert/advanced-git-search.nvim",
         lazy = true,
@@ -54,6 +70,7 @@ require("lazy").setup({
     },
     {
         "andrewferrier/debugprint.nvim",
+        lazy = true,
         config = require('core.plugin.debugprint').setup
     },
     {
@@ -89,10 +106,16 @@ require("lazy").setup({
     },
     {
         'nvim-telescope/telescope.nvim',
-        tag = '0.1.2',
         config = require('core.plugin.telescope').setup,
         dependencies = {
-            'nvim-lua/plenary.nvim'
+            'nvim-lua/plenary.nvim',
+            {
+                'nvim-telescope/telescope-fzf-native.nvim',
+                build = 'make',
+                config = function()
+                    require("telescope").load_extension("fzf")
+                end,
+            }
         },
     },
     {
@@ -106,15 +129,6 @@ require("lazy").setup({
         },
         config = require("core.plugin.lualine").setup
     },
-    -- {
-    --     'romgrk/barbar.nvim',
-    --     version = '^1.0.0',
-    --     dependencies = {
-    --         'lewis6991/gitsigns.nvim',
-    --         'nvim-tree/nvim-web-devicons',
-    --     },
-    --     config = require("core.plugin.barbar").setup
-    -- },
     {
         'akinsho/bufferline.nvim',
         version = "*",
@@ -130,7 +144,8 @@ require("lazy").setup({
         build = ":TSUpdate",
         dependencies = {
             'windwp/nvim-ts-autotag',
-            'nvim-treesitter/nvim-treesitter-textobjects'
+            'nvim-treesitter/nvim-treesitter-textobjects',
+            'LiadOz/nvim-dap-repl-highlights'
         }
     },
     {
@@ -159,6 +174,7 @@ require("lazy").setup({
             "ray-x/cmp-treesitter",
             "hrsh7th/cmp-nvim-lsp-signature-help",
             { "L3MON4D3/LuaSnip", version = "2.*", build = "make install_jsregexp" },
+            "rcarriga/cmp-dap",
         },
     },
     {
@@ -170,16 +186,25 @@ require("lazy").setup({
     },
 
     -- Themes
-    { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true },
-    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+    { "ellisonleao/gruvbox.nvim", priority = 1000,     config = true },
+    { "catppuccin/nvim",          name = "catppuccin", priority = 1000 },
     "sainnhe/sonokai",
     "Mofiqul/vscode.nvim",
-    -- {
-        "navarasu/onedark.nvim",
-        -- config = require("core.plugin.onedark").setup,
+    "navarasu/onedark.nvim",
+
     -- },
     -- {
     --     "olimorris/onedarkpro.nvim",
     --     priority = 1000, -- Ensure it loads first
     -- }
+
+    -- {
+    --     'romgrk/barbar.nvim',
+    --     version = '^1.0.0',
+    --     dependencies = {
+    --         'lewis6991/gitsigns.nvim',
+    --         'nvim-tree/nvim-web-devicons',
+    --     },
+    --     config = require("core.plugin.barbar").setup
+    -- },
 })

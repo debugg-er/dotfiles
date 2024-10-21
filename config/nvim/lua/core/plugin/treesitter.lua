@@ -2,8 +2,10 @@ local M = {}
 
 function M.setup()
     require('nvim-ts-autotag').setup()
+    require('nvim-dap-repl-highlights').setup()
+
     require('nvim-treesitter.configs').setup({
-        ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "javascript", "typescript", "dockerfile", "regex" },
+        ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "javascript", "typescript", "dockerfile", "regex", "dap_repl" },
         sync_install = false,
         auto_install = true,
         highlight = {

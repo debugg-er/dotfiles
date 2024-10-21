@@ -1,76 +1,7 @@
 local M = {}
 
 function M.setup()
-    local dap = require('dap')
-
-    dap.adapters["pwa-node"] = {
-        type = "server",
-        host = "127.0.0.1",
-        port = "${port}",
-        executable = {
-            command = "js-debug-adapter",
-            args = { "${port}" },
-        }
-    }
-
-    dap.configurations.javascript = {
-        {
-            type = "pwa-node",
-            request = "launch",
-            name = "Launch file",
-            runtimeExecutable = "yarn",
-            runtimeArgs = { "debug" },
-            program = "${file}",
-            cwd = "${workspaceFolder}",
-        },
-    }
-    dap.configurations.typescript = {
-        {
-            type = "pwa-node",
-            request = "attach",
-            name = "Attach",
-            -- processId = require("dap.utils").pick_process,
-            cwd = vim.fn.getcwd(),
-            sourceMaps = true,
-        },
-    }
-
-    require('dapui').setup({
-        layouts = {
-            {
-                elements = {
-                    {
-                        id = "scopes",
-                        size = 0.25
-                    },
-                    {
-                        id = "breakpoints",
-                        size = 0.25
-                    },
-                    {
-                        id = "stacks",
-                        size = 0.25
-                    },
-                    {
-                        id = "watches",
-                        size = 0.25
-                    }
-                },
-                position = "left",
-                size = 40
-            },
-            {
-                elements = {
-                    {
-                        id = "repl",
-                        size = 0.5
-                    }
-                },
-                position = "right",
-                size = 80
-            }
-        },
-    })
+    require('core.plugin.dap.javascript')
 end
 
 return M

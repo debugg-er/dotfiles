@@ -10,6 +10,10 @@ function M.setup()
     local lspkind = require('lspkind')
 
     cmp.setup({
+        enabled = function()
+            return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+                or require("cmp_dap").is_dap_buffer()
+        end,
         snippet = {
             expand = function(args)
                 luasnip.lsp_expand(args.body)
@@ -51,6 +55,9 @@ function M.setup()
                     if kind == "Text" then
                         return false
                     end
+                    -- if kind == "String" then
+                    --     return false
+                    -- end
                     return true
                 end,
             },
@@ -64,7 +71,8 @@ function M.setup()
             { name = "treesitter" },
             { name = "crates" },
             { name = "tmux" },
-            { name = "nvim_lsp_signature_help" }
+            { name = "nvim_lsp_signature_help" },
+            { name = "dap" },
         }, {
             { name = 'buffer' },
         }),
