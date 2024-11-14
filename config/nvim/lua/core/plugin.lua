@@ -15,6 +15,11 @@ require("lazy").setup({
             require("conform").setup({
                 formatters_by_ft = {
                     typescript = { "prettierd", "eslint_d" },
+                    javascript = { "prettierd", "eslint_d" },
+                    json = { "prettierd", "eslint_d" },
+                    go = { "gofmt", "goimports" },
+                    lua = { "stylua" },
+                    proto = { "buf" }
                 },
             })
         end,
@@ -217,4 +222,21 @@ require("lazy").setup({
     --     },
     --     config = require("core.plugin.barbar").setup
     -- },
+
+
+    -- Golang
+{
+  "ray-x/go.nvim",
+  dependencies = {  -- optional packages
+    "ray-x/guihua.lua",
+    "neovim/nvim-lspconfig",
+    "nvim-treesitter/nvim-treesitter",
+  },
+  config = function()
+    require("go").setup()
+  end,
+  event = {"CmdlineEnter"},
+  ft = {"go", 'gomod'},
+  build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
+}
 })

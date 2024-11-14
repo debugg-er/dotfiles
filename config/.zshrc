@@ -45,3 +45,5 @@ if [ "$(which "fzf")" != "" ]; then
   source <(fzf --zsh)
 fi
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+[[ -s "/home/khainguyen/.gvm/scripts/gvm" ]] && source "/home/khainguyen/.gvm/scripts/gvm"
