@@ -104,7 +104,6 @@ require("lazy").setup({
     {
         "lewis6991/gitsigns.nvim",
         config = require("core.plugin.gitsigns").setup,
-        cmd = "Gitsigns",
     },
     {
         "windwp/nvim-autopairs",
