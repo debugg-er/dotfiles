@@ -11,18 +11,7 @@ require("lazy").setup({
     {
         'stevearc/conform.nvim',
         opts = {},
-        config = function ()
-            require("conform").setup({
-                formatters_by_ft = {
-                    typescript = { "prettierd", "eslint_d" },
-                    javascript = { "prettierd", "eslint_d" },
-                    json = { "prettierd", "eslint_d" },
-                    go = { "gofmt", "goimports" },
-                    lua = { "stylua" },
-                    proto = { "buf" }
-                },
-            })
-        end,
+        config = require('core.plugin.conform').setup,
     },
     {
         'theHamsta/nvim-dap-virtual-text',
@@ -64,7 +53,9 @@ require("lazy").setup({
     --         "mfussenegger/nvim-dap",
     --     }
     -- },
-    "tpope/vim-fugitive",
+    {
+        "tpope/vim-fugitive",
+    },
     {
         "aaronhallaert/advanced-git-search.nvim",
         lazy = true,
@@ -105,10 +96,16 @@ require("lazy").setup({
         "lewis6991/gitsigns.nvim",
         config = require("core.plugin.gitsigns").setup,
     },
+    -- {
+    --     "windwp/nvim-autopairs",
+    --     event = "InsertEnter",
+    --     config = require('core.plugin.autopairs').setup
+    -- },
     {
-        "windwp/nvim-autopairs",
-        event = "InsertEnter",
-        config = require('core.plugin.autopairs').setup
+        'altermo/ultimate-autopair.nvim',
+        event = { 'InsertEnter','CmdlineEnter' },
+        branch = 'v0.6',
+        opts = {}
     },
     {
         "RRethy/vim-illuminate",
