@@ -219,7 +219,17 @@ local config = {
         "<cmd>lua vim.diagnostic.goto_prev()<cr>",
         "Prev Diagnostic",
       },
-      l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
+      l = {
+        name = "Language features",
+        t = {
+          name = "Typescript",
+          o = { "<cmd>TSToolsOrganizeImports<cr>", "Sorts and removes unused imports" },
+          s = { "<cmd>TSToolsSortImports<cr>", "Sorts imports" },
+          r = { "<cmd>TSToolsRemoveUnusedImports<cr>", "Removes unused imports" },
+          m = { "<cmd>TSToolsAddMissingImports<cr>", "Add missing imports" },
+        }
+        -- 
+      },
       -- q = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "Quickfix" },
       q = { "<cmd>lua vim.lsp.buf.code_action({ apply = true })<cr>", "Quickfix" },
       -- r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },

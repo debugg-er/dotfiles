@@ -2,7 +2,12 @@ require("lazy").setup({
     "christoomey/vim-tmux-navigator",
     "tpope/vim-surround",
     "tpope/vim-commentary",
-    "mg979/vim-visual-multi",
+    {
+        "mg979/vim-visual-multi",
+        config = function ()
+            vim.g.VM_verbose_commands = 1
+        end
+    },
     -- "mhinz/vim-startify",
     -- {
     --     'numToStr/Comment.nvim',
@@ -165,6 +170,11 @@ require("lazy").setup({
         dependencies = {
             "nvim-tree/nvim-web-devicons"
         }
+    },
+    {
+        "pmizio/typescript-tools.nvim",
+        config = require("core.plugin.typescript.typescript-tools").setup,
+        dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig", 'williamboman/mason-lspconfig.nvim'},
     },
     {
         'williamboman/mason-lspconfig.nvim',

@@ -7,7 +7,7 @@ function M.setup()
             dynamic_preview_title = true,
             layout_config = {
                 prompt_position = "top",
-            }
+            },
         }
     })
     -- local builtin = require('telescope.builtin')

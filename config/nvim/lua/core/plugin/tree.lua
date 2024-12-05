@@ -19,8 +19,9 @@ function M.setup()
             -- dotfiles = false
         },
         view = {
-            width = 36,
+            width = 45,
             side = "left",
+            -- adaptive_size = true
         },
         -- renderer = {
         --     indent_markers = {
