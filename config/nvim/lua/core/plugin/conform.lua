@@ -2,6 +2,7 @@ local M = {}
 
 function M.setup()
 	require("conform").setup({
+		-- log_level = vim.log.levels.TRACE,
 		formatters_by_ft = {
 			typescript = { "prettierd", "eslint_d" },
 			javascript = { "prettierd", "eslint_d" },

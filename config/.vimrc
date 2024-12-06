@@ -83,13 +83,13 @@ inoremap jk <ESC>
 vmap <A-l> >gv
 vmap <A-h> <gv
 
-" Move line
-nnoremap <A-j> :m +1<CR>==
-nnoremap <A-k> :m -2<CR>==
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
-inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-2<CR>==gi
+" " Move line
+" nnoremap <A-j> :m +1<CR>==
+" nnoremap <A-k> :m -2<CR>==
+" vnoremap <A-j> :m '>+1<CR>gv=gv
+" vnoremap <A-k> :m '<-2<CR>gv=gv
+" inoremap <A-j> <Esc>:m .+1<CR>==gi
+" inoremap <A-k> <Esc>:m .-2<CR>==gi
 
 " Remove highlight
 nnoremap <A-h> :nohl<CR>
