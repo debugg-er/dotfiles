@@ -39,7 +39,14 @@ local function setupMason()
                 require("lspconfig")[server_name].setup {
                     handlers = handlers,
                     capabilities = require('cmp_nvim_lsp').default_capabilities(),
-                    root_dir = require('lspconfig.util').root_pattern('.git')
+                    root_dir = require('lspconfig.util').root_pattern('.git'),
+                    on_attach = function(client, bufnr)
+                        -- Check if the file type is TypeScript
+                        local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
+                        if ft == "typescript" or ft == "typescriptreact" then
+                            client.stop() -- Stop tsserver for TypeScript files
+                        end
+                    end
                 }
             else
                 require("lspconfig")[server_name].setup {

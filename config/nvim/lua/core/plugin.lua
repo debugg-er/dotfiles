@@ -173,6 +173,7 @@ require("lazy").setup({
     },
     {
         "pmizio/typescript-tools.nvim",
+        ft = { 'typescript' },
         config = require("core.plugin.typescript.typescript-tools").setup,
         dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig", 'williamboman/mason-lspconfig.nvim'},
     },

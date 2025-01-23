@@ -205,7 +205,16 @@ local config = {
       w = { "<cmd>Telescope diagnostics severity_limit=2<cr>", "Diagnostics" },
       s = {
         name = "LSP Document Symbols",
-        m = { "<cmd>Telescope lsp_document_symbols symbols=method symbol_width=60<cr>", "All Methods" }
+        m = { "<cmd>Telescope lsp_document_symbols symbols=method symbol_width=60 show_line=true<cr>", "Methods" },
+        c = { "<cmd>Telescope lsp_document_symbols symbols=class symbol_width=60 show_line=true<cr>", "Classes" },
+        p = { "<cmd>Telescope lsp_document_symbols symbols=property symbol_width=60 show_line=true<cr>", "Properties" },
+        e = { "<cmd>Telescope lsp_document_symbols symbols=enum symbol_width=60 show_line=true<cr>", "Enums" },
+        i = { "<cmd>Telescope lsp_document_symbols symbols=interface symbol_width=60 show_line=true<cr>", "Interfaces" },
+        f = { "<cmd>Telescope lsp_document_symbols symbols=function symbol_width=60 show_line=true<cr>", "Functions" },
+        v = { "<cmd>Telescope lsp_document_symbols symbols=variable symbol_width=60 show_line=true<cr>", "Variables" },
+        o = { "<cmd>Telescope lsp_document_symbols symbols=constant symbol_width=60 show_line=true<cr>", "Constants" },
+        s = { "<cmd>Telescope lsp_document_symbols symbols=string symbol_width=60 show_line=true<cr>", "Strings" },
+        S = { "<cmd>Telescope lsp_document_symbols symbols=struct symbol_width=60 show_line=true<cr>", "Structs" },
       },
       -- f = { "<cmd>lua require('lvim.lsp.utils').format()<cr>", "Format" },
       -- i = { "<cmd>Telescope lsp_implementations<cr>", "Go to implementations" },

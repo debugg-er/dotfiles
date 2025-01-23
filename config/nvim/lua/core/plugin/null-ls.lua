@@ -7,9 +7,9 @@ function M.setup()
     null_ls.setup({
         debug = true,
         sources = {
-            require("none-ls.diagnostics.eslint"),
+            -- require("none-ls.diagnostics.eslint"),
             null_ls.builtins.diagnostics.codespell,
-            -- require("none-ls.formatting.eslint_d"),
+            require("none-ls.formatting.eslint_d"),
             -- null_ls.builtins.formatting.stylua,
             -- null_ls.builtins.formatting.prettierd,
             -- null_ls.builtins.formatting.beautysh,

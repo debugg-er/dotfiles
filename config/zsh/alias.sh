@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # alias w="cd \$(cat ~/.workspaces | fzf | awk '{print \$2}')"
-alias vim="fnm exec --using=default nvim"
+# alias vim="fnm exec --using=default nvim"
 
 alias fzf="fzf --height 50% --reverse"
 alias t="trans -b :vi"
@@ -21,6 +21,10 @@ alias fkdelete="kubectl delete pod \$(kubectl get po --no-headers=true | fzf | a
 alias fkexec="kubectl exec -it \$(kubectl get po --no-headers=true | fzf | awk '{print \$1}') -- "
 
 alias fssh="ssh \$(cat ~/.ssh/config | grep \"^Host\" | awk '{print \$2}' | fzf)"
+
+vim() {
+    fnm exec --using=default nvim $@
+}
 
 glogw() {
     git log --date=iso-local --pretty=format:'%h|%an|%ad|%s' | 
