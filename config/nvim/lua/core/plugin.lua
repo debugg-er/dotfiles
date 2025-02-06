@@ -139,8 +139,9 @@ require("lazy").setup({
 		},
 	},
 	{
-		"nvim-tree/nvim-tree.lua",
-		config = require("core.plugin.tree").setup,
+		"nvim-neo-tree/neo-tree.nvim",
+		config = require("core.plugin.neotree").setup,
+		dependencies = { "MunifTanjim/nui.nvim" },
 	},
 	{
 		"pmizio/typescript-tools.nvim",
@@ -291,5 +292,9 @@ require("lazy").setup({
 	-- 		"MunifTanjim/nui.nvim",
 	-- 		-- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
 	-- 	},
+	-- },
+	-- {
+	-- 	"nvim-tree/nvim-tree.lua",
+	-- 	config = require("core.plugin.tree").setup,
 	-- },
 })

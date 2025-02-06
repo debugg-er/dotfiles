@@ -18,12 +18,12 @@ function M.setup()
 
 	vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "InsertLeave" }, {
 		group = vim.api.nvim_create_augroup("nvim-lint", { clear = true }),
-		callback = callback
+		callback = callback,
 	})
 
 	vim.api.nvim_create_autocmd({ "TextChanged" }, {
 		group = vim.api.nvim_create_augroup("nvim-lint-normal-changed", { clear = true }),
-		callback = time.debounce(callback, 200)
+		callback = time.debounce(callback, 200),
 	})
 end
 
