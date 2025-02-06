@@ -6,6 +6,7 @@ local M = {}
 
 function M.setup()
     local cmp = require("cmp")
+    local compare = require("cmp.config.compare")
     local luasnip = require("luasnip")
     local lspkind = require("lspkind")
 
@@ -24,15 +25,13 @@ function M.setup()
         formatting = {
             format = lspkind.cmp_format({
                 mode = "symbol_text",
-                before = function(entry, vim_item)
-                    -- if vim_item.kind == "Method" or vim_item.kind == "Function" then
-                    --     -- return
-                    --     if not endsWith(vim_item.abbr, "~") then
-                    --         vim_item.abbr = vim_item.abbr .. "~"
-                    --     end
-                    -- end
-                    return vim_item
-                end,
+                menu = {
+                    nvim_lsp = "[LSP]",
+                    nvim_lua = "[api]",
+                    path = "[path]",
+                    luasnip = "[snip]",
+                    buffer = "[buf]",
+                }
             }),
         },
         window = {
@@ -47,37 +46,37 @@ function M.setup()
             ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         }),
         sources = cmp.config.sources({
-            {
-                name = "nvim_lsp",
-                entry_filter = function(entry, ctx)
-                    local kind = require("cmp.types.lsp").CompletionItemKind[entry:get_kind()]
-                    if kind == "Text" then
-                        return false
-                    end
-                    -- if kind == "String" then
-                    --     return false
-                    -- end
-                    return true
-                end,
-            },
-            { name = "path" },
-            { name = "luasnip" },
-            { name = "cmp_tabnine" },
-            { name = "nvim_lua" },
-            { name = "buffer" },
-            { name = "calc" },
-            { name = "emoji" },
-            { name = "treesitter" },
-            { name = "crates" },
-            { name = "tmux" },
+            { name = "nvim_lsp" },
             { name = "nvim_lsp_signature_help" },
+            { name = "path" },
+            { name = "nvim_lua" },
+            { name = "luasnip" },
             { name = "dap" },
-        }, {
-            { name = "buffer" },
+            { name = "buffer", keyword_length = 6 },
+            -- { name = "cmp_tabnine" },
+            -- { name = "calc" },
+            -- { name = "emoji" },
+            -- { name = "treesitter" },
+            -- { name = "crates" },
+            -- { name = "tmux" },
         }),
         experimental = {
             ghost_text = true,
         },
+        sorting = {
+            priority_weight = 1.0,
+            comparators = {
+                compare.offset,
+                compare.exact,
+                compare.score,
+                compare.recently_used,
+                compare.locality,
+                compare.kind,
+                compare.sort_text,
+                compare.length,
+                compare.order,
+            },
+        }
     }
 
     cmp.setup(opts)
