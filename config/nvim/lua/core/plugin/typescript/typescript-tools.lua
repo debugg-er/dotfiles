@@ -90,7 +90,13 @@ function M.setup()
 	}
 	local nxPath = require("lspconfig.util").root_pattern(".git")(vim.fn.getcwd()) .. "/nx.json"
 
-	require("typescript-tools").setup({
+	local function on_attach(client, bufnr)
+		if client.server_capabilities.documentSymbolProvider then
+			require("nvim-navic").attach(client, bufnr)
+		end
+	end
+
+	local opts = {
 		on_init = function(client, bufnr)
 			local stat = vim.loop.fs_stat(nxPath)
 			if stat then
@@ -100,6 +106,7 @@ function M.setup()
 			end
 		end,
 		handlers = handlers,
+		on_attach = on_attach,
 		root_dir = require("lspconfig.util").root_pattern(".git"),
 		settings = {
 			-- spawn additional tsserver instance to calculate diagnostics on it
@@ -146,7 +153,8 @@ function M.setup()
 				filetypes = { "javascriptreact", "typescriptreact" },
 			},
 		},
-	})
+	}
+	require("typescript-tools").setup(opts)
 end
 
 return M

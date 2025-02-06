@@ -275,8 +275,11 @@ local config = {
   },
 }
 
-M.setup = function()
-  local which_key = require "which-key"
+function M.setup()
+  local which_key = require("which-key")
+
+  vim.o.timeout = true
+  vim.o.timeoutlen = 300
 
   which_key.setup(config.setup)
 

@@ -1,15 +1,15 @@
 local M = {}
 
-function endsWith(str, ending)
-    return ending == "" or str:sub(- #ending) == ending
-end
+-- function endsWith(str, ending)
+--     return ending == "" or str:sub(- #ending) == ending
+-- end
 
 function M.setup()
     local cmp = require('cmp')
     local luasnip = require('luasnip')
     local lspkind = require('lspkind')
 
-    cmp.setup({
+    local opts = {
         enabled = function()
             return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
                 or require("cmp_dap").is_dap_buffer()
@@ -79,7 +79,9 @@ function M.setup()
         experimental = {
             ghost_text = true,
         },
-    })
+    }
+
+    cmp.setup(opts)
 
     -- local lsp_defaults = lspconfig.util.default_config
 

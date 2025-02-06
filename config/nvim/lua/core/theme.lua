@@ -1,10 +1,10 @@
 -- -- ONEDARK
-local onedark = require("onedark")
-onedark.setup({
-    style = 'warmer',
-    -- transparent = true,
-})
-onedark.load()
+-- local onedark = require("onedark")
+-- onedark.setup({
+--     style = 'warmer',
+--     -- transparent = true,
+-- })
+-- onedark.load()
 
 
 -- SONOKAI
@@ -55,4 +55,4 @@ onedark.load()
 
 
 -- ONEDARK PRO
-vim.cmd("colorscheme onedark")
+-- vim.cmd("colorscheme onedark")
