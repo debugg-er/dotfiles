@@ -27,17 +27,15 @@ require("lazy").setup({
         config = require("core.plugin.lint").setup,
     },
     {
-        "mfussenegger/nvim-dap",
-        lazy = true,
-    },
-    {
         "theHamsta/nvim-dap-virtual-text",
+        lazy = true,
         config = function()
             require("nvim-dap-virtual-text").setup()
         end,
     },
     {
         "rcarriga/nvim-dap-ui",
+        lazy = true,
         config = require("core.plugin.dap-ui").setup,
         dependencies = {
             "nvim-neotest/nvim-nio",
@@ -46,6 +44,7 @@ require("lazy").setup({
     },
     {
         "mfussenegger/nvim-dap",
+        lazy = true,
         config = require("core.plugin.dap").setup,
     },
     {
@@ -136,6 +135,7 @@ require("lazy").setup({
     },
     {
         "nvim-neo-tree/neo-tree.nvim",
+        cmd = { "Neotree" },
         config = require("core.plugin.neotree").setup,
         dependencies = { "MunifTanjim/nui.nvim" },
     },
@@ -192,7 +192,6 @@ require("lazy").setup({
         config = function()
             require("go").setup()
         end,
-        event = { "CmdlineEnter" },
         ft = { "go", "gomod" },
         build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
     },
