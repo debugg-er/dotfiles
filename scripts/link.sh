@@ -12,6 +12,7 @@ ln -svnf $CONFIG_DIR/zsh ~/.config/zsh
 
 ln -svf $CONFIG_DIR/.zshrc ~/.zshrc
 ln -svf $CONFIG_DIR/.vimrc ~/.vimrc
+ln -svf $CONFIG_DIR/.editorconfig ~/.editorconfig
 ln -svnf $CONFIG_DIR/.fonts ~/.fonts
 
 mkdir -p ~/.oh-my-zsh/custom

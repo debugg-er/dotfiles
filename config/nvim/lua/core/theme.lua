@@ -6,7 +6,6 @@
 -- })
 -- onedark.load()
 
-
 -- SONOKAI
 -- vim.g.sonokai_colors_override = {
 --   bg0 = { "#27292E", 235 },
@@ -52,7 +51,6 @@
 
 -- -- load the theme without affecting devicon colors.
 -- vim.cmd.colorscheme "vscode"
-
 
 -- ONEDARK PRO
 -- vim.cmd("colorscheme onedark")

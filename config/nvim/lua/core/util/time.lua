@@ -3,7 +3,7 @@ local M = {}
 function M.debounce(func, wait)
     local timer = nil
     return function(...)
-        local args = {...}
+        local args = { ... }
         if timer then
             timer:stop()
         end
