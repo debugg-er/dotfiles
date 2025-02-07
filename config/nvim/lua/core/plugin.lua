@@ -78,21 +78,17 @@ require("lazy").setup({
             {
                 "nvim-telescope/telescope-fzf-native.nvim",
                 build = "make",
-                config = function()
-                    require("telescope").load_extension("fzf")
-                end,
             },
-        },
-    },
-    {
-        "aaronhallaert/advanced-git-search.nvim",
-        lazy = true,
-        config = function()
-            require("telescope").load_extension("advanced_git_search")
-        end,
-        dependencies = {
-            "nvim-telescope/telescope.nvim",
-            "tpope/vim-fugitive",
+            {
+                "nvim-telescope/telescope-ui-select.nvim",
+            },
+            {
+                "aaronhallaert/advanced-git-search.nvim",
+                lazy = true,
+                dependencies = {
+                    "tpope/vim-fugitive",
+                },
+            },
         },
     },
     {
@@ -148,6 +144,7 @@ require("lazy").setup({
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-nvim-lsp-signature-help",
+            "saadparwaiz1/cmp_luasnip",
 
             "rcarriga/cmp-dap",
             "onsails/lspkind.nvim",

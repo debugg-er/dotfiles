@@ -1,12 +1,10 @@
 local M = {}
 
 function M.setup()
-    require("nvim-ts-autotag").setup()
-    require("nvim-dap-repl-highlights").setup()
-
-    require("nvim-treesitter.configs").setup({
+    local opts = {
+        sync_install = false,
+        auto_install = true,
         ensure_installed = {
-            "c",
             "lua",
             "vim",
             "vimdoc",
@@ -17,8 +15,6 @@ function M.setup()
             "regex",
             "dap_repl",
         },
-        sync_install = false,
-        auto_install = true,
         highlight = {
             enable = true,
             additional_vim_regex_highlighting = false,
@@ -125,7 +121,11 @@ function M.setup()
             --     },
             -- },
         },
-    })
+    }
+
+    require("nvim-treesitter.configs").setup(opts)
+    require("nvim-ts-autotag").setup()
+    require("nvim-dap-repl-highlights").setup()
 
     -- local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
     --

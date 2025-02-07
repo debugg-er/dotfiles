@@ -48,26 +48,33 @@ function M.setup()
         min_count_to_highlight = 1,
     })
 
-    local highlightStyle = { bg = "#464646" }
-    local highlights = {
-        IlluminatedWord = highlightStyle,
-        IlluminatedCurWord = highlightStyle,
-        IlluminatedWordText = highlightStyle,
-        IlluminatedWordRead = highlightStyle,
-        IlluminatedWordWrite = highlightStyle,
-    }
+    local function setup_highlight()
+        local status_line_hl = require('core.util.color').extract_highlight_colors("StatusLine")
+        if status_line_hl then
+            print(status_line_hl.bg)
+            local highlightStyle = { bg = status_line_hl.bg }
+            local highlights = {
+                IlluminatedWord = highlightStyle,
+                IlluminatedCurWord = highlightStyle,
+                IlluminatedWordText = highlightStyle,
+                IlluminatedWordRead = highlightStyle,
+                IlluminatedWordWrite = highlightStyle,
+            }
 
-    for group, value in pairs(highlights) do
-        vim.api.nvim_set_hl(0, group, value)
-    end
-
-    vim.api.nvim_create_autocmd({ "ColorScheme" }, {
-        pattern = { "*" },
-        callback = function(ev)
             for group, value in pairs(highlights) do
                 vim.api.nvim_set_hl(0, group, value)
             end
-        end,
+
+            for group, value in pairs(highlights) do
+                vim.api.nvim_set_hl(0, group, value)
+            end
+        end
+    end
+
+    setup_highlight()
+    vim.api.nvim_create_autocmd({ "ColorScheme" }, {
+        pattern = { "*" },
+        callback = setup_highlight,
     })
 end
 

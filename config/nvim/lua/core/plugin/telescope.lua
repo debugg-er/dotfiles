@@ -9,13 +9,16 @@ function M.setup()
                 prompt_position = "top",
             },
         },
+        extensions = {
+            ["ui-select"] = {
+                require("telescope.themes").get_dropdown({})
+            }
+        }
     })
-    -- local builtin = require('telescope.builtin')
-    -- builtin.find_files({ path_display = { "truncate" } })
-    -- vim.keymap.set('n', '<space>ff', builtin.find_files, {})
-    -- vim.keymap.set('n', '<space>fg', builtin.live_grep, {})
-    -- vim.keymap.set('n', '<space>fb', builtin.buffers, {})
-    -- vim.keymap.set('n', '<space>fh', builtin.help_tags, {})
+
+    require("telescope").load_extension("fzf")
+    require("telescope").load_extension("ui-select")
+    require("telescope").load_extension("advanced_git_search")
 end
 
 return M
