@@ -27,25 +27,19 @@ require("lazy").setup({
         config = require("core.plugin.lint").setup,
     },
     {
-        "theHamsta/nvim-dap-virtual-text",
-        lazy = true,
-        config = function()
-            require("nvim-dap-virtual-text").setup()
-        end,
-    },
-    {
-        "rcarriga/nvim-dap-ui",
-        lazy = true,
-        config = require("core.plugin.dap-ui").setup,
-        dependencies = {
-            "nvim-neotest/nvim-nio",
-            "powerman/vim-plugin-AnsiEsc",
-        },
-    },
-    {
         "mfussenegger/nvim-dap",
         lazy = true,
         config = require("core.plugin.dap").setup,
+        dependencies = {
+            "theHamsta/nvim-dap-virtual-text",
+            {
+                "rcarriga/nvim-dap-ui",
+                dependencies = {
+                    "nvim-neotest/nvim-nio",
+                    "powerman/vim-plugin-AnsiEsc",
+                },
+            },
+        },
     },
     {
         "nvim-pack/nvim-spectre",
@@ -53,7 +47,7 @@ require("lazy").setup({
     },
     {
         "andrewferrier/debugprint.nvim",
-        lazy = true,
+        -- lazy = true,
         config = require("core.plugin.debugprint").setup,
     },
     {

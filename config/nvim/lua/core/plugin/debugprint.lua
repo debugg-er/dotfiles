@@ -24,11 +24,11 @@ function M.setup()
 
     customizeLogging()
 
-    vim.keymap.set("n", "<S-l>", function()
+    local debug_variable = function()
         return require("debugprint").debugprint({ variable = true })
-    end, {
-        expr = true,
-    })
+    end
+
+    vim.keymap.set({ "n", "v" }, "<S-l>", debug_variable, { expr = true })
 end
 
 return M

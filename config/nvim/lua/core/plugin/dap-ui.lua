@@ -73,6 +73,8 @@ M.setup = function()
         dapui.close()
     end
 
+    require("nvim-dap-virtual-text").setup()
+
     -- vim.api.nvim_create_autocmd("FileType", {
     --     callback = function()
     --         print("ok")

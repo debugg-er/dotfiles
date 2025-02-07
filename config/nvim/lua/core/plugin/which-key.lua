@@ -133,6 +133,7 @@ local config = {
         ["f"] = { "<cmd>Telescope find_files<cr>", "Find in file" },
         ["a"] = { "<cmd>Telescope live_grep<cr>", "Find in workspace" },
         ["r"] = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
+        ["R"] = { "<cmd>source $MYVIMRC<cr>", "Reload config" },
         ["S"] = { '<cmd>lua require("spectre").toggle()<cr>', "Spectre replace" },
         d = {
             name = "Debug",
@@ -150,6 +151,7 @@ local config = {
             s = { "<cmd>lua require'dap'.continue()<cr>", "Start" },
             q = { "<cmd>lua require'dap'.close()<cr>", "Quit" },
             U = { "<cmd>lua require'dapui'.toggle({reset = true})<cr>", "Toggle UI" },
+            ["?"] = { "<cmd>lua require('dapui').eval(nil, { enter = true })<cr>", "Evaluate" },
         },
         p = {
             name = "Plugins",
