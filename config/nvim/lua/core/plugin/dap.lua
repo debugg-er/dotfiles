@@ -33,6 +33,20 @@ function M.setup()
             {
                 elements = {
                     {
+                        id = "repl",
+                        size = 0.3,
+                    },
+                    {
+                        id = "console",
+                        size = 0.7,
+                    },
+                },
+                position = "right",
+                size = 100,
+            },
+            {
+                elements = {
+                    {
                         id = "scopes",
                         size = 1,
                     },
@@ -57,16 +71,6 @@ function M.setup()
                 },
                 position = "left",
                 size = 60,
-            },
-            {
-                elements = {
-                    {
-                        id = "repl",
-                        size = 1,
-                    },
-                },
-                position = "right",
-                size = 80,
             },
         },
     })

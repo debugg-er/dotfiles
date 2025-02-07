@@ -263,7 +263,8 @@ local config = {
                     name = "Typescript",
                     o = { "<cmd>TSToolsOrganizeImports<cr>", "Sorts and removes unused imports" },
                     s = { "<cmd>TSToolsSortImports<cr>", "Sorts imports" },
-                    r = { "<cmd>TSToolsRemoveUnusedImports<cr>", "Removes unused imports" },
+                    r = { "<cmd>TSToolsRenameFile<cr>", "Rename current file" },
+                    x = { "<cmd>TSToolsRemoveUnusedImports<cr>", "Removes unused imports" },
                     m = { "<cmd>TSToolsAddMissingImports<cr>", "Add missing imports" },
                 },
                 --

@@ -26,10 +26,10 @@ local function setupMason()
         ensure_installed = { "lua_ls", "dockerls", "bashls" },
     })
 
-    local handlers = {
-        ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
-        ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
-    }
+    -- local handlers = {
+    --     ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
+    --     ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
+    -- }
 
     local function on_attach(client, bufnr)
         if client.server_capabilities.documentSymbolProvider then
@@ -43,7 +43,7 @@ local function setupMason()
         function(server_name)
             if server_name == "tsserver" then
                 require("lspconfig")[server_name].setup({
-                    handlers = handlers,
+                    -- handlers = handlers,
                     capabilities = require("cmp_nvim_lsp").default_capabilities(),
                     root_dir = require("lspconfig.util").root_pattern(".git"),
                     filetypes = { "javascript", "javascriptreact" },
@@ -51,9 +51,9 @@ local function setupMason()
                 })
             else
                 require("lspconfig")[server_name].setup({
-                    handlers = handlers,
+                    -- handlers = handlers,
                     capabilities = require("cmp_nvim_lsp").default_capabilities(),
-                    -- on_attach = on_attach,
+                    on_attach = on_attach,
                 })
             end
         end,

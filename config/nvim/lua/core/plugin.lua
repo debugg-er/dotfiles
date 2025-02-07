@@ -34,10 +34,7 @@ require("lazy").setup({
             "theHamsta/nvim-dap-virtual-text",
             {
                 "rcarriga/nvim-dap-ui",
-                dependencies = {
-                    "nvim-neotest/nvim-nio",
-                    "powerman/vim-plugin-AnsiEsc",
-                },
+                dependencies = { "nvim-neotest/nvim-nio", },
             },
         },
     },

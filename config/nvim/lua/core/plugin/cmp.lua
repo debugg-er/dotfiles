@@ -31,12 +31,12 @@ function M.setup()
                     path = "[path]",
                     luasnip = "[snip]",
                     buffer = "[buf]",
-                }
+                },
             }),
         },
         window = {
-            completion = cmp.config.window.bordered(),
-            documentation = cmp.config.window.bordered(),
+            -- completion = cmp.config.window.bordered(),
+            -- documentation = cmp.config.window.bordered(),
         },
         mapping = cmp.mapping.preset.insert({
             ["<C-b>"] = cmp.mapping.scroll_docs(-4),
@@ -76,10 +76,28 @@ function M.setup()
                 compare.length,
                 compare.order,
             },
-        }
+        },
     }
 
     cmp.setup(opts)
+
+    vim.keymap.set({ "i" }, "<C-K>", function()
+        luasnip.expand()
+    end, { silent = true })
+    vim.keymap.set({ "i", "s" }, "<C-L>", function()
+        luasnip.jump(1)
+    end, { silent = true })
+    vim.keymap.set({ "i", "s" }, "<C-J>", function()
+        luasnip.jump(-1)
+    end, { silent = true })
+
+    vim.keymap.set({ "i", "s" }, "<C-E>", function()
+        if luasnip.choice_active() then
+            luasnip.change_choice(1)
+        end
+    end, { silent = true })
+
+    require("luasnip.loaders.from_vscode").lazy_load()
 
     -- local lsp_defaults = lspconfig.util.default_config
 

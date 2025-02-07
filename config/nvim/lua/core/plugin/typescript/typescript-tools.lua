@@ -84,10 +84,10 @@ function M.setup()
         end
     end, {})
 
-    local handlers = {
-        ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
-        ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
-    }
+    -- local handlers = {
+    --     ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
+    --     ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
+    -- }
     local nxPath = require("lspconfig.util").root_pattern(".git")(vim.fn.getcwd()) .. "/nx.json"
 
     local function on_attach(client, bufnr)
@@ -105,7 +105,7 @@ function M.setup()
                 end)
             end
         end,
-        handlers = handlers,
+        -- handlers = handlers,
         on_attach = on_attach,
         root_dir = require("lspconfig.util").root_pattern(".git"),
         settings = {
