@@ -1,9 +1,9 @@
 local M = {}
 
-function M.toggleFormatOnSave()
+function M.toggle_format_on_save()
     local formatOnSave = false
 
-    function toggleFormatOnSaveVar()
+    function _toggle_format_on_save()
         formatOnSave = not formatOnSave
     end
 
@@ -16,17 +16,17 @@ function M.toggleFormatOnSave()
             end
         end,
     })
-    vim.cmd([[command! ToggleFormatOnSave lua toggleFormatOnSaveVar()]])
+    vim.cmd([[command! ToggleFormatOnSave lua _toggle_format_on_save()]])
 end
 
-function M.barbarSwitchTab()
+function M.barbar_switch_tab()
     local map = vim.api.nvim_set_keymap
     local opts = { noremap = true, silent = true }
     map("n", "<A-,>", "<Cmd>BufferPrevious<CR>", opts)
     map("n", "<A-.>", "<Cmd>BufferNext<CR>", opts)
 end
 
-function M.bufferlineSwitchTab()
+function M.bufferline_switch_tab()
     local map = vim.api.nvim_set_keymap
     local opts = { noremap = true, silent = true }
     map("n", "<A-,>", "<Cmd>BufferLineCyclePrev<CR>", opts)
@@ -52,6 +52,7 @@ function M.lsp(ev)
     -- vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
     -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     vim.keymap.set("n", "<A-f>", function()
+        print("Formatting...")
         local start_time = vim.fn.reltime() -- Start the timer
         require("conform").format({ bufnr = opts.buf, async = false, timeout_ms = 10 * 1000 })
         local end_time = vim.fn.reltime() -- End the timer
@@ -109,7 +110,7 @@ function M.git()
     map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
 end
 
-function M.setupClipboard()
+function M.setup_clipboard()
     local wsl_distro_name = os.getenv("WSL_DISTRO_NAME")
     if wsl_distro_name ~= nil then
         vim.g.clipboard = {
@@ -127,17 +128,17 @@ function M.setupClipboard()
     end
 end
 
-function M.registerResize()
+function M.register_resize()
     vim.keymap.set("n", "<C-Up>", "<cmd>resize -2<cr>", { desc = "Increase Window Height" })
     vim.keymap.set("n", "<C-Down>", "<cmd>resize +2<cr>", { desc = "Decrease Window Height" })
     vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize -2<cr>", { desc = "Increase Window Width" })
     vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize +2<cr>", { desc = "Decrease Window Width" })
 end
 
-M.toggleFormatOnSave()
--- M.barbarSwitchTab()
-M.bufferlineSwitchTab()
-M.setupClipboard()
-M.registerResize()
+M.toggle_format_on_save()
+-- M.barbar_switch_tab()
+M.bufferline_switch_tab()
+M.setup_clipboard()
+M.register_resize()
 
 return M
