@@ -1,8 +1,42 @@
 local M = {}
 
+function M.custom_linter()
+    local sonar_ls_cmd = "sonarlint-language-server"
+    require("lint").linters.sonarlint = {
+        cmd = function ()
+            return sonar_ls_cmd
+        end,
+        args = {
+            "-stdio", -- Use stdio as the transport channel
+        },
+        stdin = true, -- Send the file content via stdin
+        stream = "stdout", -- Read output from stdout
+        ignore_exitcode = true, -- Ignore exit code since sonarlint-ls might not follow standard exit codes
+        parser = function(output, bufnr)
+            -- Parse the output from sonarlint-ls
+            -- You might need to adjust this part based on the actual output format of sonarlint-ls
+            local result = {}
+            -- Example parsing logic (adjust according to the actual output format)
+            for _, issue in ipairs(output.issues or {}) do
+                table.insert(result, {
+                    lnum = issue.line or 1,
+                    col = issue.column or 1,
+                    message = issue.message or "No message",
+                    source = sonar_ls_cmd,
+                    severity = issue.severity and vim.diagnostic.severity[issue.severity:upper()]
+                        or vim.diagnostic.severity.WARN,
+                })
+            end
+            return result
+        end,
+    }
+end
+
 function M.setup()
     local time = require("core.util.time")
     local lint = require("lint")
+
+    -- M.custom_linter()
 
     lint.linters_by_ft = {
         typescript = { "eslint_d" },

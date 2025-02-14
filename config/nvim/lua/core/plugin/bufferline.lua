@@ -5,7 +5,7 @@ function M.setup()
         options = {
             tab_size = 24,
             indicator = {
-                icon = '',
+                icon = '█',
                 style = 'icon'
             },
         },

@@ -19,7 +19,7 @@ local M = {}
 --     })
 -- end
 
-local function setupMason()
+local function setup_mason()
     require("mason").setup()
     require("mason-lspconfig").setup({
         automatic_installation = true,
@@ -72,9 +72,51 @@ local function setupMason()
             },
         },
     })
+
+    local function check_go()
+        return os.execute("go version > /dev/null 2>&1")
+    end
+
+    local function check_node()
+        return os.execute("node --version > /dev/null 2>&1")
+    end
+
+    require("mason-tool-installer").setup({
+        ensure_installed = {
+            "bash-language-server",
+            "buf",
+            "buf-language-server",
+            "checkmake",
+            "dockerfile-language-server",
+            "json-lsp",
+            "sonarlint-language-server",
+            "typos",
+
+            -- Lua
+            "lua-language-server",
+            "stylua",
+
+            -- TS/JS
+            { "typescript-language-server", condition = check_node },
+            { "js-debug-adapter", condition = check_node },
+            { "eslint_d", condition = check_node },
+            { "prettierd", condition = check_node },
+            -- { "nxls", condition = check_node },
+            -- { "tailwindcss-language-server", condition = check_node },
+
+            -- Golang
+            { "gopls", condition = check_go },
+            { "go-debug-adapter", condition = check_go },
+            { "delve", condition = check_go },
+            { "goimports", condition = check_go },
+        },
+        auto_update = false,
+        run_on_start = true,
+        start_delay = 3000, -- 3 second delay
+    })
 end
 
-local function lspKeymap()
+local function lsp_keymap()
     -- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
     -- vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
     -- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
@@ -92,8 +134,8 @@ local function lspKeymap()
 end
 
 function M.setup()
-    setupMason()
-    lspKeymap()
+    setup_mason()
+    lsp_keymap()
 
     vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { undercurl = true, sp = "#ffff00" })
 end

@@ -34,7 +34,7 @@ require("lazy").setup({
             "theHamsta/nvim-dap-virtual-text",
             {
                 "rcarriga/nvim-dap-ui",
-                dependencies = { "nvim-neotest/nvim-nio", },
+                dependencies = { "nvim-neotest/nvim-nio" },
             },
         },
     },
@@ -132,6 +132,7 @@ require("lazy").setup({
         dependencies = {
             "neovim/nvim-lspconfig",
             "williamboman/mason.nvim",
+            "WhoIsSethDaniel/mason-tool-installer.nvim",
             -- "https://gitlab.com/schrieveslaach/sonarlint.nvim",
         },
     },
