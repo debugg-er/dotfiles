@@ -51,7 +51,6 @@ function M.setup()
     local function setup_highlight()
         local status_line_hl = require('core.util.color').extract_highlight_colors("StatusLine")
         if status_line_hl then
-            print(status_line_hl.bg)
             local highlightStyle = { bg = status_line_hl.bg }
             local highlights = {
                 IlluminatedWord = highlightStyle,
