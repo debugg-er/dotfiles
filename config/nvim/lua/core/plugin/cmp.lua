@@ -9,6 +9,7 @@ function M.setup()
     local compare = require("cmp.config.compare")
     local luasnip = require("luasnip")
     local lspkind = require("lspkind")
+    local codeium = require("codeium")
 
     local opts = {
         enabled = function()
@@ -25,12 +26,14 @@ function M.setup()
         formatting = {
             format = lspkind.cmp_format({
                 mode = "symbol_text",
+                symbol_map = { Codeium = "" },
                 menu = {
                     nvim_lsp = "[LSP]",
                     nvim_lua = "[api]",
                     path = "[path]",
                     luasnip = "[snip]",
                     buffer = "[buf]",
+                    Codeium = "[AI]",
                 },
             }),
         },
@@ -49,6 +52,7 @@ function M.setup()
             { name = "nvim_lsp" },
             { name = "nvim_lsp_signature_help" },
             { name = "luasnip" },
+            { name = "codeium" },
             { name = "path" },
             { name = "nvim_lua" },
             { name = "dap" },
@@ -80,6 +84,14 @@ function M.setup()
     }
 
     cmp.setup(opts)
+
+    codeium.setup({
+        enable_cmp_source = true,
+        virtual_text = {
+            enabled = true
+        }
+    })
+
 
     vim.keymap.set({ "i" }, "<C-K>", function()
         luasnip.expand()

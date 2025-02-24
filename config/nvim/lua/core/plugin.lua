@@ -111,6 +111,10 @@ require("lazy").setup({
         },
     },
     {
+        "petertriho/nvim-scrollbar",
+        config = require("core.plugin.scrollbar").setup,
+    },
+    {
         "nvim-treesitter/nvim-treesitter",
         config = require("core.plugin.treesitter").setup,
         build = ":TSUpdate",
@@ -150,6 +154,7 @@ require("lazy").setup({
             "rcarriga/cmp-dap",
             "onsails/lspkind.nvim",
             "ray-x/cmp-treesitter",
+            "Exafunction/codeium.nvim",
 
             {
                 "L3MON4D3/LuaSnip",
