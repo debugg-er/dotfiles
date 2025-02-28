@@ -9,7 +9,7 @@ function M.setup()
     local compare = require("cmp.config.compare")
     local luasnip = require("luasnip")
     local lspkind = require("lspkind")
-    local codeium = require("codeium")
+    -- local codeium = require("codeium")
 
     local opts = {
         enabled = function()
@@ -85,12 +85,12 @@ function M.setup()
 
     cmp.setup(opts)
 
-    codeium.setup({
-        enable_cmp_source = true,
-        virtual_text = {
-            enabled = false
-        }
-    })
+    -- codeium.setup({
+    --     enable_cmp_source = true,
+    --     virtual_text = {
+    --         enabled = false
+    --     }
+    -- })
 
 
     vim.keymap.set({ "i" }, "<C-K>", function()
