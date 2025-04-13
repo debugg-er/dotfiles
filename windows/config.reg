@@ -7,7 +7,3 @@ Windows Registry Editor Version 5.00
 "DelayBeforeAcceptance"="0"
 "Flags"="59"
 "BounceTime"="0"
-
-; Remove shortcut arrow icon
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons]
-"29"=""
