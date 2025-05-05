@@ -121,7 +121,7 @@ require("lazy").setup({
         dependencies = {
             "windwp/nvim-ts-autotag",
             "nvim-treesitter/nvim-treesitter-textobjects",
-            "LiadOz/nvim-dap-repl-highlights",
+            -- "LiadOz/nvim-dap-repl-highlights",
         },
     },
     {

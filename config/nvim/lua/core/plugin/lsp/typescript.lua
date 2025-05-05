@@ -17,7 +17,7 @@ function M.setup()
             projectGraphFile:close()
 
             -- get typescript-tools lsp client
-            local lspClients = vim.lsp.get_active_clients()
+            local lspClients = vim.lsp.get_clients()
             local tsclient
             for _, client in ipairs(lspClients) do
                 if client.name == "typescript-tools" then

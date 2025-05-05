@@ -13,7 +13,7 @@ function M.setup()
             "typescript",
             "dockerfile",
             "regex",
-            "dap_repl",
+            -- "dap_repl",
         },
         highlight = {
             enable = true,
@@ -125,7 +125,7 @@ function M.setup()
 
     require("nvim-treesitter.configs").setup(opts)
     require("nvim-ts-autotag").setup()
-    require("nvim-dap-repl-highlights").setup()
+    -- require("nvim-dap-repl-highlights").setup()
 
     -- local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
     --
