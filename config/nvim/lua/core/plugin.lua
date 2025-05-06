@@ -193,6 +193,23 @@ require("lazy").setup({
         ft = { "go", "gomod" },
         build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
     },
+    {
+        "zbirenbaum/copilot-cmp",
+        config = function()
+            require("copilot_cmp").setup()
+        end,
+        dependencies = {
+            {
+                "zbirenbaum/copilot.lua",
+                config = function()
+                    require("copilot").setup({
+                        suggestion = { enabled = false },
+                        panel = { enabled = false },
+                    })
+                end,
+            },
+        },
+    },
     -- {
     -- 	"b0o/incline.nvim",
     -- 	config = require("core.plugin.incline").setup,
