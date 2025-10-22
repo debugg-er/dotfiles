@@ -42,6 +42,8 @@ set hidden
 " You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=100
 
+set scrolloff=8 " keep 8 lines visible above and below the cursor
+
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
 
@@ -93,6 +95,9 @@ vmap <A-h> <gv
 
 " Remove highlight
 nnoremap <A-h> :nohl<CR>
+
+" Highlight current selected
+xnoremap <S-h> y/\V<C-r>"<CR>
 
 " Search without case-sensitive
 nnoremap ? /\c

@@ -43,6 +43,7 @@ function M.setup()
         typescriptreact = { "eslint_d" },
         javascript = { "eslint_d" },
         javascriptreact = { "eslint_d" },
+        golang = { "golangci_lint" },
         ["*"] = { "typos" },
     }
 
