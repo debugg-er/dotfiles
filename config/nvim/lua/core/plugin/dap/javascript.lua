@@ -17,6 +17,7 @@ local configurations = {
         type = "pwa-node",
         request = "launch",
         name = "Launch - Command",
+        outputCapture = "std",
         cwd = vim.fn.getcwd(),
         runtimeExecutable = (function()
             input = vim.fn.input("Enter debug command: ")
@@ -43,6 +44,7 @@ local configurations = {
         name = "Attach",
         cwd = vim.fn.getcwd(),
         sourceMaps = true,
+        outputCapture = "std",
     },
     {
         type = "pwa-node",

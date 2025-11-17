@@ -151,7 +151,7 @@ function M.setup()
         },
         { "<leader>du", "<cmd>lua require'dap'.step_out()<cr>", desc = "Step Out", nowait = true, remap = false },
         { "<leader>e", "<cmd>Neotree toggle source=last<CR>", desc = "Explorer", nowait = true, remap = false },
-        { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Find in file", nowait = true, remap = false },
+        { "<leader>f", "<cmd>Telescope find_files hidden=true<cr>", desc = "Find in file", nowait = true, remap = false },
         { "<leader>g", group = "Git", nowait = true, remap = false },
         {
             "<leader>gC",
