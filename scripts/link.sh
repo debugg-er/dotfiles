@@ -15,6 +15,9 @@ ln -svf $CONFIG_DIR/.vimrc ~/.vimrc
 ln -svf $CONFIG_DIR/.editorconfig ~/.editorconfig
 ln -svnf $CONFIG_DIR/.fonts ~/.fonts
 
+sudo rm -rf /etc/nixos
+sudo ln -svf $CONFIG_DIR/nixos /etc/nixos
+
 mkdir -p ~/.oh-my-zsh/custom
 rm -rf ~/.oh-my-zsh/custom/plugins
 ln -svnf $CONFIG_DIR/.oh-my-zsh/plugins ~/.oh-my-zsh/custom/plugins

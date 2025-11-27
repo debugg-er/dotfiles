@@ -15,11 +15,11 @@ function M.setup()
         enabled = function()
             return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
         end,
-        snippet = {
-            expand = function(args)
-                luasnip.lsp_expand(args.body)
-            end,
-        },
+        -- snippet = {
+        --     expand = function(args)
+        --         luasnip.lsp_expand(args.body)
+        --     end,
+        -- },
         completion = {
             completeopt = "menu,menuone,noinsert",
         },
@@ -66,7 +66,7 @@ function M.setup()
             -- { name = "tmux" },
         }),
         experimental = {
-            ghost_text = true,
+            ghost_text = false,
         },
         sorting = {
             priority_weight = 1.0,
@@ -110,7 +110,7 @@ function M.setup()
         end
     end, { silent = true })
 
-    require("luasnip.loaders.from_vscode").lazy_load()
+    -- require("luasnip.loaders.from_vscode").lazy_load()
 
     -- local lsp_defaults = lspconfig.util.default_config
 

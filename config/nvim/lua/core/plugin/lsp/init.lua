@@ -4,7 +4,11 @@ local function setup_mason()
     require("mason").setup()
     require("mason-lspconfig").setup({
         automatic_installation = true,
-        ensure_installed = { "lua_ls", "dockerls", "bashls" },
+        ensure_installed = {
+            "lua_ls",
+            "dockerls",
+            "bashls"
+        },
     })
 
     -- require("mason-lspconfig").setup_handlers({
@@ -57,39 +61,41 @@ local function setup_mason()
     --     return os.execute("node --version > /dev/null 2>&1")
     -- end
 
-    -- require("mason-tool-installer").setup({
-    --     ensure_installed = {
-    --         "bash-language-server",
-    --         "buf",
-    --         "buf-language-server",
-    --         "checkmake",
-    --         "dockerfile-language-server",
-    --         "json-lsp",
-    --         "sonarlint-language-server",
-    --         "typos",
+    require("mason-tool-installer").setup({
+        ensure_installed = {
+            "bash-language-server",
+            "buf",
+            "buf-language-server",
+            "checkmake",
+            "dockerfile-language-server",
+            "json-lsp",
+            "sonarlint-language-server",
+            "typos",
 
-    --         -- Lua
-    --         "lua-language-server",
-    --         "stylua",
+            "nixpkgs-fmt",
 
-    --         -- TS/JS
-    --         { "typescript-language-server", condition = check_node },
-    --         { "js-debug-adapter", condition = check_node },
-    --         { "eslint_d", condition = check_node },
-    --         { "prettierd", condition = check_node },
-    --         -- { "nxls", condition = check_node },
-    --         -- { "tailwindcss-language-server", condition = check_node },
+            -- Lua
+            "lua-language-server",
+            "stylua",
 
-    --         -- Golang
-    --         { "gopls", condition = check_go },
-    --         { "go-debug-adapter", condition = check_go },
-    --         { "delve", condition = check_go },
-    --         { "goimports", condition = check_go },
-    --     },
-    --     auto_update = false,
-    --     run_on_start = true,
-    --     start_delay = 3000, -- 3 second delay
-    -- })
+            -- TS/JS
+            { "typescript-language-server", condition = check_node },
+            { "js-debug-adapter", condition = check_node },
+            { "eslint_d", condition = check_node },
+            { "prettierd", condition = check_node },
+            -- { "nxls", condition = check_node },
+            -- { "tailwindcss-language-server", condition = check_node },
+
+            -- Golang
+            { "gopls", condition = check_go },
+            { "go-debug-adapter", condition = check_go },
+            { "delve", condition = check_go },
+            { "goimports", condition = check_go },
+        },
+        auto_update = false,
+        run_on_start = true,
+        start_delay = 3000, -- 3 second delay
+    })
 end
 
 local function lsp_keymap()

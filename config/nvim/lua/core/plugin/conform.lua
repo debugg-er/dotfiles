@@ -12,8 +12,19 @@ function M.setup()
             go = { "gofmt", "goimports" },
             lua = { "stylua" },
             proto = { "buf" },
+            nix = { "nixpkgs_fmt" }
         },
     })
+
+    vim.keymap.set("n", "<A-f>", function()
+        print("Formatting...")
+        local start_time = vim.fn.reltime() -- Start the timer
+        -- require("conform").format({ bufnr = opts.buf, async = false, timeout_ms = 10 * 1000 })
+        require("conform").format({ async = false, timeout_ms = 10 * 1000, lsp_fallback = true })
+        local end_time = vim.fn.reltime() -- End the timer
+        local elapsed = vim.fn.reltimefloat(vim.fn.reltime(start_time, end_time))
+        print(string.format("Formatted in %.3f seconds", elapsed))
+    end, opts)
 end
 
 return M
