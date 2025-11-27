@@ -22,12 +22,14 @@ alias fkexec="kubectl exec -it \$(kubectl get po --no-headers=true | fzf | awk '
 
 alias fssh="ssh \$(cat ~/.ssh/config | grep \"^Host\" | awk '{print \$2}' | fzf)"
 
-vim() {
-    fnm exec --using=default nvim $@
-}
+alias vim="nvim"
+
+#vim() {
+#    fnm exec --using=default nvim $@
+#}
 
 glogw() {
-    git log --date=iso-local --pretty=format:'%h|%an|%ad|%s' | 
+    git log --date=iso-local --pretty=format:'%h|%an|%ad|%s' |
     while IFS='|' read hash author date message
     do
         printf '\033[0;32m%s\033[0m  \033[1;31m%-20s\033[0m %-28s \033[0;33m%s\033[0m\n' "$hash" "$author" "$date" "$message"
@@ -82,7 +84,7 @@ fk() {
         pod=$(kubectl get pod --no-headers=true $@ | fzf | awk '{print $1}')
         ports=$(kubectl get pod $pod -o jsonpath='{.spec.containers[*].ports}' $@ | jq -r '.[] | [.containerPort, .name] | @tsv')
         targetPort=""
-        if [[ $(echo $ports | wc -l) == 1 ]]; then 
+        if [[ $(echo $ports | wc -l) == 1 ]]; then
             targetPort=$(echo $ports | awk '{print $1}')
         else
             targetPort=$(echo $ports | fzf | awk '{print $1}')

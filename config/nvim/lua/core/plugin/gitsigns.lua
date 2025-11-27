@@ -66,7 +66,7 @@ function M.setup()
             row = 0,
             col = 1,
         },
-        yadm = { enable = false },
+        -- yadm = { enable = false }, # Deprecated since 1.0.0
     }
 
     gitsigns.setup(opts)

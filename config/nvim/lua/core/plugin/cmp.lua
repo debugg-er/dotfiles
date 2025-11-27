@@ -25,7 +25,7 @@ function M.setup()
         },
         formatting = {
             format = lspkind.cmp_format({
-                mode = "symbol_text",
+                mode = "text",
                 symbol_map = { Copilot = "" },
                 menu = {
                     nvim_lsp = "[LSP]",

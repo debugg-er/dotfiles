@@ -1,24 +1,5 @@
 local M = {}
 
--- function setupSonarLint()
---     local filetypes = { 'typescript', 'typescriptreact' }
---     require('sonarlint').setup({
---         server = {
---             cmd       = {
---                 'sonarlint-language-server',
---                 -- Ensure that sonarlint-language-server uses stdio channel
---                 '-stdio',
---                 '-analyzers',
---                 -- paths to the analyzers you need, using those for python and java in this example
---                 vim.fn.expand("$MASON/share/sonarlint-analyzers/sonarjs.jar"),
---             },
---             autostart = true,
---             filetypes = filetypes
---         },
---         filetypes = filetypes
---     })
--- end
-
 local function setup_mason()
     require("mason").setup()
     require("mason-lspconfig").setup({
@@ -26,94 +7,89 @@ local function setup_mason()
         ensure_installed = { "lua_ls", "dockerls", "bashls" },
     })
 
-    -- local handlers = {
-    --     ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
-    --     ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
-    -- }
+    -- require("mason-lspconfig").setup_handlers({
+    --     function(server_name)
+    --         if server_name == "tsserver" then
+    --             require("lspconfig")[server_name].setup({
+    --                 -- handlers = handlers,
+    --                 capabilities = require("cmp_nvim_lsp").default_capabilities(),
+    --                 root_dir = require("lspconfig.util").root_pattern(".git"),
+    --                 filetypes = { "javascript", "javascriptreact" },
+    --                 on_attach = on_attach,
+    --             })
+    --         else
+    --             require("lspconfig")[server_name].setup({
+    --                 -- handlers = handlers,
+    --                 capabilities = require("cmp_nvim_lsp").default_capabilities(),
+    --                 on_attach = on_attach,
+    --             })
+    --         end
+    --     end,
+    -- })
 
-    local function on_attach(client, bufnr)
-        if client.server_capabilities.documentSymbolProvider then
-            require("nvim-navic").attach(client, bufnr)
-        end
-    end
-
-    -- setupSonarLint()
-
-    require("mason-lspconfig").setup_handlers({
-        function(server_name)
-            if server_name == "tsserver" then
-                require("lspconfig")[server_name].setup({
-                    -- handlers = handlers,
-                    capabilities = require("cmp_nvim_lsp").default_capabilities(),
-                    root_dir = require("lspconfig.util").root_pattern(".git"),
-                    filetypes = { "javascript", "javascriptreact" },
-                    on_attach = on_attach,
-                })
-            else
-                require("lspconfig")[server_name].setup({
-                    -- handlers = handlers,
-                    capabilities = require("cmp_nvim_lsp").default_capabilities(),
-                    on_attach = on_attach,
-                })
-            end
-        end,
-    })
-
-    require("lspconfig").lua_ls.setup({
-        settings = {
-            Lua = {
-                diagnostics = {
-                    globals = { "vim", "require" },
-                },
-                workspace = {
-                    -- Make the server aware of Neovim runtime files
-                    library = vim.api.nvim_get_runtime_file("", true),
-                },
-            },
+    vim.lsp.config('ts_ls', {
+        filetypes = {
+            "javascript",
+            "javascriptreact",
+            "javascript.jsx",
         },
     })
 
-    local function check_go()
-        return os.execute("go version > /dev/null 2>&1")
-    end
+    -- require("lspconfig").lua_ls.setup({
+    --     settings = {
+    --         Lua = {
+    --             diagnostics = {
+    --                 globals = { "vim", "require" },
+    --             },
+    --             workspace = {
+    --                 -- Make the server aware of Neovim runtime files
+    --                 library = vim.api.nvim_get_runtime_file("", true),
+    --             },
+    --         },
+    --     },
+    -- })
 
-    local function check_node()
-        return os.execute("node --version > /dev/null 2>&1")
-    end
+    -- local function check_go()
+    --     return os.execute("go version > /dev/null 2>&1")
+    -- end
 
-    require("mason-tool-installer").setup({
-        ensure_installed = {
-            "bash-language-server",
-            "buf",
-            "buf-language-server",
-            "checkmake",
-            "dockerfile-language-server",
-            "json-lsp",
-            "sonarlint-language-server",
-            "typos",
+    -- local function check_node()
+    --     return os.execute("node --version > /dev/null 2>&1")
+    -- end
 
-            -- Lua
-            "lua-language-server",
-            "stylua",
+    -- require("mason-tool-installer").setup({
+    --     ensure_installed = {
+    --         "bash-language-server",
+    --         "buf",
+    --         "buf-language-server",
+    --         "checkmake",
+    --         "dockerfile-language-server",
+    --         "json-lsp",
+    --         "sonarlint-language-server",
+    --         "typos",
 
-            -- TS/JS
-            { "typescript-language-server", condition = check_node },
-            { "js-debug-adapter", condition = check_node },
-            { "eslint_d", condition = check_node },
-            { "prettierd", condition = check_node },
-            -- { "nxls", condition = check_node },
-            -- { "tailwindcss-language-server", condition = check_node },
+    --         -- Lua
+    --         "lua-language-server",
+    --         "stylua",
 
-            -- Golang
-            { "gopls", condition = check_go },
-            { "go-debug-adapter", condition = check_go },
-            { "delve", condition = check_go },
-            { "goimports", condition = check_go },
-        },
-        auto_update = false,
-        run_on_start = true,
-        start_delay = 3000, -- 3 second delay
-    })
+    --         -- TS/JS
+    --         { "typescript-language-server", condition = check_node },
+    --         { "js-debug-adapter", condition = check_node },
+    --         { "eslint_d", condition = check_node },
+    --         { "prettierd", condition = check_node },
+    --         -- { "nxls", condition = check_node },
+    --         -- { "tailwindcss-language-server", condition = check_node },
+
+    --         -- Golang
+    --         { "gopls", condition = check_go },
+    --         { "go-debug-adapter", condition = check_go },
+    --         { "delve", condition = check_go },
+    --         { "goimports", condition = check_go },
+    --     },
+    --     auto_update = false,
+    --     run_on_start = true,
+    --     start_delay = 3000, -- 3 second delay
+    -- })
 end
 
 local function lsp_keymap()
