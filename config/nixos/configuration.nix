@@ -12,6 +12,7 @@
   #   # include NixOS-WSL modules
   #   <nixos-wsl/modules>
   # ];
+  time.timeZone = "Asia/Ho_Chi_Minh";
 
   wsl.enable = true;
   wsl.defaultUser = "khainguyen";
@@ -31,26 +32,40 @@
   };
 
   environment.systemPackages = with pkgs; [
+    # Common Tools
     zsh
     oh-my-zsh
     git
     curl
     wget
     fzf
-    nmap
+    unzip
     ripgrep
+    nmap
     tmux
     neovim
-    # You also had build-essential in the script;
-    # gcc and tools are usually pulled in via stdenv, but you can be explicit:
+
+    # C/C++
+    clang-tools
     gcc
     binutils
+    gnumake
+
+    # NodeJS
     nodejs_22
+    yarn
+    nodePackages.typescript
+    nodePackages."@nestjs/cli"
+
+    # Golang
     go_1_25
+
+    # Rust
     cargo
     rustc
-    yarn
-    gnumake
+
+    # Operation
+    ansible
   ];
 
   programs.zsh = {
@@ -64,6 +79,8 @@
       enable = true;
     };
   };
+
+  programs.npm.enable = true;
 
 
   systemd.user.tmpfiles.rules = [
