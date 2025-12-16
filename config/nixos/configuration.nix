@@ -59,6 +59,7 @@
     gnumake
 
     # NodeJS
+    # fnm
     nodejs_22
     yarn
     nodePackages.typescript
@@ -78,6 +79,14 @@
     # Operation
     ansible
   ];
+
+  # programs.nix-ld.enable = true;
+  # programs.nix-ld.libraries = with pkgs; [
+  #   # fnm
+  # ];
+
+  programs.direnv.enable = true;
+  programs.direnv.nix-direnv.enable = true;
 
   programs.zsh = {
     enable = true;

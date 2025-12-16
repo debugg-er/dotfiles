@@ -29,10 +29,13 @@ if [ -d "$HOME/go/bin" ]; then
   PATH="$HOME/go/bin:$PATH"
 fi
 
-#if [ -d "$HOME/.local/share/fnm" ]; then
-#  PATH="$HOME/.local/share/fnm:$PATH"
-#   eval "$(fnm env --use-on-cd)"
-# fi
+if command -v fnm >/dev/null 2>&1; then
+  eval "$(fnm env --use-on-cd)"
+fi
+
+if command -v direnv >/dev/null 2>&1; then
+  eval "$(direnv hook zsh)"
+fi
 
 #source "$HOME/.config/zsh/omz.sh"
 source "$HOME/.config/zsh/init.sh"
