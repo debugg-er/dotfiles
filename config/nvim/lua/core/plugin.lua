@@ -134,7 +134,7 @@ require("lazy").setup({
         "williamboman/mason-lspconfig.nvim",
         config = require("core.plugin.lsp").setup,
         dependencies = {
-            -- "neovim/nvim-lspconfig",
+            "neovim/nvim-lspconfig",
             "williamboman/mason.nvim",
             "WhoIsSethDaniel/mason-tool-installer.nvim",
             -- "https://gitlab.com/schrieveslaach/sonarlint.nvim",

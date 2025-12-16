@@ -31,6 +31,10 @@
     extraGroups = [ "wheel" "docker" ];
   };
 
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes
+  '';
+
   environment.systemPackages = with pkgs; [
     # Common Tools
     zsh
@@ -41,9 +45,12 @@
     fzf
     unzip
     ripgrep
+    dnsutils
     nmap
     tmux
     neovim
+    gemini-cli
+    openssl
 
     # C/C++
     clang-tools
@@ -63,6 +70,10 @@
     # Rust
     cargo
     rustc
+
+    # Java
+    jdk21_headless
+    maven
 
     # Operation
     ansible

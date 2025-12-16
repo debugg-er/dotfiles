@@ -12,7 +12,8 @@ function M.setup()
             go = { "gofmt", "goimports" },
             lua = { "stylua" },
             proto = { "buf" },
-            nix = { "nixpkgs_fmt" }
+            nix = { "nixpkgs_fmt" },
+            java = { "google_java_format" }
         },
     })
 
