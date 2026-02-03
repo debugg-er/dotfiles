@@ -26,7 +26,7 @@ function M.setup()
         formatting = {
             format = lspkind.cmp_format({
                 mode = "text",
-                symbol_map = { Copilot = "" },
+                -- symbol_map = { Copilot = "" },
                 menu = {
                     nvim_lsp = "[LSP]",
                     nvim_lua = "[api]",
@@ -49,7 +49,7 @@ function M.setup()
             ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         }),
         sources = cmp.config.sources({
-            { name = "copilot", group_index = 2 },
+            -- { name = "copilot", group_index = 2 },
             { name = "nvim_lsp" },
             { name = "nvim_lsp_signature_help" },
             { name = "luasnip" },
@@ -70,18 +70,18 @@ function M.setup()
         },
         sorting = {
             priority_weight = 1.0,
-            comparators = {
-                require("copilot_cmp.comparators").prioritize,
-                compare.offset,
-                compare.exact,
-                compare.score,
-                compare.recently_used,
-                compare.locality,
-                compare.kind,
-                compare.sort_text,
-                compare.length,
-                compare.order,
-            },
+            -- comparators = {
+            --     -- require("copilot_cmp.comparators").prioritize,
+            --     compare.offset,
+            --     compare.exact,
+            --     compare.score,
+            --     compare.recently_used,
+            --     compare.locality,
+            --     compare.kind,
+            --     compare.sort_text,
+            --     compare.length,
+            --     compare.order,
+            -- },
         },
     }
 

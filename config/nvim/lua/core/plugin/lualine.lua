@@ -26,7 +26,7 @@ function M.setup()
             lualine_a = { "mode" },
             lualine_b = { "branch", "diff", "diagnostics" },
             lualine_c = {
-                { "filename", path = 4 },
+                -- { "filename", path = 4 },
                 {
                     "navic",
                     color_correction = "static",

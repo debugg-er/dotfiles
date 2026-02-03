@@ -194,22 +194,48 @@ require("lazy").setup({
         build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
     },
     {
-        "zbirenbaum/copilot-cmp",
-        config = function()
-            require("copilot_cmp").setup()
-        end,
+        "Exafunction/codeium.nvim",
+        build = ":Codeium Auth",
         dependencies = {
-            {
-                "zbirenbaum/copilot.lua",
-                config = function()
-                    require("copilot").setup({
-                        suggestion = { enabled = false },
-                        panel = { enabled = false },
-                    })
-                end,
+            "nvim-lua/plenary.nvim",
+            "hrsh7th/nvim-cmp",
+        },
+        opts = {
+            enable_cmp_source = false,
+            virtual_text = {
+                enabled = true,
+                -- filetypes = {
+                --     snacks_picker_input = false,
+                --     snacks_input = false,
+                --     NvimTree = false,
+                --     ["Avante*"] = false,
+                -- },
+                key_bindings = {
+                    accept = "<C-c>",
+                    next = "<C-S-n>",
+                    prev = "<C-S-p>",
+                },
             },
         },
     },
+
+    -- {
+    --     "zbirenbaum/copilot-cmp",
+    --     config = function()
+    --         require("copilot_cmp").setup()
+    --     end,
+    --     dependencies = {
+    --         {
+    --             "zbirenbaum/copilot.lua",
+    --             config = function()
+    --                 require("copilot").setup({
+    --                     suggestion = { enabled = false },
+    --                     panel = { enabled = false },
+    --                 })
+    --             end,
+    --         },
+    --     },
+    -- },
     -- {
     -- 	"b0o/incline.nvim",
     -- 	config = require("core.plugin.incline").setup,

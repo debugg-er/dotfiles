@@ -88,6 +88,9 @@
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
 
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = [ ];
+
   programs.zsh = {
     enable = true;
     ohMyZsh = {
