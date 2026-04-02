@@ -3,10 +3,18 @@ local M = {}
 function M.setup()
     require("telescope").setup({
         defaults = {
+            file_ignore_patterns = { "%.git/" },
             sorting_strategy = "ascending",
             dynamic_preview_title = true,
             layout_config = {
                 prompt_position = "top",
+            },
+        },
+        pickers = {
+            live_grep = {
+                additional_args = function(opts)
+                    return {"--hidden"}
+                end
             },
         },
         extensions = {

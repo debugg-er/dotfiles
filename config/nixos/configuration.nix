@@ -35,6 +35,8 @@
     experimental-features = nix-command flakes
   '';
 
+  nixpkgs.config.allowUnfree = true;
+
   environment.systemPackages = with pkgs; [
     # Common Tools
     zsh
@@ -50,7 +52,13 @@
     tmux
     neovim
     gemini-cli
+    claude-code
     openssl
+    google-cloud-sdk-gce
+    rclone
+
+    #CTF
+    ghidra
 
     # C/C++
     clang-tools
@@ -64,6 +72,7 @@
     yarn
     nodePackages.typescript
     nodePackages."@nestjs/cli"
+    codex
 
     # Golang
     go_1_25

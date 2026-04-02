@@ -26,6 +26,9 @@ set smartindent
 set autoread
 set autowrite     " Automatically :write before running commands
 
+set ignorecase
+set smartcase
+
 " Softtabs, 2 spaces
 set shiftwidth=4
 set softtabstop=4
@@ -100,7 +103,7 @@ nnoremap <A-h> :nohl<CR>
 xnoremap <S-h> y/\V<C-r>"<CR>
 
 " Search without case-sensitive
-nnoremap ? /\c
+" nnoremap ? /\c
 
 " Fix <S-k> visual mode throw error
 vnoremap <S-k> <up>
