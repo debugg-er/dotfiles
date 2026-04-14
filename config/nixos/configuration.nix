@@ -56,6 +56,13 @@
     openssl
     google-cloud-sdk-gce
     rclone
+    python314
+    tree
+    jq
+
+    # Kubernetes
+    kubernetes-helm
+    kubectl
 
     #CTF
     ghidra

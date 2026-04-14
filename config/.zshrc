@@ -57,3 +57,6 @@ fi
 export CLAUDE_CODE_USE_VERTEX=1
 export CLOUD_ML_REGION=global
 export ANTHROPIC_VERTEX_PROJECT_ID=prj-vnm-prod-be-sg-1
+
+# Added by Hugging Face CLI installer
+export PATH="/home/khainguyen/.local/bin:$PATH"
