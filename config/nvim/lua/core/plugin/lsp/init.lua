@@ -73,13 +73,13 @@ local function setup_mason()
     -- })
     -- vim.lsp.enable("ts_go_ls")
 
-    -- vim.lsp.config('ts_ls', {
-    --     filetypes = {
-    --         "javascript",
-    --         "javascriptreact",
-    --         "javascript.jsx",
-    --     },
-    -- })
+    vim.lsp.config('ts_ls', {
+        filetypes = {
+            "javascript",
+            "javascriptreact",
+            "javascript.jsx",
+        },
+    })
 end
 
 -- local function lsp_keymap()
