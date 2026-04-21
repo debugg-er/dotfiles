@@ -70,9 +70,10 @@
     # fnm
     nodejs_22
     yarn
-    nodePackages.typescript
-    nodePackages."@nestjs/cli"
+    typescript
+    nest-cli
     codex
+    typescript-go
 
     # Golang
     go_1_25

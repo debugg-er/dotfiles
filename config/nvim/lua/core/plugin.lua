@@ -1,9 +1,18 @@
 require("lazy").setup({
     {
-        "navarasu/onedark.nvim",
+        "scottmckendry/cyberdream.nvim",
+        lazy = false,
         priority = 1000,
-        config = require("core.plugin.onedark").setup,
+        config = function()
+            require("cyberdream").setup({ transparent = true, saturation = 0.8 })
+            vim.cmd.colorscheme("cyberdream")
+        end,
     },
+    -- {
+    --     "navarasu/onedark.nvim",
+    --     priority = 1000,
+    --     config = require("core.plugin.onedark").setup,
+    -- },
     {
         "christoomey/vim-tmux-navigator",
     },
@@ -214,6 +223,58 @@ require("lazy").setup({
                     accept = "<C-c>",
                     next = "<C-S-n>",
                     prev = "<C-S-p>",
+                },
+            },
+        },
+    },
+    {
+        "folke/snacks.nvim",
+        priority = 1000,
+        lazy = false,
+        ---@type snacks.Config
+        opts = {
+            dashboard = {
+                enabled = true,
+                preset = {
+                    header = [[
+─────────────────────────────────────────────────────────────────────────────────────────
+#                                                                                       #
+#                                                                                       #
+#                                                                                       #
+#                                                                                       #
+#                                          -@@-                                         #
+#                                        :%@@@@%:                                       #
+#                                      .#@@@@@@@#.                                      #
+#                                    .*@@@@@@@%.                                        #
+#                                  .+@@@@@@@@:      .-.                                 #
+#                                 -@@@@@@@@:       -@@@=                                #
+#                               :@@@@@@@@=.      :@@@@@@@:                              #
+#                               .+@@@@@@@%:    :%@@@@@@@@@%:                            #
+#                                 .*@@@@@@@%..#@@@@@@@@@@@@@#.                          #
+#                          +*.      .#@@@@@@@@@@@@@@%:%@@@@@@@+                         #
+#                        =@@@@+.      :%@@@@@@@@@@@:   :@@@@@@@@=                       #
+#                      .%@@@@@@@=       +@@@@@@@@+       =@@@@@@@%.                     #
+#                        =@@@@@@@@:   :%@@@@@@@@@@%:      .+@@@@=                       #
+#                          *@@@@@@@%:#@@@@@@@@@@@@@@#.      .**                         #
+#                           .#@@@@@@@@@@@@@%..%@@@@@@@*.                                #
+#                             .%@@@@@@@@@@:    :@@@@@@@@+.                              #
+#                               -@@@@@@@-       -@@@@@@@@-                              #
+#                                .=@@@=.      :@@@@@@@@=.                               #
+#                                  .-.      :%@@@@@@@+.                                 #
+#                                         .#@@@@@@@*.                                   #
+#                                       .*@@@@@@@#:                                     #
+#                                        :%@@@@%:                                       #
+#                                          -@@-                                         #
+#                                                                                       #
+#                                                                                       #
+#                                                                                       #
+#                                                                                       #
+─────────────────────────────────────────────────────────────────────────────────────────
+]],
+                },
+                sections = {
+                    { section = "header" },
+                    { section = "startup" },
                 },
             },
         },

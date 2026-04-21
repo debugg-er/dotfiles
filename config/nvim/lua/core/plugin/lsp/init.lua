@@ -53,20 +53,33 @@ local function setup_mason()
         ensure_installed = {
             "lua_ls",
             "dockerls",
-            "bashls"
+            "bashls",
         },
     })
 
     auto_install()
 
+    -- vim.lsp.config("ts_go_ls", {
+    --     cmd = { "tsgo", "--lsp", "--stdio" },
+    --     filetypes = {
+    --         "javascript",
+    --         "javascriptreact",
+    --         "javascript.jsx",
+    --         "typescript",
+    --         "typescriptreact",
+    --         "typescript.tsx",
+    --     },
+    --     root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
+    -- })
+    -- vim.lsp.enable("ts_go_ls")
 
-    vim.lsp.config('ts_ls', {
-        filetypes = {
-            "javascript",
-            "javascriptreact",
-            "javascript.jsx",
-        },
-    })
+    -- vim.lsp.config('ts_ls', {
+    --     filetypes = {
+    --         "javascript",
+    --         "javascriptreact",
+    --         "javascript.jsx",
+    --     },
+    -- })
 end
 
 -- local function lsp_keymap()
