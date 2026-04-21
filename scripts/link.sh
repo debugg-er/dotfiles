@@ -15,6 +15,9 @@ ln -svf $CONFIG_DIR/.vimrc ~/.vimrc
 ln -svf $CONFIG_DIR/.editorconfig ~/.editorconfig
 ln -svnf $CONFIG_DIR/.fonts ~/.fonts
 
+ln -svf $CONFIG_DIR/.gitconfig ~/.gitconfig
+ln -svf $CONFIG_DIR/.gitignore ~/.gitignore
+
 sudo rm -rf /etc/nixos
 sudo ln -svf $CONFIG_DIR/nixos /etc/nixos
 

@@ -123,7 +123,7 @@ function M.setup()
         },
     }
 
-    require("nvim-treesitter.configs").setup(opts)
+    require("nvim-treesitter").setup(opts)
     require("nvim-ts-autotag").setup()
     -- require("nvim-dap-repl-highlights").setup()
 

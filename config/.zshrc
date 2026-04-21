@@ -51,12 +51,9 @@ fi
 
 [[ -s "/home/khainguyen/.gvm/scripts/gvm" ]] && source "/home/khainguyen/.gvm/scripts/gvm"
 
-# export GOOGLE_CLOUD_PROJECT="prj-vnm-prod-be-sg-1"
-# export GOOGLE_CLOUD_LOCATION="global"
-
-export CLAUDE_CODE_USE_VERTEX=1
-export CLOUD_ML_REGION=global
-export ANTHROPIC_VERTEX_PROJECT_ID=prj-vnm-prod-be-sg-1
-
 # Added by Hugging Face CLI installer
 export PATH="/home/khainguyen/.local/bin:$PATH"
+
+# Set ghost text color for zsh-autosuggestions
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#757575'
+
