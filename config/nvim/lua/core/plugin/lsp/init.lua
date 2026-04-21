@@ -73,7 +73,18 @@ local function setup_mason()
     -- })
     -- vim.lsp.enable("ts_go_ls")
 
-    vim.lsp.config('ts_ls', {
+    vim.lsp.config("lua_ls", {
+        settings = {
+            Lua = {
+                runtime = { version = "LuaJIT" },
+                diagnostics = { globals = { "vim", "require" } },
+                workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+                telemetry = { enable = false },
+            },
+        },
+    })
+
+    vim.lsp.config("ts_ls", {
         filetypes = {
             "javascript",
             "javascriptreact",
