@@ -13,7 +13,7 @@ local function auto_install()
         ensure_installed = {
             "bash-language-server",
             "buf",
-            "buf-language-server",
+            -- "buf-language-server",
             "checkmake",
             "dockerfile-language-server",
             "json-lsp",

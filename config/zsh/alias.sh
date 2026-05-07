@@ -28,7 +28,16 @@ alias vim="nvim"
 #    fnm exec --using=default nvim $@
 #}
 
-vertex_claude="CLAUDE_CODE_USE_VERTEX=1 CLOUD_ML_REGION=global ANTHROPIC_VERTEX_PROJECT_ID=prj-vnm-prod-be-sg-1 claude"
+vertex_claude() {
+    if command -v gcloud &> /dev/null; then
+        LAST_RUN_FILE="$HOME/.gcloud_adc_last_login"
+        if [[ ! -f "$LAST_RUN_FILE" || "$(date +%F)" != "$(cat $LAST_RUN_FILE)" ]]; then
+            gcloud auth application-default login
+            date +%F > "$LAST_RUN_FILE"
+        fi
+    fi
+    CLAUDE_CODE_USE_VERTEX=1 CLOUD_ML_REGION=global ANTHROPIC_VERTEX_PROJECT_ID=prj-vnm-prod-be-sg-1 claude
+}
 
 glogw() {
     git log --date=iso-local --pretty=format:'%h|%an|%ad|%s' |

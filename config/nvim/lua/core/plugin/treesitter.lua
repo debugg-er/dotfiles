@@ -2,6 +2,8 @@ local M = {}
 
 function M.setup()
     local opts = {
+        -- Directory to install parsers and queries to (prepended to `runtimepath` to have priority)
+        install_dir = vim.fn.stdpath("data") .. "/site",
         sync_install = false,
         auto_install = true,
         ensure_installed = {
@@ -122,6 +124,18 @@ function M.setup()
             -- },
         },
     }
+
+    -- Manually adding site runtime path
+    -- vim.opt.runtimepath:append(vim.fn.stdpath("data") .. "/site")
+
+    vim.api.nvim_create_autocmd("FileType", {
+        callback = function(args)
+            local lang = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype)
+            if lang and pcall(vim.treesitter.start, args.buf) then
+                -- started successfully
+            end
+        end,
+    })
 
     require("nvim-treesitter").setup(opts)
     require("nvim-ts-autotag").setup()

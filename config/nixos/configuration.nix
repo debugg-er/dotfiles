@@ -53,12 +53,18 @@
     neovim
     gemini-cli
     claude-code
+    opencode
     openssl
     google-cloud-sdk-gce
     rclone
-    python314
+    python313
+    python313Packages.pip
     tree
     jq
+    terraform
+    sshfs
+    tree-sitter
+    lua55Packages.tree-sitter-cli
 
     # Kubernetes
     kubernetes-helm
