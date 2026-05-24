@@ -73,6 +73,7 @@ local function setup_mason()
     -- })
     -- vim.lsp.enable("ts_go_ls")
 
+    -- vim.lsp.inlay_hint.enable(true)
     vim.lsp.config("lua_ls", {
         settings = {
             Lua = {

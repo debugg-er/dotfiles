@@ -43,6 +43,7 @@ function M.setup()
             -- described below
             tsserver_format_options = {},
             tsserver_file_preferences = {
+                -- includeInlayParameterNameHints = "all",
                 -- importModuleSpecifierPreference = "non-relative",
             },
             -- locale of all tsserver messages, supported locales you can find here:

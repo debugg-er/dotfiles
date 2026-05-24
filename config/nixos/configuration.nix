@@ -65,6 +65,7 @@
     sshfs
     tree-sitter
     lua55Packages.tree-sitter-cli
+    direnv
 
     # Kubernetes
     kubernetes-helm

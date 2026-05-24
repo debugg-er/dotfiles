@@ -13,6 +13,16 @@ require("lazy").setup({
     --     priority = 1000,
     --     config = require("core.plugin.onedark").setup,
     -- },
+    -- lazy.nvim
+    {
+        "folke/noice.nvim",
+        event = "VeryLazy",
+        config = require("core.plugin.noice").setup,
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+            { "rcarriga/nvim-notify", opts = { render = "minimal", stages = "static" } },
+        },
+    },
     {
         "christoomey/vim-tmux-navigator",
     },
@@ -205,26 +215,10 @@ require("lazy").setup({
     {
         "Exafunction/codeium.nvim",
         build = ":Codeium Auth",
+        config = require("core.plugin.codeium").setup,
         dependencies = {
             "nvim-lua/plenary.nvim",
             "hrsh7th/nvim-cmp",
-        },
-        opts = {
-            enable_cmp_source = false,
-            virtual_text = {
-                enabled = true,
-                -- filetypes = {
-                --     snacks_picker_input = false,
-                --     snacks_input = false,
-                --     NvimTree = false,
-                --     ["Avante*"] = false,
-                -- },
-                key_bindings = {
-                    accept = "<C-c>",
-                    next = "<C-S-n>",
-                    prev = "<C-S-p>",
-                },
-            },
         },
     },
     {

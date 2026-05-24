@@ -151,7 +151,13 @@ function M.setup()
         },
         { "<leader>du", "<cmd>lua require'dap'.step_out()<cr>", desc = "Step Out", nowait = true, remap = false },
         { "<leader>e", "<cmd>Neotree toggle source=last<CR>", desc = "Explorer", nowait = true, remap = false },
-        { "<leader>f", "<cmd>Telescope find_files hidden=true<cr>", desc = "Find in file", nowait = true, remap = false },
+        {
+            "<leader>f",
+            "<cmd>Telescope find_files hidden=true<cr>",
+            desc = "Find in file",
+            nowait = true,
+            remap = false,
+        },
         { "<leader>g", group = "Git", nowait = true, remap = false },
         {
             "<leader>gC",
@@ -235,14 +241,18 @@ function M.setup()
         { "<leader>le", "<cmd>Telescope quickfix<cr>", desc = "Telescope Quickfix", nowait = true, remap = false },
         {
             "<leader>lj",
-            "<cmd>lua vim.diagnostic.goto_next()<cr>",
+            function()
+                vim.diagnostic.jump({ count = 1, float = true })
+            end,
             desc = "Next Diagnostic",
             nowait = true,
             remap = false,
         },
         {
             "<leader>lk",
-            "<cmd>lua vim.diagnostic.goto_prev()<cr>",
+            function()
+                vim.diagnostic.jump({ count = -1, float = true })
+            end,
             desc = "Prev Diagnostic",
             nowait = true,
             remap = false,

@@ -56,3 +56,6 @@ export PATH="/home/khainguyen/.local/bin:$PATH"
 
 # Set ghost text color for zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#757575'
+
+# Claude
+export CLAUDE_CODE_NO_FLICKER=1
