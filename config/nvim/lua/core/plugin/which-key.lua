@@ -110,6 +110,15 @@ function M.setup()
         { "<leader>T", group = "Treesitter", nowait = true, remap = false },
         { "<leader>Ti", ":TSConfigInfo<cr>", desc = "Info", nowait = true, remap = false },
         { "<leader>a", "<cmd>Telescope live_grep<cr>", desc = "Find in workspace", nowait = true, remap = false },
+        {
+            "<leader>A",
+            function()
+                require("telescope.builtin").live_grep({ additional_args = { "--fixed-strings" } })
+            end,
+            desc = "Find in workspace (fixed strings)",
+            nowait = true,
+            remap = false,
+        },
         { "<leader>d", group = "Debug", nowait = true, remap = false },
         {
             "<leader>d?",

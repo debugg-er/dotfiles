@@ -66,13 +66,15 @@
     tree-sitter
     lua55Packages.tree-sitter-cli
     direnv
+    azure-cli
 
     # Kubernetes
     kubernetes-helm
     kubectl
+    kustomize
 
     #CTF
-    ghidra
+    # ghidra
 
     # C/C++
     clang-tools
@@ -129,6 +131,21 @@
 
   programs.npm.enable = true;
 
+  services.openssh = {
+    enable = true;
+    ports = [ 8022 ];
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
+      KbdInteractiveAuthentication = false;
+    };
+    listenAddresses = [
+      {
+        addr = "0.0.0.0";
+        port = 8022;
+      }
+    ];
+  };
 
   systemd.user.tmpfiles.rules = [
     "L %h/.tmux/plugins/tpm - - - - ${pkgs.fetchFromGitHub {
