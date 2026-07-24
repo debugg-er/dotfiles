@@ -159,7 +159,15 @@ function M.setup()
             remap = false,
         },
         { "<leader>du", "<cmd>lua require'dap'.step_out()<cr>", desc = "Step Out", nowait = true, remap = false },
-        { "<leader>e", "<cmd>Neotree toggle source=last<CR>", desc = "Explorer", nowait = true, remap = false },
+        {
+            "<leader>e",
+            function()
+                Snacks.explorer.open()
+            end,
+            desc = "Explorer",
+            nowait = true,
+            remap = false,
+        },
         {
             "<leader>f",
             "<cmd>Telescope find_files hidden=true<cr>",

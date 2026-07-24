@@ -59,20 +59,6 @@ local function setup_mason()
 
     auto_install()
 
-    -- vim.lsp.config("ts_go_ls", {
-    --     cmd = { "tsgo", "--lsp", "--stdio" },
-    --     filetypes = {
-    --         "javascript",
-    --         "javascriptreact",
-    --         "javascript.jsx",
-    --         "typescript",
-    --         "typescriptreact",
-    --         "typescript.tsx",
-    --     },
-    --     root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
-    -- })
-    -- vim.lsp.enable("ts_go_ls")
-
     -- vim.lsp.inlay_hint.enable(true)
     vim.lsp.config("lua_ls", {
         settings = {
@@ -84,40 +70,12 @@ local function setup_mason()
             },
         },
     })
-
-    -- vim.lsp.config("ts_ls", {
-    --     filetypes = {
-    --         "javascript",
-    --         "javascriptreact",
-    --         "javascript.jsx",
-    --     },
-    -- })
 end
-
--- local function lsp_keymap()
---     -- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
---     -- vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
---     -- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
-
---     -- Use LspAttach autocommand to only map the following keys
---     -- after the language server attaches to the current buffer
---     vim.api.nvim_create_autocmd("LspAttach", {
---         group = vim.api.nvim_create_augroup("UserLspConfig", {}),
---         callback = function(ev)
---             -- Enable completion triggered by <c-x><c-o>
---             vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
---             require("core.mapping").lsp(ev)
---         end,
---     })
--- end
 
 function M.setup()
     setup_mason()
 
     require("core.plugin.lsp.clangd").setup()
-    -- lsp_keymap()
-
-    -- vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { undercurl = true, sp = "#ffff00" })
 end
 
 return M

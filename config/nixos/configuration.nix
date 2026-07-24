@@ -72,6 +72,7 @@
     kubernetes-helm
     kubectl
     kustomize
+    kubelogin-oidc
 
     #CTF
     # ghidra

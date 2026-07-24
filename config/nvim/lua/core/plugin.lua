@@ -144,12 +144,12 @@ require("lazy").setup({
             -- "LiadOz/nvim-dap-repl-highlights",
         },
     },
-    {
-        "nvim-neo-tree/neo-tree.nvim",
-        cmd = { "Neotree" },
-        config = require("core.plugin.neotree").setup,
-        dependencies = { "MunifTanjim/nui.nvim" },
-    },
+    -- {
+    --     "nvim-neo-tree/neo-tree.nvim",
+    --     cmd = { "Neotree" },
+    --     config = require("core.plugin.neotree").setup,
+    --     dependencies = { "MunifTanjim/nui.nvim" },
+    -- },
     {
         "williamboman/mason-lspconfig.nvim",
         config = require("core.plugin.lsp").setup,
@@ -217,40 +217,8 @@ require("lazy").setup({
         "folke/snacks.nvim",
         priority = 1000,
         lazy = false,
-        ---@type snacks.Config
-        opts = {
-            dashboard = require("core.plugin.snacks.dashboard"),
-            rename = {
-                enabled = true
-            }
-        },
+        config = require("core.plugin.snacks").setup,
     },
-
-    -- {
-    --     "zbirenbaum/copilot-cmp",
-    --     config = function()
-    --         require("copilot_cmp").setup()
-    --     end,
-    --     dependencies = {
-    --         {
-    --             "zbirenbaum/copilot.lua",
-    --             config = function()
-    --                 require("copilot").setup({
-    --                     suggestion = { enabled = false },
-    --                     panel = { enabled = false },
-    --                 })
-    --             end,
-    --         },
-    --     },
-    -- },
-    -- {
-    -- 	"b0o/incline.nvim",
-    -- 	config = require("core.plugin.incline").setup,
-    -- 	dependencies = {
-    -- 		"nvim-tree/nvim-web-devicons",
-    -- 		"SmiteshP/nvim-navic",
-    -- 	},
-    -- },
 
     -- Supported plugins
     {
@@ -261,87 +229,4 @@ require("lazy").setup({
         "nvim-tree/nvim-web-devicons",
         lazy = true,
     },
-
-    -- {
-    -- 	"altermo/ultimate-autopair.nvim",
-    -- 	event = { "InsertEnter", "CmdlineEnter" },
-    -- 	branch = "v0.6",
-    -- 	opts = {},
-    -- },
-    -- {
-    -- 	"ellisonleao/gruvbox.nvim",
-    -- 	priority = 1000,
-    -- 	config = true,
-    -- },
-    -- {
-    -- 	"catppuccin/nvim",
-    -- 	name = "catppuccin",
-    -- 	priority = 1000,
-    -- },
-    -- {
-    -- 	"sainnhe/sonokai",
-    -- },
-    -- {
-    -- 	"Mofiqul/vscode.nvim",
-    -- },
-    -- {
-    -- 	"nvimtools/none-ls.nvim",
-    -- 	config = require("core.plugin.null-ls").setup,
-    -- 	dependencies = {
-    -- 		"nvimtools/none-ls-extras.nvim",
-    -- 	},
-    -- },
-    -- {
-    -- 	"olimorris/onedarkpro.nvim",
-    -- 	priority = 1000, -- Ensure it loads first
-    -- },
-    -- {
-    -- 	"romgrk/barbar.nvim",
-    -- 	version = "^1.0.0",
-    -- 	dependencies = {
-    -- 		"lewis6991/gitsigns.nvim",
-    -- 		"nvim-tree/nvim-web-devicons",
-    -- 	},
-    -- 	config = require("core.plugin.barbar").setup,
-    -- },
-    -- {
-    -- 	"mxsdev/nvim-dap-vscode-js",
-    -- 	config = require("core.plugin.dap").setup,
-    -- 	dependencies = {
-    -- 		"mfussenegger/nvim-dap",
-    -- 		{
-    -- 			"microsoft/vscode-js-debug",
-    -- 			build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
-    -- 		},
-    -- 	},
-    -- },
-    -- {
-    -- 	"leoluz/nvim-dap-go",
-    -- 	config = require("core.plugin.dap-go").setup,
-    -- 	dependencies = {
-    -- 		"mfussenegger/nvim-dap",
-    -- 	},
-    -- },
-    -- {
-    -- 	"tpope/vim-fugitive",
-    -- },
-    -- {
-    -- 	"nvim-neo-tree/neo-tree.nvim",
-    -- 	branch = "v3.x",
-    -- 	config = require("core.plugin.neotree").setup,
-    -- 	dependencies = {
-    -- 		"nvim-lua/plenary.nvim",
-    -- 		"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-    -- 		"MunifTanjim/nui.nvim",
-    -- 		-- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
-    -- 	},
-    -- },
-    -- {
-    -- 	"nvim-tree/nvim-tree.lua",
-    -- 	config = require("core.plugin.tree").setup,
-    -- },
-    -- {
-    -- 	"NMAC427/guess-indent.nvim",
-    -- 	config = require("core.plugin.guess-indent").setup,
-    -- },
 })
