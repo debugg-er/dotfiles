@@ -270,23 +270,24 @@ function M.setup()
         { "<leader>llt", group = "Typescript", nowait = true, remap = false },
         {
             "<leader>lltm",
-            "<cmd>TSToolsAddMissingImports<cr>",
+            function()
+                vim.lsp.buf.code_action({
+                    apply = true,
+                    context = { only = { "source.addMissingImports" }, diagnostics = {} },
+                })
+            end,
             desc = "Add missing imports",
             nowait = true,
             remap = false,
         },
         {
-            "<leader>llto",
-            "<cmd>TSToolsOrganizeImports<cr>",
-            desc = "Sorts and removes unused imports",
-            nowait = true,
-            remap = false,
-        },
-        { "<leader>lltr", "<cmd>TSToolsRenameFile<cr>", desc = "Rename current file", nowait = true, remap = false },
-        { "<leader>llts", "<cmd>TSToolsSortImports<cr>", desc = "Sorts imports", nowait = true, remap = false },
-        {
             "<leader>lltx",
-            "<cmd>TSToolsRemoveUnusedImports<cr>",
+            function()
+                vim.lsp.buf.code_action({
+                    apply = true,
+                    context = { only = { "source.removeUnusedImports" }, diagnostics = {} },
+                })
+            end,
             desc = "Removes unused imports",
             nowait = true,
             remap = false,

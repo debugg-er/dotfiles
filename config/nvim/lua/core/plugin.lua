@@ -25,6 +25,7 @@ require("lazy").setup({
     },
     {
         "christoomey/vim-tmux-navigator",
+        config = require("core.plugin.tmux-navigator").setup,
     },
     {
         "tpope/vim-surround",
@@ -191,15 +192,6 @@ require("lazy").setup({
         },
     },
     {
-        "pmizio/typescript-tools.nvim",
-        ft = { "typescript" },
-        config = require("core.plugin.lsp.typescript").setup,
-        dependencies = {
-            "neovim/nvim-lspconfig",
-            "williamboman/mason-lspconfig.nvim",
-        },
-    },
-    {
         "ray-x/go.nvim",
         dependencies = { -- optional packages
             "ray-x/guihua.lua",
@@ -228,6 +220,9 @@ require("lazy").setup({
         ---@type snacks.Config
         opts = {
             dashboard = require("core.plugin.snacks.dashboard"),
+            rename = {
+                enabled = true
+            }
         },
     },
 

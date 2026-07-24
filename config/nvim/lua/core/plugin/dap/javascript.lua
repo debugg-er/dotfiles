@@ -19,15 +19,15 @@ local configurations = {
         name = "Launch - Command",
         outputCapture = "std",
         cwd = vim.fn.getcwd(),
-        runtimeExecutable = (function()
+        runtimeExecutable = function()
             input = vim.fn.input("Enter debug command: ")
             local parts = vim.split(input, " ")
             return parts[1]
-        end),
-        runtimeArgs = (function()
+        end,
+        runtimeArgs = function()
             local parts = vim.split(input, " ")
             return vim.list_slice(parts, 2)
-        end),
+        end,
     },
     {
         type = "pwa-node",
@@ -36,7 +36,7 @@ local configurations = {
         cwd = vim.fn.getcwd(),
         runtimeExecutable = "yarn",
         runtimeArgs = { "start:debug" },
-        console = 'integratedTerminal'
+        console = "integratedTerminal",
     },
     {
         type = "pwa-node",
@@ -44,7 +44,11 @@ local configurations = {
         name = "Attach",
         cwd = vim.fn.getcwd(),
         sourceMaps = true,
-        outputCapture = "std",
+        -- outputCapture = "std",
+        sourceMapPathOverrides = {
+            ["webpack://fhnx/./*"] = vim.fn.getcwd() .. "/*",
+            ["webpack://fhnx/*"] = vim.fn.getcwd() .. "/*",
+        },
     },
     {
         type = "pwa-node",

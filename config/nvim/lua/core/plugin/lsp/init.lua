@@ -27,7 +27,7 @@ local function auto_install()
             "stylua",
 
             -- TS/JS
-            { "typescript-language-server", condition = check_node },
+            { "tsgo", condition = check_node },
             { "js-debug-adapter", condition = check_node },
             { "eslint_d", condition = check_node },
             { "prettierd", condition = check_node },
@@ -85,13 +85,13 @@ local function setup_mason()
         },
     })
 
-    vim.lsp.config("ts_ls", {
-        filetypes = {
-            "javascript",
-            "javascriptreact",
-            "javascript.jsx",
-        },
-    })
+    -- vim.lsp.config("ts_ls", {
+    --     filetypes = {
+    --         "javascript",
+    --         "javascriptreact",
+    --         "javascript.jsx",
+    --     },
+    -- })
 end
 
 -- local function lsp_keymap()
