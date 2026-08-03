@@ -10,12 +10,30 @@ function M.setup()
         picker = {
             sources = {
                 explorer = {
+                    hidden = true,
+                    ignored = true,
                     layout = {
                         auto_hide = { "input" },
                     },
                 },
             },
         },
+    })
+
+    local function set_hl()
+        vim.api.nvim_set_hl(0, "SnacksPickerPathHidden", {
+            link = "Normal",
+        })
+        vim.api.nvim_set_hl(0, "SnacksPickerPathIgnored", {
+            link = "Comment",
+        })
+        vim.api.nvim_set_hl(0, "SnacksPickerGitStatusUntracked", {
+            link = "Added",
+        })
+    end
+
+    vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
+        callback = set_hl,
     })
 end
 

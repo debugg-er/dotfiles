@@ -208,5 +208,27 @@ n() {
     kubectl config set-context --current --namespace=$1
 }
 
+paste-image() {
+  local filename="${1:-paste-$(date +%Y%m%d-%H%M%S).png}"
+  local winpath
+
+  winpath="$(wslpath -w "$PWD")"
+
+  powershell.exe -NoProfile -Command "
+    Add-Type -AssemblyName System.Windows.Forms
+    if ([Windows.Forms.Clipboard]::ContainsImage()) {
+      \$img = [Windows.Forms.Clipboard]::GetImage()
+      \$img.Save('$winpath\\$filename')
+    } else {
+      Write-Error 'Clipboard does not contain an image.'
+      exit 1
+    }
+  " >/dev/null
+
+  if [[ $? -eq 0 ]]; then
+    echo "Saved image to: $filename"
+  fi
+}
+
 
 # eval $(thefuck --alias)

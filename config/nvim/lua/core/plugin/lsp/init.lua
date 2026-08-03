@@ -75,7 +75,7 @@ end
 function M.setup()
     setup_mason()
 
-    require("core.plugin.lsp.clangd").setup()
+    -- require("core.plugin.lsp.clangd").setup()
 end
 
 return M

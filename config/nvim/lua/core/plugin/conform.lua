@@ -13,7 +13,7 @@ function M.setup()
             lua = { "stylua" },
             proto = { "buf" },
             nix = { "nixpkgs_fmt" },
-            java = { "google_java_format" }
+            -- java = { "google_java_format" }
         },
     })
 

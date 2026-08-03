@@ -1,11 +1,33 @@
 require("lazy").setup({
+    -- {
+    --     "scottmckendry/cyberdream.nvim",
+    --     lazy = false,
+    --     priority = 1000,
+    --     config = function()
+    --         require("cyberdream").setup({ transparent = true, saturation = 0.8 })
+    --         vim.cmd.colorscheme("cyberdream")
+    --     end,
+    -- },
     {
-        "scottmckendry/cyberdream.nvim",
-        lazy = false,
+        "catppuccin/nvim",
+        name = "catppuccin",
         priority = 1000,
         config = function()
-            require("cyberdream").setup({ transparent = true, saturation = 0.8 })
-            vim.cmd.colorscheme("cyberdream")
+            require("catppuccin").setup({
+                transparent_background = true,
+                float = {
+                    transparent = true,
+                },
+            })
+            -- require("catppuccin").setup({
+            --     style = "moon",
+            --     transparent = true,
+            --     styles = {
+            --         sidebars = "transparent",
+            --         floats = "transparent",
+            --     },
+            -- })
+            vim.cmd.colorscheme("catppuccin")
         end,
     },
     -- {
@@ -141,6 +163,7 @@ require("lazy").setup({
         dependencies = {
             "windwp/nvim-ts-autotag",
             "nvim-treesitter/nvim-treesitter-textobjects",
+            "nvim-treesitter/nvim-treesitter-context"
             -- "LiadOz/nvim-dap-repl-highlights",
         },
     },
