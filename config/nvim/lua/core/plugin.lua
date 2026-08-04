@@ -11,7 +11,7 @@ require("lazy").setup({
     {
         "catppuccin/nvim",
         name = "catppuccin",
-        priority = 1000,
+        priority = 10000,
         config = function()
             require("catppuccin").setup({
                 transparent_background = true,
@@ -19,14 +19,6 @@ require("lazy").setup({
                     transparent = true,
                 },
             })
-            -- require("catppuccin").setup({
-            --     style = "moon",
-            --     transparent = true,
-            --     styles = {
-            --         sidebars = "transparent",
-            --         floats = "transparent",
-            --     },
-            -- })
             vim.cmd.colorscheme("catppuccin")
         end,
     },
@@ -140,9 +132,9 @@ require("lazy").setup({
     {
         "nvim-lualine/lualine.nvim",
         config = require("core.plugin.lualine").setup,
-        dependencies = {
-            "SmiteshP/nvim-navic",
-        },
+        -- dependencies = {
+        --     "SmiteshP/nvim-navic",
+        -- },
     },
     {
         "akinsho/bufferline.nvim",
@@ -163,7 +155,7 @@ require("lazy").setup({
         dependencies = {
             "windwp/nvim-ts-autotag",
             "nvim-treesitter/nvim-treesitter-textobjects",
-            "nvim-treesitter/nvim-treesitter-context"
+            "nvim-treesitter/nvim-treesitter-context",
             -- "LiadOz/nvim-dap-repl-highlights",
         },
     },
@@ -192,26 +184,25 @@ require("lazy").setup({
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-nvim-lsp-signature-help",
-            "saadparwaiz1/cmp_luasnip",
+            -- "saadparwaiz1/cmp_luasnip",
 
             "rcarriga/cmp-dap",
             "onsails/lspkind.nvim",
             "ray-x/cmp-treesitter",
             "Exafunction/codeium.nvim",
-
-            {
-                "L3MON4D3/LuaSnip",
-                version = "2.*",
-                build = "make install_jsregexp",
-                dependencies = {
-                    {
-                        "rafamadriz/friendly-snippets",
-                        config = function()
-                            require("luasnip.loaders.from_vscode").lazy_load()
-                        end,
-                    },
-                },
-            },
+            -- {
+            --     "L3MON4D3/LuaSnip",
+            --     version = "2.*",
+            --     build = "make install_jsregexp",
+            --     dependencies = {
+            --         {
+            --             "rafamadriz/friendly-snippets",
+            --             config = function()
+            --                 require("luasnip.loaders.from_vscode").lazy_load()
+            --             end,
+            --         },
+            --     },
+            -- },
         },
     },
     {
@@ -241,6 +232,14 @@ require("lazy").setup({
         priority = 1000,
         lazy = false,
         config = require("core.plugin.snacks").setup,
+        dependencies = {
+            {
+                "nvim-mini/mini.icons",
+                config = function()
+                    require("mini.icons").setup()
+                end,
+            },
+        },
     },
 
     -- Supported plugins
@@ -248,8 +247,8 @@ require("lazy").setup({
         "nvim-lua/plenary.nvim",
         lazy = true,
     },
-    {
-        "nvim-tree/nvim-web-devicons",
-        lazy = true,
-    },
+    -- {
+    --     "nvim-tree/nvim-web-devicons",
+    --     lazy = true,
+    -- },
 })

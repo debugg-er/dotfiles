@@ -1,0 +1,357 @@
+#!/usr/bin/env node
+
+import { execFile } from "node:child_process";
+import { createHash } from "node:crypto";
+import { createInterface } from "node:readline/promises";
+import { stdin as input, stdout as output } from "node:process";
+import { promisify } from "node:util";
+
+const execFileAsync = promisify(execFile);
+
+function usage() {
+  return `Usage:
+  missing-commits <source-branch> <target-branch> [--repo <path>] [--json]
+
+Examples:
+  missing-commits feature/main develop
+  missing-commits origin/release origin/main --repo ../my-repo
+
+Lists commits reachable from <source-branch> that are not reachable from
+<target-branch>, using:
+  git log <branch> --pretty=format:"%H %h %an %aI %s"`;
+}
+
+function parseArgs(argv) {
+  const positional = [];
+  const options = {
+    json: false,
+    repo: process.cwd()
+  };
+
+  for (let i = 0; i < argv.length; i += 1) {
+    const arg = argv[i];
+
+    if (arg === "--help" || arg === "-h") {
+      options.help = true;
+    } else if (arg === "--json") {
+      options.json = true;
+    } else if (arg === "--repo") {
+      const repo = argv[i + 1];
+      if (!repo) {
+        throw new Error("--repo requires a path.");
+      }
+      options.repo = repo;
+      i += 1;
+    } else if (arg.startsWith("-")) {
+      throw new Error(`Unknown option: ${arg}`);
+    } else {
+      positional.push(arg);
+    }
+  }
+
+  if (positional.length > 2) {
+    throw new Error("Expected only source and target branch arguments.");
+  }
+
+  return {
+    source: positional[0],
+    target: positional[1],
+    options
+  };
+}
+
+async function promptMissingBranches(source, target) {
+  if (source && target) {
+    return { source, target };
+  }
+
+  const rl = createInterface({ input, output });
+
+  try {
+    const resolvedSource = source || (await rl.question("Source branch: "));
+    const resolvedTarget = target || (await rl.question("Target branch: "));
+
+    return {
+      source: resolvedSource.trim(),
+      target: resolvedTarget.trim()
+    };
+  } finally {
+    rl.close();
+  }
+}
+
+function validateBranchInput(name, label) {
+  if (!name) {
+    throw new Error(`${label} branch is required.`);
+  }
+}
+
+function displayName(name) {
+  return name.trim().slice(0, 16);
+}
+
+function formatDatetime(isoDatetime) {
+  const match = isoDatetime.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+
+  if (!match) {
+    return isoDatetime;
+  }
+
+  const [, year, month, day, hour, minute] = match;
+  return `${year}/${month}/${day} ${hour}:${minute}`;
+}
+
+async function listBranchCommits({ branch, repo }) {
+  const args = [
+    "log",
+    branch,
+    "--pretty=format:%H%x1f%h%x1f%an%x1f%aI%x1f%s"
+  ];
+
+  const { stdout } = await execFileAsync("git", args, {
+    cwd: repo,
+    maxBuffer: 10 * 1024 * 1024
+  });
+
+  const commits = stdout
+    .split("\n")
+    .filter(Boolean)
+    .map((line) => {
+      const [fullHash, hash, author = "", datetime = "", message = ""] = line.split("\x1f");
+      const fullAuthor = author.trim();
+      return {
+        fullHash,
+        hash,
+        fullAuthor,
+        author: displayName(fullAuthor),
+        datetime: formatDatetime(datetime),
+        comparisonMessage: message.trim(),
+        fileChangeHash: "",
+        message: message.trim()
+      };
+    });
+
+  return commits;
+}
+
+async function listComparedCommits({ source, target, repo }) {
+  const [sourceCommits, targetCommits] = await Promise.all([
+    listBranchCommits({ branch: source, repo }),
+    listBranchCommits({ branch: target, repo })
+  ]);
+
+  await Promise.all([
+    addNumstatHashesForDuplicateCommits({ commits: sourceCommits, repo }),
+    addNumstatHashesForDuplicateCommits({ commits: targetCommits, repo })
+  ]);
+  await ensureSymmetricFileHashesForSharedBaseTuples({
+    sourceCommits,
+    targetCommits,
+    repo
+  });
+
+  const targetCommitKeys = new Set(targetCommits.map(commitExistenceKey));
+  const sourceCommitKeys = new Set(sourceCommits.map(commitExistenceKey));
+  const targetByComparisonMessage = groupCommitsBy(targetCommits, (commit) => commit.comparisonMessage);
+
+  const sourceOnlyCommits = sourceCommits
+    .filter((commit) => !targetCommitKeys.has(commitExistenceKey(commit)))
+    .map((commit) => {
+      const sameMessageCommit = firstDifferentCommit(
+        targetByComparisonMessage.get(commit.comparisonMessage),
+        commit
+      );
+
+      return {
+        ...commit,
+        sourceHash: commit.hash,
+        targetHash: sameMessageCommit?.hash || "",
+        status: sameMessageCommit ? "SameMessage" : "Missing"
+      };
+    });
+
+  const targetOnlyCommits = targetCommits
+    .filter((commit) => !sourceCommitKeys.has(commitExistenceKey(commit)))
+    .map((commit) => ({
+      ...commit,
+      sourceHash: "",
+      targetHash: commit.hash,
+      status: "Untrack"
+    }));
+
+  return [...sourceOnlyCommits, ...targetOnlyCommits];
+}
+
+function commitExistenceKey(commit) {
+  return [
+    commit.fullAuthor,
+    commit.datetime,
+    commit.comparisonMessage
+  ].join("\x1f");
+}
+
+function groupCommitsBy(commits, keyFn) {
+  const grouped = new Map();
+
+  commits.forEach((commit) => {
+    const key = keyFn(commit);
+    const group = grouped.get(key) || [];
+    group.push(commit);
+    grouped.set(key, group);
+  });
+
+  return grouped;
+}
+
+function firstDifferentCommit(commits = [], sourceCommit) {
+  return commits.find((commit) => commit.fullHash !== sourceCommit.fullHash);
+}
+
+async function ensureSymmetricFileHashesForSharedBaseTuples({ sourceCommits, targetCommits, repo }) {
+  const targetByBaseKey = groupCommitsBy(targetCommits, baseCommitKey);
+  const checks = [];
+
+  sourceCommits.forEach((sourceCommit) => {
+    const targetCandidates = targetByBaseKey.get(baseCommitKey(sourceCommit)) || [];
+
+    targetCandidates.forEach((targetCommit) => {
+      checks.push(ensureComparableFileHashes({
+        commitA: sourceCommit,
+        commitB: targetCommit,
+        repo
+      }));
+    });
+  });
+
+  await Promise.all(checks);
+}
+
+async function ensureComparableFileHashes({ commitA, commitB, repo }) {
+  if (Boolean(commitA.fileChangeHash) === Boolean(commitB.fileChangeHash)) {
+    return;
+  }
+
+  if (commitA.fileChangeHash) {
+    await setCommitFileChangeHash({ commit: commitB, repo });
+    return;
+  }
+
+  await setCommitFileChangeHash({ commit: commitA, repo });
+}
+
+async function addNumstatHashesForDuplicateCommits({ commits, repo }) {
+  const commitsByDuplicateKey = new Map();
+
+  commits.forEach((commit) => {
+    const key = baseCommitKey(commit);
+    const group = commitsByDuplicateKey.get(key) || [];
+    group.push(commit);
+    commitsByDuplicateKey.set(key, group);
+  });
+
+  const duplicateCommits = [...commitsByDuplicateKey.values()]
+    .filter((group) => group.length > 1)
+    .flat();
+
+  await Promise.all(
+    duplicateCommits.map(async (commit) => {
+      await setCommitFileChangeHash({ commit, repo });
+    })
+  );
+
+  return commits;
+}
+
+async function setCommitFileChangeHash({ commit, repo }) {
+  if (commit.fileChangeHash) {
+    return;
+  }
+
+  const numstatHash = await hashCommitNumstat({ commit, repo });
+  commit.fileChangeHash = numstatHash;
+  commit.comparisonMessage = `${commit.message} ${numstatHash}`;
+}
+
+function baseCommitKey(commit) {
+  return [
+    commit.fullAuthor,
+    commit.datetime,
+    commit.message
+  ].join("\x1f");
+}
+
+async function hashCommitNumstat({ commit, repo }) {
+  const { stdout } = await execFileAsync("git", [
+    "show",
+    "--numstat",
+    "--format=",
+    commit.fullHash
+  ], {
+    cwd: repo,
+    maxBuffer: 10 * 1024 * 1024
+  });
+
+  return createHash("sha256").update(stdout).digest("hex").slice(0, 6);
+}
+
+function padColumn(value, width) {
+  return value.padEnd(width, " ");
+}
+
+function renderText({ source, target, commits }) {
+  if (commits.length === 0) {
+    return `No differences found between "${source}" and "${target}".`;
+  }
+
+  const sourceWidth = Math.max("SOURCE".length, ...commits.map((commit) => commit.sourceHash.length));
+  const targetWidth = Math.max("TARGET".length, ...commits.map((commit) => commit.targetHash.length));
+  const statusWidth = Math.max("STATUS".length, ...commits.map((commit) => commit.status.length));
+  const authorWidth = Math.max("AUTHOR".length, ...commits.map((commit) => commit.author.length));
+  const datetimeWidth = Math.max("DATETIME".length, ...commits.map((commit) => commit.datetime.length));
+  const fileHashWidth = Math.max("FILEHASH".length, ...commits.map((commit) => commit.fileChangeHash.length));
+  const lines = [
+    `Commit differences between "${source}" and "${target}":`,
+    "",
+    `${padColumn("SOURCE", sourceWidth)}  ${padColumn("TARGET", targetWidth)}  ${padColumn("STATUS", statusWidth)}  ${padColumn("AUTHOR", authorWidth)}  ${padColumn("DATETIME", datetimeWidth)}  ${padColumn("FILEHASH", fileHashWidth)}  MESSAGE`,
+    `${padColumn("-".repeat(sourceWidth), sourceWidth)}  ${padColumn("-".repeat(targetWidth), targetWidth)}  ${padColumn("-".repeat(statusWidth), statusWidth)}  ${padColumn("-".repeat(authorWidth), authorWidth)}  ${padColumn("-".repeat(datetimeWidth), datetimeWidth)}  ${padColumn("-".repeat(fileHashWidth), fileHashWidth)}  -------`
+  ];
+
+  commits.forEach((commit) => {
+    lines.push(
+      `${padColumn(commit.sourceHash, sourceWidth)}  ${padColumn(commit.targetHash, targetWidth)}  ${padColumn(commit.status, statusWidth)}  ${padColumn(commit.author, authorWidth)}  ${padColumn(commit.datetime, datetimeWidth)}  ${padColumn(commit.fileChangeHash, fileHashWidth)}  ${commit.message}`
+    );
+  });
+
+  return lines.join("\n");
+}
+
+async function main() {
+  const { source, target, options } = parseArgs(process.argv.slice(2));
+
+  if (options.help) {
+    console.log(usage());
+    return;
+  }
+
+  const branches = await promptMissingBranches(source, target);
+  validateBranchInput(branches.source, "Source");
+  validateBranchInput(branches.target, "Target");
+
+  const commits = await listComparedCommits({
+    source: branches.source,
+    target: branches.target,
+    repo: options.repo
+  });
+
+  if (options.json) {
+    console.log(JSON.stringify({ ...branches, commits }, null, 2));
+    return;
+  }
+
+  console.log(renderText({ ...branches, commits }));
+}
+
+main().catch((error) => {
+  console.error(error.message);
+  process.exitCode = 1;
+});

@@ -7,7 +7,7 @@ local M = {}
 function M.setup()
     local cmp = require("cmp")
     local compare = require("cmp.config.compare")
-    local luasnip = require("luasnip")
+    -- local luasnip = require("luasnip")
     local lspkind = require("lspkind")
     -- local codeium = require("codeium")
 
@@ -31,7 +31,7 @@ function M.setup()
                     nvim_lsp = "[LSP]",
                     nvim_lua = "[api]",
                     path = "[path]",
-                    luasnip = "[snip]",
+                    -- luasnip = "[snip]",
                     buffer = "[buf]",
                     Codeium = "[AI]",
                 },
@@ -52,7 +52,7 @@ function M.setup()
             -- { name = "copilot", group_index = 2 },
             { name = "nvim_lsp" },
             { name = "nvim_lsp_signature_help" },
-            { name = "luasnip" },
+            -- { name = "luasnip" },
             { name = "codeium" },
             { name = "path" },
             { name = "nvim_lua" },
@@ -94,21 +94,21 @@ function M.setup()
     --     }
     -- })
 
-    vim.keymap.set({ "i" }, "<C-K>", function()
-        luasnip.expand()
-    end, { silent = true })
-    vim.keymap.set({ "i", "s" }, "<C-L>", function()
-        luasnip.jump(1)
-    end, { silent = true })
-    vim.keymap.set({ "i", "s" }, "<C-J>", function()
-        luasnip.jump(-1)
-    end, { silent = true })
+    -- vim.keymap.set({ "i" }, "<C-K>", function()
+    --     luasnip.expand()
+    -- end, { silent = true })
+    -- vim.keymap.set({ "i", "s" }, "<C-L>", function()
+    --     luasnip.jump(1)
+    -- end, { silent = true })
+    -- vim.keymap.set({ "i", "s" }, "<C-J>", function()
+    --     luasnip.jump(-1)
+    -- end, { silent = true })
 
-    vim.keymap.set({ "i", "s" }, "<C-E>", function()
-        if luasnip.choice_active() then
-            luasnip.change_choice(1)
-        end
-    end, { silent = true })
+    -- vim.keymap.set({ "i", "s" }, "<C-E>", function()
+    --     if luasnip.choice_active() then
+    --         luasnip.change_choice(1)
+    --     end
+    -- end, { silent = true })
 
     -- require("luasnip.loaders.from_vscode").lazy_load()
 

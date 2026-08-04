@@ -15,6 +15,16 @@ function M.setup()
                     layout = {
                         auto_hide = { "input" },
                     },
+                    win = {
+                        list = {
+                            keys = {
+                                ["/"] = function()
+                                    -- Use Neovim's built-in `/` without triggering this mapping again
+                                    vim.api.nvim_feedkeys("/", "n", false)
+                                end,
+                            },
+                        },
+                    },
                 },
             },
         },
