@@ -1,0 +1,100 @@
+#!/usr/bin/env node
+
+const { execFileSync } = require("node:child_process");
+
+/**
+ * Read clipboard using win32yank.
+ */
+function readClipboard() {
+  return execFileSync("win32yank.exe", ["-o"], {
+    encoding: "utf8",
+  }).replace(/\r\n/g, "\n");
+}
+
+/**
+ * Write clipboard using win32yank.
+ */
+function writeClipboard(text) {
+  execFileSync("win32yank.exe", ["-i"], {
+    input: text,
+    encoding: "utf8",
+  });
+}
+
+/**
+ * Fills placeholders in a SQL query string that includes
+ * a trailing `-- PARAMETERS: [...]` comment.
+ *
+ * @param {string} queryWithParams
+ * @returns {string}
+ */
+function fillQueryWithParams(queryWithParams) {
+  const paramMatch = queryWithParams.match(
+    /-- PARAMETERS:\s*(\[[\s\S]*\])\s*;?\s*$/
+  );
+
+  if (!paramMatch) {
+    throw new Error("No -- PARAMETERS section found");
+  }
+
+  const params = JSON.parse(paramMatch[1]);
+
+  let query = queryWithParams
+    .replace(/-- PARAMETERS:[\s\S]*$/, "")
+    .trim();
+
+  let index = 0;
+
+  query = query.replace(/\?/g, () => {
+    if (index >= params.length) {
+      throw new Error("Not enough parameters supplied");
+    }
+
+    const value = params[index++];
+
+    if (value === null) {
+      return "NULL";
+    }
+
+    if (typeof value === "number") {
+      return String(value);
+    }
+
+    if (typeof value === "boolean") {
+      return value ? "TRUE" : "FALSE";
+    }
+
+    return `'${String(value).replace(/'/g, "''")}'`;
+  });
+
+  if (index < params.length) {
+    console.warn(
+      `Warning: ${params.length - index} unused parameter(s).`
+    );
+  }
+
+  return query;
+}
+
+function main() {
+  try {
+    const input = readClipboard().trim().replaceAll('\n', '');
+
+    if (!input) {
+      throw new Error("Clipboard is empty.");
+    }
+
+    const result = fillQueryWithParams(input);
+
+    writeClipboard(result);
+
+    console.log("========== RESULT ==========\n");
+    console.log(result);
+    console.log("\n✓ Result copied to clipboard.");
+  } catch (err) {
+    console.error("Error:", err.message);
+    process.exit(1);
+  }
+}
+
+main();
