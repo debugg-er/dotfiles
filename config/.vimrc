@@ -42,6 +42,9 @@ set list
 " if hidden is not set, TextEdit might fail.
 set hidden
 
+" Open new split in current pane, old pane goes to the right
+set splitright
+
 " You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=100
 
@@ -67,10 +70,10 @@ autocmd FileType * set formatoptions-=cro
 nmap <space>r :w<cr>:source ~/.config/nvim/init.vim<cr>
 
 " Copy all line
-nnoremap <space>y ggyG<C-o>zz
+" nnoremap <space>y ggyG<C-o>zz
 
 " Indent whole file
-nnoremap <space>= gg=G<C-o>zz
+" nnoremap <space>= gg=G<C-o>zz
 
 " Return to normal mode
 tnoremap jk <C-\><C-n>
@@ -123,3 +126,7 @@ vnoremap p "_dP
 " Save/Quit
 nmap <space>q :q<CR>
 nmap <space>w :w<CR>
+
+" Undercurl
+let &t_Cs = "\e[4:3m"
+let &t_Ce = "\e[4:0m"

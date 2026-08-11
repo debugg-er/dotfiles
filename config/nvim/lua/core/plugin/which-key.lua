@@ -2,469 +2,465 @@ local M = {}
 
 function M.setup()
     local which_key = require("which-key")
+    local telescope = require("telescope.builtin")
 
     vim.o.timeout = true
     vim.o.timeoutlen = 300
 
-    local setup_opts = {
-        plugins = {
-            marks = false, -- shows a list of your marks on ' and `
-            registers = false, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
-            spelling = {
-                enabled = true,
-                suggestions = 20,
-            }, -- use which-key for spelling hints
-            -- the presets plugin, adds help for a bunch of default keybindings in Neovim
-            -- No actual key bindings are created
-            presets = {
-                operators = false, -- adds help for operators like d, y, ...
-                motions = false, -- adds help for motions
-                text_objects = false, -- help for text objects triggered after entering an operator
-                windows = false, -- default bindings on <c-w>
-                nav = false, -- misc bindings to work with windows
-                z = false, -- bindings for folds, spelling and others prefixed with z
-                g = false, -- bindings for prefixed with g
-            },
-        },
-        -- add operators that will trigger motion and text object completion
-        -- to enable all native operators, set the preset / operators plugin above
-        -- operators = { gc = "Comments" },
-        -- key_labels = {
-        --     -- override the label used to display some keys. It doesn't effect WK in any other way.
-        --     -- For example:
-        --     -- ["<space>"] = "SPC",
-        --     -- ["<cr>"] = "RET",
-        --     -- ["<tab>"] = "TAB",
-        -- },
-        icons = {
-            -- breadcrumb = lvim.icons.ui.DoubleChevronRight,   -- symbol used in the command line area that shows your active key combo
-            -- separator = lvim.icons.ui.BoldArrowRight,        -- symbol used between a key and it's label
-            -- group = lvim.icons.ui.Plus,                      -- symbol prepended to a group
-        },
+    which_key.setup({
         keys = {
-            scroll_down = "<c-d>", -- binding to scroll down inside the popup
-            scroll_up = "<c-u>", -- binding to scroll up inside the popup
+            scroll_down = "<C-d>",
+            scroll_up = "<C-u>",
         },
         win = {
-            no_overlap = true,
-            -- width = 1,
-            -- height = { min = 4, max = 25 },
-            -- col = 0,
-            -- row = math.huge,
-            -- border = "none",
-            padding = { 1, 2 }, -- extra window padding [top/bottom, right/left]
-            title = true,
-            title_pos = "center",
-            zindex = 1000,
-            -- Additional vim.wo and vim.bo options
-            bo = {},
-            wo = {
-                -- winblend = 10, -- value between 0-100 0 for fully opaque and 100 for fully transparent
-            },
+            border = "rounded",
         },
-        layout = {
-            height = { min = 4, max = 25 }, -- min and max height of the columns
-            width = { min = 20, max = 50 }, -- min and max width of the columns
-            spacing = 3, -- spacing between columns
-            align = "left", -- align columns left, center or right
-        },
-        -- ignore_missing = true, -- enable this to hide mappings for which you didn't specify a label
-        -- hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
-        show_help = true, -- show help message on the command line when the popup is visible
-        show_keys = true, -- show the currently pressed key and its label as a message in the command line
-        -- triggers = "auto", -- automatically setup triggers
-        -- triggers = {"<leader>"} -- or specify a list manually
-        -- triggers_blacklist = {
-        --     -- list of mode / prefixes that should never be hooked by WhichKey
-        --     -- this is mostly relevant for key maps that start with a native binding
-        --     -- most people should not need to change this
-        --     i = { "j", "k" },
-        --     v = { "j", "k" },
-        -- },
-        -- disable the WhichKey popup for certain buf types and file types.
-        -- Disabled by default for Telescope
         disable = {
             buftypes = {},
             filetypes = { "TelescopePrompt" },
         },
-    }
-
-    which_key.setup(setup_opts)
+    })
 
     which_key.add({
-        {
-            "<leader>/",
-            "<Plug>(comment_toggle_linewise_current)",
-            desc = "Comment toggle current line",
-            nowait = true,
-            remap = false,
-        },
-        { "<leader>R", "<cmd>source $MYVIMRC<cr>", desc = "Reload config", nowait = true, remap = false },
-        {
-            "<leader>S",
-            '<cmd>lua require("spectre").toggle()<cr>',
-            desc = "Spectre replace",
-            nowait = true,
-            remap = false,
-        },
-        { "<leader>T", group = "Treesitter", nowait = true, remap = false },
-        { "<leader>Ti", ":TSConfigInfo<cr>", desc = "Info", nowait = true, remap = false },
-        { "<leader>a", "<cmd>Telescope live_grep<cr>", desc = "Find in workspace", nowait = true, remap = false },
+        -- General
+        { "<leader>/", "<Plug>(comment_toggle_linewise_current)", desc = "Toggle Comment", icon = "" },
+        { "<leader>a", "<cmd>Telescope live_grep<CR>", desc = "Search Workspace", icon = "󰊄" },
         {
             "<leader>A",
             function()
-                require("telescope.builtin").live_grep({ additional_args = { "--fixed-strings" } })
+                telescope.live_grep({ additional_args = { "--fixed-strings" } })
             end,
-            desc = "Find in workspace (fixed strings)",
-            nowait = true,
-            remap = false,
+            desc = "Search Fixed String",
+            icon = "󰊄",
         },
-        { "<leader>d", group = "Debug", nowait = true, remap = false },
-        {
-            "<leader>d?",
-            "<cmd>lua require('dapui').eval(nil, { enter = true })<cr>",
-            desc = "Evaluate",
-            nowait = true,
-            remap = false,
-        },
-        {
-            "<leader>dC",
-            "<cmd>lua require'dap'.run_to_cursor()<cr>",
-            desc = "Run To Cursor",
-            nowait = true,
-            remap = false,
-        },
-        {
-            "<leader>dU",
-            "<cmd>lua require'dapui'.toggle({reset = true})<cr>",
-            desc = "Toggle UI",
-            nowait = true,
-            remap = false,
-        },
-        { "<leader>db", "<cmd>lua require'dap'.step_back()<cr>", desc = "Step Back", nowait = true, remap = false },
-        { "<leader>dc", "<cmd>lua require'dap'.continue()<cr>", desc = "Continue", nowait = true, remap = false },
-        { "<leader>dd", "<cmd>lua require'dap'.disconnect()<cr>", desc = "Disconnect", nowait = true, remap = false },
-        { "<leader>dg", "<cmd>lua require'dap'.session()<cr>", desc = "Get Session", nowait = true, remap = false },
-        { "<leader>di", "<cmd>lua require'dap'.step_into()<cr>", desc = "Step Into", nowait = true, remap = false },
-        { "<leader>do", "<cmd>lua require'dap'.step_over()<cr>", desc = "Step Over", nowait = true, remap = false },
-        { "<leader>dp", "<cmd>lua require'dap'.pause()<cr>", desc = "Pause", nowait = true, remap = false },
-        { "<leader>dq", "<cmd>lua require'dap'.close()<cr>", desc = "Quit", nowait = true, remap = false },
-        { "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>", desc = "Toggle Repl", nowait = true, remap = false },
-        { "<leader>ds", "<cmd>lua require'dap'.continue()<cr>", desc = "Start", nowait = true, remap = false },
-        {
-            "<leader>dt",
-            "<cmd>lua require'dap'.toggle_breakpoint()<cr>",
-            desc = "Toggle Breakpoint",
-            nowait = true,
-            remap = false,
-        },
-        { "<leader>du", "<cmd>lua require'dap'.step_out()<cr>", desc = "Step Out", nowait = true, remap = false },
+        { "<leader>b", "<cmd>Telescope buffers<CR>", desc = "Buffers", icon = "󰓩" },
         {
             "<leader>e",
             function()
                 Snacks.explorer.open()
             end,
             desc = "Explorer",
-            nowait = true,
-            remap = false,
+            icon = "󰉋",
+        },
+        { "<leader>f", "<cmd>Telescope find_files hidden=true<CR>", desc = "Find Files", icon = "󰈞" },
+        { "<leader>h", "<cmd>nohlsearch<CR>", desc = "Clear Search Highlight", icon = "󰸱" },
+        { "<leader>q", "<cmd>confirm q<CR>", desc = "Quit", icon = "󰗼" },
+        { "<leader>r", vim.lsp.buf.rename, desc = "Rename Symbol", icon = "󰑕" },
+        { "<leader>R", "<cmd>source $MYVIMRC<CR>", desc = "Reload Config", icon = "󰑐" },
+        { "<leader>S", "<cmd>lua require('spectre').toggle()<CR>", desc = "Search and Replace", icon = "󰛔" },
+        { "<leader>w", "<cmd>w!<CR>", desc = "Save", icon = "󰆓" },
+
+        -- Treesitter
+        { "<leader>T", group = "Treesitter", icon = "󰐅" },
+        { "<leader>Ti", "<cmd>TSConfigInfo<CR>", desc = "Treesitter Info", icon = "󰋼" },
+
+        -- Debug
+        { "<leader>d", group = "Debug", icon = "󰃤" },
+        {
+            "<leader>d?",
+            function()
+                require("dapui").eval(nil, { enter = true })
+            end,
+            desc = "Evaluate Expression",
+            icon = "󰃤",
         },
         {
-            "<leader>f",
-            "<cmd>Telescope find_files hidden=true<cr>",
-            desc = "Find in file",
-            nowait = true,
-            remap = false,
+            "<leader>dC",
+            function()
+                require("dap").run_to_cursor()
+            end,
+            desc = "Run to Cursor",
+            icon = "󰁕",
         },
-        { "<leader>g", group = "Git", nowait = true, remap = false },
+        {
+            "<leader>dU",
+            function()
+                require("dapui").toggle({ reset = true })
+            end,
+            desc = "Toggle Debug UI",
+            icon = "󰕮",
+        },
+        {
+            "<leader>db",
+            function()
+                require("dap").step_back()
+            end,
+            desc = "Step Back",
+            icon = "󰜱",
+        },
+        {
+            "<leader>dc",
+            function()
+                require("dap").continue()
+            end,
+            desc = "Continue",
+            icon = "󰐊",
+        },
+        {
+            "<leader>dd",
+            function()
+                require("dap").disconnect()
+            end,
+            desc = "Disconnect",
+            icon = "󰅖",
+        },
+        {
+            "<leader>dg",
+            function()
+                require("dap").session()
+            end,
+            desc = "Show Session",
+            icon = "󰆍",
+        },
+        {
+            "<leader>di",
+            function()
+                require("dap").step_into()
+            end,
+            desc = "Step Into",
+            icon = "󰆹",
+        },
+        {
+            "<leader>do",
+            function()
+                require("dap").step_over()
+            end,
+            desc = "Step Over",
+            icon = "󰆸",
+        },
+        {
+            "<leader>dp",
+            function()
+                require("dap").pause()
+            end,
+            desc = "Pause",
+            icon = "󰏤",
+        },
+        {
+            "<leader>dq",
+            function()
+                require("dap").close()
+            end,
+            desc = "Stop Debugging",
+            icon = "󰓛",
+        },
+        {
+            "<leader>dr",
+            function()
+                require("dap").repl.toggle()
+            end,
+            desc = "Toggle REPL",
+            icon = "",
+        },
+        {
+            "<leader>ds",
+            function()
+                require("dap").continue()
+            end,
+            desc = "Start Debugging",
+            icon = "󰐊",
+        },
+        {
+            "<leader>dt",
+            function()
+                require("dap").toggle_breakpoint()
+            end,
+            desc = "Toggle Breakpoint",
+            icon = "",
+        },
+        {
+            "<leader>du",
+            function()
+                require("dap").step_out()
+            end,
+            desc = "Step Out",
+            icon = "󰆺",
+        },
+
+        -- Git
+        { "<leader>g", group = "Git", icon = "󰊢" },
+        { "<leader>gb", "<cmd>Telescope git_branches<CR>", desc = "Switch Branch", icon = "" },
+        { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "Browse Commits", icon = "" },
         {
             "<leader>gC",
-            "<cmd>Telescope git_bcommits<cr>",
-            desc = "Checkout commit(for current file)",
-            nowait = true,
-            remap = false,
+            "<cmd>Telescope git_bcommits<CR>",
+            desc = "Browse File Commits",
+            icon = "󰋚",
         },
-        {
-            "<leader>gR",
-            "<cmd>lua require 'gitsigns'.reset_buffer()<cr>",
-            desc = "Reset Buffer",
-            nowait = true,
-            remap = false,
-        },
-        { "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "Checkout branch", nowait = true, remap = false },
-        { "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "Checkout commit", nowait = true, remap = false },
-        { "<leader>gd", "<cmd>Gitsigns diffthis HEAD<cr>", desc = "Git Diff", nowait = true, remap = false },
+        { "<leader>gd", "<cmd>Gitsigns diffthis HEAD<CR>", desc = "Diff Against HEAD", icon = "" },
         {
             "<leader>gh",
-            "<cmd>Telescope advanced_git_search diff_commit_file<cr>",
-            desc = "Current file history",
-            nowait = true,
-            remap = false,
+            "<cmd>Telescope advanced_git_search diff_commit_file<CR>",
+            desc = "File History",
+            icon = "",
         },
         {
             "<leader>gj",
-            "<cmd>lua require 'gitsigns'.next_hunk({navigation_message = false})<cr>",
+            function()
+                require("gitsigns").next_hunk({ navigation_message = false })
+            end,
             desc = "Next Hunk",
-            nowait = true,
-            remap = false,
+            icon = "󰁕",
         },
         {
             "<leader>gk",
-            "<cmd>lua require 'gitsigns'.prev_hunk({navigation_message = false})<cr>",
-            desc = "Prev Hunk",
-            nowait = true,
-            remap = false,
+            function()
+                require("gitsigns").prev_hunk({ navigation_message = false })
+            end,
+            desc = "Previous Hunk",
+            icon = "󰁍",
         },
-        { "<leader>gl", "<cmd>lua require 'gitsigns'.blame_line()<cr>", desc = "Blame", nowait = true, remap = false },
-        { "<leader>go", "<cmd>Telescope git_status<cr>", desc = "Open changed file", nowait = true, remap = false },
+        {
+            "<leader>gl",
+            function()
+                require("gitsigns").blame_line()
+            end,
+            desc = "Blame Line",
+            icon = "󰊢",
+        },
+        { "<leader>go", "<cmd>Telescope git_status<CR>", desc = "Changed Files", icon = "" },
         {
             "<leader>gp",
-            "<cmd>lua require 'gitsigns'.preview_hunk()<cr>",
+            function()
+                require("gitsigns").preview_hunk()
+            end,
             desc = "Preview Hunk",
-            nowait = true,
-            remap = false,
+            icon = "󰈈",
         },
         {
             "<leader>gr",
-            "<cmd>lua require 'gitsigns'.reset_hunk()<cr>",
+            function()
+                require("gitsigns").reset_hunk()
+            end,
             desc = "Reset Hunk",
-            nowait = true,
-            remap = false,
+            icon = "󰕌",
+        },
+        {
+            "<leader>gR",
+            function()
+                require("gitsigns").reset_buffer()
+            end,
+            desc = "Reset Buffer",
+            icon = "󰕌",
         },
         {
             "<leader>gs",
-            "<cmd>lua require 'gitsigns'.stage_hunk()<cr>",
+            function()
+                require("gitsigns").stage_hunk()
+            end,
             desc = "Stage Hunk",
-            nowait = true,
-            remap = false,
+            icon = "󰐕",
         },
         {
             "<leader>gu",
-            "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>",
+            function()
+                require("gitsigns").undo_stage_hunk()
+            end,
             desc = "Undo Stage Hunk",
-            nowait = true,
-            remap = false,
+            icon = "󰕌",
         },
-        { "<leader>h", "<cmd>nohlsearch<CR>", desc = "No Highlight", nowait = true, remap = false },
-        { "<leader>l", group = "LSP", nowait = true, remap = false },
-        { "<leader>lI", "<cmd>Mason<cr>", desc = "Mason Info", nowait = true, remap = false },
-        { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code Action", nowait = true, remap = false },
+
+        -- LSP
+        { "<leader>l", group = "LSP", icon = "󰒋" },
+        { "<leader>lI", "<cmd>Mason<CR>", desc = "Mason", icon = "󰏖" },
+        { "<leader>la", vim.lsp.buf.code_action, desc = "Code Action", icon = "󰌵" },
         {
             "<leader>ld",
-            "<cmd>Telescope diagnostics bufnr=0 severity_limit=2<cr>",
+            "<cmd>Telescope diagnostics bufnr=0 severity_limit=2<CR>",
             desc = "Buffer Diagnostics",
-            nowait = true,
-            remap = false,
+            icon = "󰒡",
         },
-        { "<leader>le", "<cmd>Telescope quickfix<cr>", desc = "Telescope Quickfix", nowait = true, remap = false },
+        { "<leader>le", "<cmd>Telescope quickfix<CR>", desc = "Quickfix List", icon = "󰁨" },
         {
             "<leader>lj",
             function()
                 vim.diagnostic.jump({ count = 1, float = true })
             end,
             desc = "Next Diagnostic",
-            nowait = true,
-            remap = false,
+            icon = "󰒭",
         },
         {
             "<leader>lk",
             function()
                 vim.diagnostic.jump({ count = -1, float = true })
             end,
-            desc = "Prev Diagnostic",
-            nowait = true,
-            remap = false,
+            desc = "Previous Diagnostic",
+            icon = "󰒮",
         },
-        { "<leader>ll", group = "Language features", nowait = true, remap = false },
-        { "<leader>llt", group = "Typescript", nowait = true, remap = false },
+        {
+            "<leader>lq",
+            function()
+                vim.lsp.buf.code_action({ apply = true })
+            end,
+            desc = "Apply Quick Fix",
+            icon = "󰁨",
+        },
+        {
+            "<leader>lw",
+            "<cmd>Telescope diagnostics severity_limit=2<CR>",
+            desc = "Workspace Diagnostics",
+            icon = "󰒡",
+        },
+
+        -- Language-specific actions
+        { "<leader>ll", group = "Language", icon = "󰗊" },
+        { "<leader>llt", group = "TypeScript", icon = "󰛦" },
         {
             "<leader>lltm",
             function()
                 vim.lsp.buf.code_action({
                     apply = true,
-                    context = { only = { "source.addMissingImports" }, diagnostics = {} },
+                    context = {
+                        only = { "source.addMissingImports" },
+                        diagnostics = {},
+                    },
                 })
             end,
-            desc = "Add missing imports",
-            nowait = true,
-            remap = false,
+            desc = "Add Missing Imports",
+            icon = "󰋺",
         },
         {
             "<leader>lltx",
             function()
                 vim.lsp.buf.code_action({
                     apply = true,
-                    context = { only = { "source.removeUnusedImports" }, diagnostics = {} },
+                    context = {
+                        only = { "source.removeUnusedImports" },
+                        diagnostics = {},
+                    },
                 })
             end,
-            desc = "Removes unused imports",
-            nowait = true,
-            remap = false,
+            desc = "Remove Unused Imports",
+            icon = "󰆴",
         },
-        {
-            "<leader>lq",
-            "<cmd>lua vim.lsp.buf.code_action({ apply = true })<cr>",
-            desc = "Quickfix",
-            nowait = true,
-            remap = false,
-        },
-        { "<leader>ls", group = "LSP Document Symbols", nowait = true, remap = false },
+
+        -- Document symbols
+        { "<leader>ls", group = "Symbols", icon = "󰘦" },
         {
             "<leader>lsS",
-            "<cmd>Telescope lsp_document_symbols symbols=struct symbol_width=60 show_line=true<cr>",
+            "<cmd>Telescope lsp_document_symbols symbols=struct symbol_width=60 show_line=true<CR>",
             desc = "Structs",
-            nowait = true,
-            remap = false,
+            icon = "",
         },
         {
             "<leader>lsc",
-            "<cmd>Telescope lsp_document_symbols symbols=class symbol_width=60 show_line=true<cr>",
+            "<cmd>Telescope lsp_document_symbols symbols=class symbol_width=60 show_line=true<CR>",
             desc = "Classes",
-            nowait = true,
-            remap = false,
+            icon = "",
         },
         {
             "<leader>lse",
-            "<cmd>Telescope lsp_document_symbols symbols=enum symbol_width=60 show_line=true<cr>",
+            "<cmd>Telescope lsp_document_symbols symbols=enum symbol_width=60 show_line=true<CR>",
             desc = "Enums",
-            nowait = true,
-            remap = false,
+            icon = "",
         },
         {
             "<leader>lsf",
-            "<cmd>Telescope lsp_document_symbols symbols=function symbol_width=60 show_line=true<cr>",
+            "<cmd>Telescope lsp_document_symbols symbols=function symbol_width=60 show_line=true<CR>",
             desc = "Functions",
-            nowait = true,
-            remap = false,
+            icon = "",
         },
         {
             "<leader>lsi",
-            "<cmd>Telescope lsp_document_symbols symbols=interface symbol_width=60 show_line=true<cr>",
+            "<cmd>Telescope lsp_document_symbols symbols=interface symbol_width=60 show_line=true<CR>",
             desc = "Interfaces",
-            nowait = true,
-            remap = false,
+            icon = "",
         },
         {
             "<leader>lsm",
-            "<cmd>Telescope lsp_document_symbols symbols=method symbol_width=60 show_line=true<cr>",
+            "<cmd>Telescope lsp_document_symbols symbols=method symbol_width=60 show_line=true<CR>",
             desc = "Methods",
-            nowait = true,
-            remap = false,
+            icon = "",
         },
         {
             "<leader>lso",
-            "<cmd>Telescope lsp_document_symbols symbols=constant symbol_width=60 show_line=true<cr>",
+            "<cmd>Telescope lsp_document_symbols symbols=constant symbol_width=60 show_line=true<CR>",
             desc = "Constants",
-            nowait = true,
-            remap = false,
+            icon = "",
         },
         {
             "<leader>lsp",
-            "<cmd>Telescope lsp_document_symbols symbols=property symbol_width=60 show_line=true<cr>",
+            "<cmd>Telescope lsp_document_symbols symbols=property symbol_width=60 show_line=true<CR>",
             desc = "Properties",
-            nowait = true,
-            remap = false,
+            icon = "",
         },
         {
             "<leader>lss",
-            "<cmd>Telescope lsp_document_symbols symbols=string symbol_width=60 show_line=true<cr>",
+            "<cmd>Telescope lsp_document_symbols symbols=string symbol_width=60 show_line=true<CR>",
             desc = "Strings",
-            nowait = true,
-            remap = false,
+            icon = "",
         },
         {
             "<leader>lsv",
-            "<cmd>Telescope lsp_document_symbols symbols=variable symbol_width=60 show_line=true<cr>",
+            "<cmd>Telescope lsp_document_symbols symbols=variable symbol_width=60 show_line=true<CR>",
             desc = "Variables",
-            nowait = true,
-            remap = false,
+            icon = "",
         },
-        {
-            "<leader>lw",
-            "<cmd>Telescope diagnostics severity_limit=2<cr>",
-            desc = "Diagnostics",
-            nowait = true,
-            remap = false,
-        },
-        { "<leader>p", group = "Plugins", nowait = true, remap = false },
-        { "<leader>pS", "<cmd>Lazy clear<cr>", desc = "Status", nowait = true, remap = false },
-        { "<leader>pc", "<cmd>Lazy clean<cr>", desc = "Clean", nowait = true, remap = false },
-        { "<leader>pd", "<cmd>Lazy debug<cr>", desc = "Debug", nowait = true, remap = false },
-        { "<leader>pi", "<cmd>Lazy install<cr>", desc = "Install", nowait = true, remap = false },
-        { "<leader>pl", "<cmd>Lazy log<cr>", desc = "Log", nowait = true, remap = false },
-        { "<leader>pp", "<cmd>Lazy profile<cr>", desc = "Profile", nowait = true, remap = false },
-        { "<leader>ps", "<cmd>Lazy sync<cr>", desc = "Sync", nowait = true, remap = false },
-        { "<leader>pu", "<cmd>Lazy update<cr>", desc = "Update", nowait = true, remap = false },
-        { "<leader>q", "<cmd>confirm q<CR>", desc = "Quit", nowait = true, remap = false },
-        { "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename", nowait = true, remap = false },
-        { "<leader>s", group = "Search", nowait = true, remap = false },
-        { "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands", nowait = true, remap = false },
-        { "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "Find highlight groups", nowait = true, remap = false },
-        { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages", nowait = true, remap = false },
-        { "<leader>sR", "<cmd>Telescope registers<cr>", desc = "Registers", nowait = true, remap = false },
-        { "<leader>sb", "<cmd>Telescope git_branches<cr>", desc = "Checkout branch", nowait = true, remap = false },
-        { "<leader>sc", "<cmd>Telescope colorscheme<cr>", desc = "Choose colorscheme", nowait = true, remap = false },
-        { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Find Help", nowait = true, remap = false },
-        { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps", nowait = true, remap = false },
-        { "<leader>sl", "<cmd>Telescope resume<cr>", desc = "Resume last search", nowait = true, remap = false },
+
+        -- Plugins
+        { "<leader>p", group = "Plugins", icon = "󰏖" },
+        { "<leader>pS", "<cmd>Lazy clear<CR>", desc = "Plugin Status", icon = "󰄬" },
+        { "<leader>pc", "<cmd>Lazy clean<CR>", desc = "Clean Plugins", icon = "󰃢" },
+        { "<leader>pd", "<cmd>Lazy debug<CR>", desc = "Debug Plugins", icon = "" },
+        { "<leader>pi", "<cmd>Lazy install<CR>", desc = "Install Plugins", icon = "󰏔" },
+        { "<leader>pl", "<cmd>Lazy log<CR>", desc = "Plugin Log", icon = "󰋚" },
+        { "<leader>pp", "<cmd>Lazy profile<CR>", desc = "Profile Plugins", icon = "󰓅" },
+        { "<leader>ps", "<cmd>Lazy sync<CR>", desc = "Sync Plugins", icon = "󰓦" },
+        { "<leader>pu", "<cmd>Lazy update<CR>", desc = "Update Plugins", icon = "󰚰" },
+
+        -- Search
+        { "<leader>s", group = "Search", icon = "󰍉" },
+        { "<leader>sb", "<cmd>Telescope git_branches<CR>", desc = "Git Branches", icon = "" },
+        { "<leader>sc", "<cmd>Telescope colorscheme<CR>", desc = "Colorschemes", icon = "" },
+        { "<leader>sC", "<cmd>Telescope commands<CR>", desc = "Commands", icon = "" },
+        { "<leader>sh", "<cmd>Telescope help_tags<CR>", desc = "Help Pages", icon = "󰋖" },
+        { "<leader>sH", "<cmd>Telescope highlights<CR>", desc = "Highlight Groups", icon = "󰸱" },
+        { "<leader>sk", "<cmd>Telescope keymaps<CR>", desc = "Keymaps", icon = "󰌌" },
+        { "<leader>sl", "<cmd>Telescope resume<CR>", desc = "Resume Search", icon = "󰑎" },
+        { "<leader>sM", "<cmd>Telescope man_pages<CR>", desc = "Manual Pages", icon = "󰈙" },
         {
             "<leader>sp",
-            "<cmd>lua require('telescope.builtin').colorscheme({enable_preview = true})<cr>",
-            desc = "Colorscheme with Preview",
-            nowait = true,
-            remap = false,
+            function()
+                telescope.colorscheme({ enable_preview = true })
+            end,
+            desc = "Preview Colorscheme",
+            icon = "",
         },
-        { "<leader>sr", "<cmd>Telescope oldfiles<cr>", desc = "Open Recent File", nowait = true, remap = false },
-        { "<leader>w", "<cmd>w!<CR>", desc = "Save", nowait = true, remap = false },
+        { "<leader>sr", "<cmd>Telescope oldfiles<CR>", desc = "Recent Files", icon = "" },
+        { "<leader>sR", "<cmd>Telescope registers<CR>", desc = "Registers", icon = "󰌨" },
     })
 
     which_key.add({
-        mode = { "v" },
-        {
-            "<leader>/",
-            "<Plug>(comment_toggle_linewise_visual)",
-            desc = "Comment toggle linewise (visual)",
-            nowait = true,
-            remap = false,
-        },
-        { "<leader>l", group = "LSP", nowait = true, remap = false },
-        { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code Action", nowait = true, remap = false },
+        mode = "v",
+
+        { "<leader>/", "<Plug>(comment_toggle_linewise_visual)", desc = "Toggle Comment", icon = "" },
+
+        { "<leader>l", group = "LSP", icon = "󰒋" },
+        { "<leader>la", vim.lsp.buf.code_action, desc = "Code Action", icon = "󰌵" },
     })
 
     which_key.add({
+        -- LSP navigation
         {
             "gD",
-            "<cmd>lua vim.lsp.buf.definition()<cr>:vs<cr><C-o>",
-            desc = "Go to definitions in split",
-            nowait = true,
-            remap = false,
+            function()
+                vim.cmd("vsplit")
+                vim.lsp.buf.definition()
+            end,
+            desc = "Definition in Split",
+            icon = "󰤼",
         },
-        { "ga", group = "Buffers", nowait = true, remap = false },
-        { "gah", "<cmd>BufferLineCloseLeft<CR>", desc = "Close all buffers to left", nowait = true, remap = false },
-        { "gal", "<cmd>BufferLineCloseRight<CR>", desc = "Close all buffers to right", nowait = true, remap = false },
-        {
-            "gao",
-            "<cmd>BufferLineCloseOther<CR>",
-            desc = "Close all buffers but current",
-            nowait = true,
-            remap = false,
-        },
-        { "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Go to definitions", nowait = true, remap = false },
-        { "ge", "<cmd>Bdelete<CR>", desc = "Close Buffer", nowait = true, remap = false },
-        {
-            "gi",
-            "<cmd>Telescope lsp_implementations<cr>",
-            desc = "Go to implementations",
-            nowait = true,
-            remap = false,
-        },
-        { "gr", "<cmd>Telescope lsp_references<cr>", desc = "Go to references", nowait = true, remap = false },
-        {
-            "gt",
-            "<cmd>Telescope lsp_type_definitions<cr>",
-            desc = "Go to type definitions",
-            nowait = true,
-            remap = false,
-        },
+        { "gd", "<cmd>Telescope lsp_definitions<CR>", desc = "Go to Definition", icon = "󰈮" },
+        { "gi", "<cmd>Telescope lsp_implementations<CR>", desc = "Go to Implementation", icon = "󰡱" },
+        { "gr", "<cmd>Telescope lsp_references<CR>", desc = "Go to References", icon = "" },
+        { "gt", "<cmd>Telescope lsp_type_definitions<CR>", desc = "Go to Type Definition", icon = "" },
+
+        -- Buffers
+        { "ga", group = "Buffers", icon = "󰓩" },
+        { "gah", "<cmd>BufferLineCloseLeft<CR>", desc = "Close Buffers to Left", icon = "󰅁" },
+        { "gal", "<cmd>BufferLineCloseRight<CR>", desc = "Close Buffers to Right", icon = "󰅂" },
+        { "gao", "<cmd>BufferLineCloseOther<CR>", desc = "Close Other Buffers", icon = "󰅖" },
+        { "ge", "<cmd>Bdelete<CR>", desc = "Close Buffer", icon = "󰅖" },
     })
 end
 

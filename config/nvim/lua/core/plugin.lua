@@ -9,6 +9,11 @@ require("lazy").setup({
     --     end,
     -- },
     {
+        "folke/lazydev.nvim",
+        ft = "lua",
+        opts = {},
+    },
+    {
         "catppuccin/nvim",
         name = "catppuccin",
         priority = 10000,
@@ -109,12 +114,11 @@ require("lazy").setup({
         cmd = { "Telescope" },
         config = require("core.plugin.telescope").setup,
         dependencies = {
+            "nvim-telescope/telescope-ui-select.nvim",
+            "nvim-tree/nvim-web-devicons",
             {
                 "nvim-telescope/telescope-fzf-native.nvim",
                 build = "make",
-            },
-            {
-                "nvim-telescope/telescope-ui-select.nvim",
             },
             {
                 "aaronhallaert/advanced-git-search.nvim",
@@ -136,14 +140,15 @@ require("lazy").setup({
         --     "SmiteshP/nvim-navic",
         -- },
     },
-    {
-        "akinsho/bufferline.nvim",
-        version = "*",
-        config = require("core.plugin.bufferline").setup,
-        dependencies = {
-            "moll/vim-bbye",
-        },
-    },
+    -- {
+    --     "akinsho/bufferline.nvim",
+    --     version = "*",
+    --     config = require("core.plugin.bufferline").setup,
+    --     dependencies = {
+    --         "moll/vim-bbye",
+    --         "nvim-tree/nvim-web-devicons",
+    --     },
+    -- },
     {
         "petertriho/nvim-scrollbar",
         config = require("core.plugin.scrollbar").setup,
@@ -172,7 +177,6 @@ require("lazy").setup({
             "neovim/nvim-lspconfig",
             "williamboman/mason.nvim",
             "WhoIsSethDaniel/mason-tool-installer.nvim",
-            -- "https://gitlab.com/schrieveslaach/sonarlint.nvim",
         },
     },
     {

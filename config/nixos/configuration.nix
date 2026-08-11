@@ -47,6 +47,7 @@
     fzf
     unzip
     ripgrep
+    fd
     dnsutils
     nmap
     tmux

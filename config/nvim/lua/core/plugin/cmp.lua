@@ -38,8 +38,14 @@ function M.setup()
             }),
         },
         window = {
-            -- completion = cmp.config.window.bordered(),
-            -- documentation = cmp.config.window.bordered(),
+            completion = {
+                border = "none",
+                winhighlight = "Normal:NormalFloat",
+            },
+            -- documentation = {
+            --     border = "none",
+            --     -- winhighlight = "Normal:PMenu",
+            -- },
         },
         mapping = cmp.mapping.preset.insert({
             ["<C-b>"] = cmp.mapping.scroll_docs(-4),
