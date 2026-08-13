@@ -52,7 +52,7 @@
     nmap
     tmux
     neovim
-    gemini-cli
+    # gemini-cli
     claude-code
     opencode
     openssl
@@ -64,8 +64,8 @@
     jq
     terraform
     sshfs
-    tree-sitter
-    lua55Packages.tree-sitter-cli
+    # tree-sitter
+    # lua55Packages.tree-sitter-cli
     direnv
     azure-cli
 
