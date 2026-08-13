@@ -39,13 +39,13 @@ function M.setup()
         },
         window = {
             completion = {
-                border = "none",
-                winhighlight = "Normal:NormalFloat",
+                border = "rounded",
+                -- winhighlight = "Normal:NormalFloat",
             },
-            -- documentation = {
-            --     border = "none",
-            --     -- winhighlight = "Normal:PMenu",
-            -- },
+            documentation = {
+                border = "rounded",
+                -- winhighlight = "Normal:PMenu",
+            },
         },
         mapping = cmp.mapping.preset.insert({
             ["<C-b>"] = cmp.mapping.scroll_docs(-4),
