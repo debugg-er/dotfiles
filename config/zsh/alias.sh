@@ -20,9 +20,16 @@ alias fklog="kubectl logs -f \$(kubectl get po --no-headers=true | fzf | awk '{p
 alias fkdelete="kubectl delete pod \$(kubectl get po --no-headers=true | fzf | awk '{print \$1}')"
 alias fkexec="kubectl exec -it \$(kubectl get po --no-headers=true | fzf | awk '{print \$1}') -- "
 
-alias fssh="ssh \$(cat ~/.ssh/config | grep \"^Host\" | awk '{print \$2}' | fzf)"
+# alias fssh="ssh \$(cat ~/.ssh/config | grep \"^Host\" | awk '{print \$2}' | fzf)"
 
 alias vim="nvim"
+
+fssh() {
+  local host
+  host=$(grep '^Host ' ~/.ssh/config | awk '{print $2}' | fzf) || return
+
+  ssh "$host" "$@"
+}
 
 #vim() {
 #    fnm exec --using=default nvim $@
@@ -45,6 +52,19 @@ glogw() {
     do
         printf '\033[0;32m%s\033[0m  \033[1;31m%-20s\033[0m %-28s \033[0;33m%s\033[0m\n' "$hash" "$author" "$date" "$message"
     done | less
+}
+
+fgbr() {
+    branch=$(
+        git for-each-ref refs/heads/ \
+            --sort=-creatordate \
+            --format='%(creatordate:short)|%(refname:short)|%(subject)' |
+        column -t -s '|' |
+        fzf |
+        awk '{print $2}'
+    )
+
+    [[ -n "$branch" ]] && git switch "$branch"
 }
 
 cleanup_workspaces() {

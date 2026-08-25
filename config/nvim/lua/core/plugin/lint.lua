@@ -36,10 +36,10 @@ function M.setup()
     local time = require("core.util.time")
     local lint = require("lint")
 
-    -- M.custom_linter()
+    M.custom_linter()
 
     lint.linters_by_ft = {
-        typescript = { "eslint_d" },
+        typescript = { "eslint_d", "sonarlint" },
         typescriptreact = { "eslint_d" },
         javascript = { "eslint_d" },
         javascriptreact = { "eslint_d" },

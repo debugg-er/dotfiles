@@ -64,7 +64,7 @@
     jq
     terraform
     sshfs
-    # tree-sitter
+    tree-sitter
     # lua55Packages.tree-sitter-cli
     direnv
     azure-cli
