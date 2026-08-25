@@ -68,6 +68,7 @@
     # lua55Packages.tree-sitter-cli
     direnv
     azure-cli
+    starship
 
     # Kubernetes
     kubernetes-helm
@@ -121,11 +122,11 @@
 
   programs.zsh = {
     enable = true;
-    ohMyZsh = {
-      enable = true;
-      plugins = [ "git" ];
-      theme = "candy";
-    };
+    # ohMyZsh = {
+    #   enable = false;
+    #   plugins = [ "git" ];
+    #   theme = "candy";
+    # };
     autosuggestions = {
       enable = true;
     };

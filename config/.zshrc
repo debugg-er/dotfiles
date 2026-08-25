@@ -41,25 +41,10 @@ if command -v direnv >/dev/null 2>&1; then
   eval "$(direnv hook zsh)"
 fi
 
-#source "$HOME/.config/zsh/omz.sh"
+if command -v starship >/dev/null 2>&1; then
+  eval "$(starship init zsh)"
+fi
+
 source "$HOME/.config/zsh/init.sh"
 source "$HOME/.config/zsh/alias.sh"
-
-# fzf
-export FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git'"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-if [ "$(which "fzf")" != "" ]; then
-  source <(fzf --zsh)
-fi
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-[[ -s "/home/khainguyen/.gvm/scripts/gvm" ]] && source "/home/khainguyen/.gvm/scripts/gvm"
-
-# Added by Hugging Face CLI installer
-export PATH="/home/khainguyen/.local/bin:$PATH"
-
-# Set ghost text color for zsh-autosuggestions
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#757575'
-
-# Claude
-export CLAUDE_CODE_NO_FLICKER=1
+source "$HOME/.config/zsh/git.sh"

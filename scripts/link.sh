@@ -9,6 +9,7 @@ ln -svnf $CONFIG_DIR/alacritty ~/.config/alacritty
 ln -svnf $CONFIG_DIR/tmux ~/.config/tmux
 ln -svnf $CONFIG_DIR/nvim ~/.config/nvim
 ln -svnf $CONFIG_DIR/zsh ~/.config/zsh
+ln -svf $CONFIG_DIR/starship.toml ~/.config/starship.toml
 
 ln -svf $CONFIG_DIR/.zshrc ~/.zshrc
 ln -svf $CONFIG_DIR/.vimrc ~/.vimrc

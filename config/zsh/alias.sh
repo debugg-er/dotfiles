@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # alias w="cd \$(cat ~/.workspaces | fzf | awk '{print \$2}')"
 # alias vim="fnm exec --using=default nvim"
 
