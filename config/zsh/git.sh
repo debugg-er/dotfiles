@@ -8,6 +8,13 @@ git_version="${${(As: :)$(git version 2>/dev/null)}[3]}"
 # (order should follow README)
 #
 
+if (( ! $+functions[git_current_branch] )); then
+  function git_current_branch() {
+    command git symbolic-ref --quiet --short HEAD 2>/dev/null ||
+      command git rev-parse --short HEAD 2>/dev/null
+  }
+fi
+
 # Check for develop and similarly named branches
 function git_develop_branch() {
   command git rev-parse --git-dir &>/dev/null || return

@@ -8,8 +8,22 @@ if [ "$(which "fzf")" != "" ]; then
 fi
 
 autoload -Uz edit-command-line
+autoload -Uz compinit
+
 zle -N edit-command-line
 
 
 bindkey '^X^E' edit-command-line
 bindkey ' ' magic-space
+
+compinit
+
+setopt COMPLETE_IN_WORD
+setopt AUTO_MENU
+
+zstyle ':completion:*' matcher-list \
+  'm:{a-zA-Z}={A-Za-z}' \
+  'r:|=*' \
+  'l:|=* r:|=*'
+
+zstyle ':completion:*:*:*:*:*' menu select
