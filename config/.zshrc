@@ -12,6 +12,10 @@ export SAVEHIST=1000000                   # Maximum events in history file
 
 export EDITOR='nvim'
 
+setopt APPEND_HISTORY
+setopt INC_APPEND_HISTORY
+setopt HIST_IGNORE_DUPS
+
 ### PATH
 if [ -d "$HOME/.bin" ]; then
   PATH="$HOME/.bin:$PATH"
@@ -27,6 +31,10 @@ fi
 
 if [ -d "$HOME/.cargo/bin" ]; then
   PATH="$HOME/.cargo/bin:$PATH"
+fi
+
+if [ -d "$HOME/.npm/bin" ]; then
+  PATH="$HOME/.npm/bin:$PATH"
 fi
 
 if [ -d "$HOME/go/bin" ]; then

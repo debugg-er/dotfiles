@@ -42,7 +42,7 @@
 
     # Common Tools
     zsh
-    oh-my-zsh
+    # oh-my-zsh
     git
     curl
     wget
@@ -56,7 +56,7 @@
     neovim
     # gemini-cli
     claude-code
-    opencode
+    # opencode
     openssl
     google-cloud-sdk-gce
     rclone
@@ -64,7 +64,7 @@
     python313Packages.pip
     tree
     jq
-    terraform
+    # terraform
     sshfs
     tree-sitter
     # lua55Packages.tree-sitter-cli
@@ -73,16 +73,16 @@
     starship
 
     # Kubernetes
-    kubernetes-helm
+    # kubernetes-helm
     kubectl
-    kustomize
-    kubelogin-oidc
+    # kustomize
+    # kubelogin-oidc
 
     #CTF
     # ghidra
 
     # C/C++
-    clang-tools
+    # clang-tools
     gcc
     binutils
     gnumake

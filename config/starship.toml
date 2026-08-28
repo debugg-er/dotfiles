@@ -88,6 +88,7 @@ tag_symbol = '  '
 
 [git_status]
 format = '(\[$all_status$ahead_behind\] )'
+use_git_executable = true
 
 conflicted = '@[${count}](bold red)'
 ahead      = '↕[${count}](bold green)'
@@ -117,7 +118,7 @@ symbol = " "
 symbol = " "
 
 [helm]
-symbol = " "
+symbol = "⎈ "
 
 [hg_branch]
 symbol = " "
@@ -313,7 +314,7 @@ symbol = " "
 symbol = " "
 
 [vagrant]
-symbol = " "
+symbol = "⩔ "
 
 [xmake]
 symbol = " "
