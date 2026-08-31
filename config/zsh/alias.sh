@@ -65,6 +65,39 @@ fgbr() {
     [[ -n "$branch" ]] && git switch "$branch"
 }
 
+fmvs() {
+  local pkg
+  local output
+  local selection
+
+  pkg="$(
+    fzf \
+      --phony \
+      --prompt='package> ' \
+      --bind 'start:reload(mvs query search "" 2>/dev/null | tail -n +2 || true)' \
+      --bind 'change:reload(mvs query search {q} 2>/dev/null | tail -n +2 || true)'
+  )" || return
+
+  # Assume package name is the first column of the selected search result.
+  pkg="$(printf '%s\n' "$pkg" | awk '{print $1}')"
+
+  [[ -z "$pkg" ]] && return
+
+  if ! output="$(mvs query versions "$pkg" 2>&1)"; then
+    echo "$output" >&2
+    return 1
+  fi
+
+  selection="$(
+    printf '%s\n' "$output" |
+      awk -v pkg="$pkg" 'NR > 2 {print pkg "@" $1}' |
+      tac |
+      fzf --prompt='version> '
+  )" || return
+
+  [[ -n "$selection" ]] && mvs shell "$selection"
+}
+
 cleanup_workspaces() {
     while IFS= read -r line; do
         dir_path=$(echo "$line" | awk '{print $2}')
@@ -97,60 +130,176 @@ fgc() {
 
 fk() {
     operator=$1
-    shift 1
-    if [[ "$operator" == "" ]]; then
+    shift
+
+    if [[ -z "$operator" ]]; then
         echo "Missing arguments!"
         return 1
     fi
 
+    #
+    # Port forward
+    #
+    # Examples:
+    #   fk pf
+    #   fk pf -n argocd
+    #   fk pf 8080 -n argocd
+    #
     if [[ "$operator" == "pf" ]]; then
         localPort=""
-        if [[ $1 =~ '^[0-9]+$' ]]; then
+
+        if [[ ${1:-} =~ ^[0-9]+$ ]]; then
             localPort=$1
-            shift 1
+            shift
         fi
 
-        pod=$(kubectl get pod --no-headers=true $@ | fzf | awk '{print $1}')
-        ports=$(kubectl get pod $pod -o jsonpath='{.spec.containers[*].ports}' $@ | jq -r '.[] | [.containerPort, .name] | @tsv')
-        targetPort=""
-        if [[ $(echo $ports | wc -l) == 1 ]]; then
-            targetPort=$(echo $ports | awk '{print $1}')
+        pod=$(
+            kubectl get pod --no-headers=true "$@" |
+                fzf |
+                awk '{print $1}'
+        )
+
+        [[ -z "$pod" ]] && return 1
+
+        ports=$(
+            kubectl get pod "$pod" "$@" -o json |
+                jq -r '
+                    .spec.containers[].ports[]? |
+                    [.containerPort, (.name // "")] |
+                    @tsv
+                '
+        )
+
+        if [[ -z "$ports" ]]; then
+            echo "No ports found for pod: $pod"
+            return 1
+        fi
+
+        if [[ $(printf '%s\n' "$ports" | wc -l) -eq 1 ]]; then
+            targetPort=$(printf '%s\n' "$ports" | awk '{print $1}')
         else
-            targetPort=$(echo $ports | fzf | awk '{print $1}')
+            targetPort=$(
+                printf '%s\n' "$ports" |
+                    fzf |
+                    awk '{print $1}'
+            )
         fi
 
-        if [[ $localPort == "" ]]; then
+        [[ -z "$targetPort" ]] && return 1
+
+        if [[ -z "$localPort" ]]; then
             localPort=$targetPort
         fi
 
-        kubectl port-forward $pod $localPort:$targetPort $@
-        return 0
+        kubectl port-forward "$pod" "$localPort:$targetPort" "$@"
+        return
     fi
 
+    #
+    # Exec into pod
+    #
+    # Namespace can be before or after the command:
+    #
+    #   fk exec -n argocd bash
+    #   fk exec bash -n argocd
+    #   fk exec sh --namespace argocd
+    #   fk exec bash --namespace=argocd
+    #
+    # Use -- if the command itself needs -n:
+    #
+    #   fk exec -n argocd -- some-command -n foo
+    #
+    if [[ "$operator" == "exec" ]]; then
+        kubectlArgs=()
+        commandArgs=()
+
+        while [[ $# -gt 0 ]]; do
+            case "$1" in
+                -n|--namespace)
+                    if [[ -z ${2:-} ]]; then
+                        echo "Missing namespace value!"
+                        return 1
+                    fi
+
+                    kubectlArgs+=("$1" "$2")
+                    shift 2
+                    ;;
+
+                --namespace=*)
+                    kubectlArgs+=("$1")
+                    shift
+                    ;;
+
+                --)
+                    shift
+                    commandArgs+=("$@")
+                    break
+                    ;;
+
+                *)
+                    commandArgs+=("$1")
+                    shift
+                    ;;
+            esac
+        done
+
+        pod=$(
+            kubectl get pod --no-headers=true "${kubectlArgs[@]}" |
+                fzf |
+                awk '{print $1}'
+        )
+
+        [[ -z "$pod" ]] && return 1
+
+        if [[ ${#commandArgs[@]} -eq 0 ]]; then
+            commandArgs=(sh)
+        fi
+
+        kubectl exec -it "$pod" "${kubectlArgs[@]}" -- "${commandArgs[@]}"
+        return
+    fi
+
+    #
+    # Normal resource operations
+    #
+    # Examples:
+    #   fk g pod -n argocd
+    #   fk d deployment -n argocd
+    #   fk e svc -n argocd
+    #   fk del pod -n argocd
+    #
     resource=$1
-    shift 1
-    if [[ "$resource" == "" ]]; then
+    shift
+
+    if [[ -z "$resource" ]]; then
         echo "Missing arguments!"
         return 1
     fi
 
     case "$operator" in
-    "d")
-        operator="describe"
-        ;;
-    "g")
-        operator="get"
-        ;;
-    "e")
-        operator="edit"
-        ;;
-    "del")
-        operator="delete"
-        ;;
+        d)
+            operator="describe"
+            ;;
+        g)
+            operator="get"
+            ;;
+        e)
+            operator="edit"
+            ;;
+        del)
+            operator="delete"
+            ;;
     esac
 
-    target=$(kubectl get $resource --no-headers=true | fzf | awk '{print $1}')
-    kubectl $operator $resource $target $@
+    target=$(
+        kubectl get "$resource" --no-headers=true "$@" |
+            fzf |
+            awk '{print $1}'
+    )
+
+    [[ -z "$target" ]] && return 1
+
+    kubectl "$operator" "$resource" "$target" "$@"
 }
 
 isound() {
