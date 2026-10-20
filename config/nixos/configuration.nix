@@ -26,6 +26,8 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
 
+  virtualisation.docker.enable = true;
+
   users.users.khainguyen = {
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" ];
@@ -94,10 +96,10 @@
     typescript
     nest-cli
     codex
-    typescript-go
+    typescript
 
     # Golang
-    go_1_25
+    go_1_26
 
     # Rust
     cargo
@@ -150,6 +152,12 @@
         port = 8022;
       }
     ];
+  };
+
+  services.redis.servers."" = {
+    enable = true;
+    bind = "0.0.0.0";
+    port = 6379;
   };
 
   systemd.user.tmpfiles.rules = [

@@ -12,20 +12,40 @@ alias kcgc="kubectl config get-contexts"
 alias kgp="kubectl get po"
 alias kga="kubectl get all"
 
-alias fkuc="kubectl config use-context \$(kubectl config get-contexts --no-headers=true | fzf | awk '{print \$1}')"
-alias fkn="kubectl config set-context --current --namespace=\$(kubectl get namespaces --no-headers=true | fzf | awk '{print \$1}')"
-alias fklog="kubectl logs -f \$(kubectl get po --no-headers=true | fzf | awk '{print \$1}')"
-alias fkdelete="kubectl delete pod \$(kubectl get po --no-headers=true | fzf | awk '{print \$1}')"
-alias fkexec="kubectl exec -it \$(kubectl get po --no-headers=true | fzf | awk '{print \$1}') -- "
-
-# alias fssh="ssh \$(cat ~/.ssh/config | grep \"^Host\" | awk '{print \$2}' | fzf)"
+alias fkuc='kubectl config use-context "$(kubectl config get-contexts | fzf --header-lines=1 | awk "{print \$2}")"'
+alias fkn='kubectl config set-context --current --namespace="$(kubectl get namespaces | fzf --header-lines=1 | awk "{print \$1}")"'
+alias fklog='kubectl logs -f "$(kubectl get pods | fzf --header-lines=1 | awk "{print \$1}")"'
+alias fkdelete='kubectl delete pod "$(kubectl get pods | fzf --header-lines=1 | awk "{print \$1}")"'
+alias fkexec='kubectl exec -it "$(kubectl get pods | fzf --header-lines=1 | awk "{print \$1}")" -- '
 
 alias vim="nvim"
 
 fssh() {
   local host
-  host=$(grep '^Host ' ~/.ssh/config | awk '{print $2}' | fzf) || return
 
+  host=$(
+    {
+      printf 'HOST\tUSER\tIP\n'
+      awk '
+        function print_host() {
+          if (host != "" && ip != "")
+            print host, user, ip
+        }
+        /^Host / {
+          print_host()
+          host=$2; user=""; ip=""
+        }
+        /^[[:space:]]*User / { user=$2 }
+        /^[[:space:]]*HostName / { ip=$2 }
+        END { print_host() }
+      ' ~/.ssh/config
+    } |
+    column -t |
+    fzf --header-lines=1 |
+    awk '{print $1}'
+  ) || return
+
+  [[ -n "$host" ]] || return
   ssh "$host" "$@"
 }
 
@@ -109,13 +129,27 @@ cleanup_workspaces() {
 }
 
 wd() {
-    cleaned_workspaces=$(cleanup_workspaces)
-    selected_dir=$(echo $cleaned_workspaces | fzf | awk '{print $2}')
-    if [[ $selected_dir == "" ]]; then
-        return 1
-    fi
-    cd $selected_dir
-    # vim
+    local selected_dir
+
+    selected_dir=$(
+        {
+            printf 'NAME\tPATH\n'
+            cleanup_workspaces |
+                awk -v home="$HOME" '{
+                    path = $2
+                    if (index(path, home "/") == 1)
+                        path = "~" substr(path, length(home) + 1)
+                    print $1 "\t" path
+                }'
+        } |
+            column -t |
+            fzf --header-lines=1 |
+            awk '{print $2}'
+    ) || return
+
+    [[ -z "$selected_dir" ]] && return 1
+
+    cd "${selected_dir/#\~/$HOME}" || return
 }
 
 w() {
